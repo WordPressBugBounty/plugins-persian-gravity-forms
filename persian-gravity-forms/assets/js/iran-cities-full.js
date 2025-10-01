@@ -1,9 +1,9 @@
 /**
  * Created by HANNANStd on 3/1/2016.
  */
-function gform_iranCities(province) {
+function persian_gravity_form_iran_cities(province) {
 
-    var cities = [];
+    let cities = [];
 
     switch (province.toLowerCase()) {
         case 'تهران':
@@ -2854,17 +2854,15 @@ function gform_iranCities(province) {
 
     }
 
-    var sorted_cities = [];
-    var i;
-    for (i in cities) {
-        sorted_cities[i] = cities[i];
-    }
-    sorted_cities.sort();
+    let sorted_cities = [...cities]
+        .filter(city => typeof city === "string") // Only strings
+        .sort((a, b) => a.localeCompare(b, 'fa')); // Persian sort
 
-    var options = "";
-    var j;
-    for (j in sorted_cities)
-        options += "<option value='" + sorted_cities[j] + "'>" + sorted_cities[j] + "</option>";
+    let options = "";
+
+    for (let city of sorted_cities) {
+        options += "<option value='" + city + "'>" + city + "</option>";
+    }
 
     return options;
 }

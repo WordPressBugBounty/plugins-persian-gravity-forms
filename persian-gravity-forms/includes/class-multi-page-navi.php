@@ -1,10 +1,10 @@
-<?php if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
+<?php
+
+defined( 'ABSPATH' ) || exit;
 
 class GFPersian_Multipage_Navigation extends GFPersian_Core {
 
-	public $_args = array();
+	public $_args = [];
 
 	private static $script_displayed;
 
@@ -14,11 +14,11 @@ class GFPersian_Multipage_Navigation extends GFPersian_Core {
 			return;
 		}
 
-		$this->_args = array(
+		$this->_args = [
 			'activate_on_last_page' => $this->option( 'multipage_nav_last', '1' )
-		);
+		];
 
-		add_filter( 'gform_pre_render', array( $this, 'output_navigation_script' ), 10, 2 );
+		add_filter( 'gform_pre_render', [ $this, 'output_navigation_script' ], 10, 2 );
 	}
 
 	public function output_navigation_script( $form, $is_ajax ) {
@@ -138,12 +138,12 @@ class GFPersian_Multipage_Navigation extends GFPersian_Core {
 		$page_number = GFFormDisplay::get_current_page( $form['id'] );
 		$last_page   = count( $form['pagination']['pages'] );
 
-		$args = array(
+		$args = [
 			'formId'             => $form['id'],
 			'currentPage'        => $page_number,
 			'lastPage'           => $last_page,
 			'activateOnLastPage' => $this->_args['activate_on_last_page'],
-		);
+		];
 
 		$script = "window.gform_multi_page_nav = new gform_multi_page_navObj(" . json_encode( $args ) . ");";
 		GFFormDisplay::add_init_script( $form['id'], 'gform_multi_page_nav', GFFormDisplay::ON_PAGE_RENDER, $script );

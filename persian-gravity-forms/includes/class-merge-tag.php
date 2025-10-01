@@ -1,48 +1,69 @@
-<?php if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
+<?php
+
+defined( 'ABSPATH' ) || exit;
 
 class GFPersian_Merge_Tags extends GFPersian_Core {
-
-	private $entry_time = 0;
-	private static $_entry = null;
-	private static $_virual_entry = null;
+	/**
+	 * @var int
+	 */
+	private int $entry_time = 0;
+	/**
+	 * @var ?bool
+	 */
+	private static ?bool $_entry = null;
+	/**
+	 * @var ?array
+	 */
+	private static ?array $_virtual_entry = null;
 
 	public function __construct() {
 
 		if ( $this->option( 'add_merge_tags', '1' ) == '1' ) {
 
-			add_filter( 'gform_admin_pre_render', array( $this, 'merge_tags_keys' ) );
-			add_filter( 'gform_replace_merge_tags', array( $this, 'merge_tags_values' ), 999, 7 );
+			add_filter( 'gform_admin_pre_render', [ $this, 'merge_tags_keys' ] );
+			add_filter( 'gform_replace_merge_tags', [ $this, 'merge_tags_values' ], 999, 7 );
+
 			/*------------------------------------------------------------*/
 			//todo:enable for next updates if was needed
 			if ( apply_filters( 'enable_subtotal_merge_tag', false ) ) {
-				add_filter( 'gform_pre_render', array( $this, 'maybe_replace_subtotal_merge_tag' ) );
-				add_filter( 'gform_pre_validation', array( $this, 'maybe_replace_subtotal_merge_tag' ), 10, 1 );
+				add_filter( 'gform_pre_render', [ $this, 'maybe_replace_subtotal_merge_tag' ] );
+				add_filter( 'gform_pre_validation', [ $this, 'maybe_replace_subtotal_merge_tag' ], 10, 1 );
 			}
+
 		}
 
 		if ( $this->option( 'post_content_merge_tags', '1' ) == '1' ) {
 
-			$entry_time = $this->option( 'entry_time', '0' );
-			if ( intval( $entry_time ) > 0 ) {
-				$this->entry_time = intval( $entry_time ) * 60;
+			$entry_time = intval( $this->option( 'entry_time', '0' ) );
+
+			if ( $entry_time > 0 ) {
+				$this->entry_time = $entry_time * 60;
 			}
 
-			add_filter( 'the_content', array( $this, 'merge_tags_values_post_content' ), 1 );
-			add_filter( 'gform_confirmation', array( $this, 'confirmation_append_entry' ), 20, 3 );
+			add_filter( 'the_content', [ $this, 'merge_tags_values_post_content' ], 1 );
+			/**/
+			add_filter( 'gform_confirmation', [ $this, 'confirmation_append_entry' ], 20, 4 );
+
 		}
 
 		if ( $this->option( 'pre_submission_merge_tags', '1' ) == '1' ) {
-			add_filter( 'gform_pre_render', array( $this, 'merge_tags_pre_submission' ) );
+			add_filter( 'gform_pre_render', [ $this, 'merge_tags_pre_submission' ] );
 		}
+
 	}
 
 	/*-------------------------------------------------------------*/
 	/*--------Start of Persian Gravity Merge Tags------------------*/
 	/*-------------------------------------------------------------*/
-	public static function get_merge_tags( $form ) {
-		$merge_tags = array(
+	/**
+	 * Get tags to be merged
+	 *
+	 * @param array $form
+	 *
+	 * @return array
+	 */
+	public static function get_merge_tags( array $form ): array {
+		$merge_tags = [
 			'{rtl_start}'             => 'ابتدای راستچین سازی',
 			'{rtl_end}'               => 'انتهای راستچین سازی',
 			'{transaction_id}'        => __( 'Transaction Id', 'gravityforms' ),
@@ -52,7 +73,7 @@ class GFPersian_Merge_Tags extends GFPersian_Core {
 			'{payment_status}'        => 'عنوان وضعیت پرداخت',
 			'{payment_status_table}'  => 'جدول وضعیت پرداخت',
 			'{payment_table}'         => sprintf( 'جدول پرداخت (وضعیت - نام درگاه - %s)', __( 'Transaction Id', 'gravityforms' ) ),
-		);
+		];
 
 		if ( GFCommon::has_post_field( rgar( $form, 'fields' ) ) ) {
 			$merge_tags['{post_permalink}'] = 'لینک پست';
@@ -61,46 +82,80 @@ class GFPersian_Merge_Tags extends GFPersian_Core {
 		return $merge_tags;
 	}
 
-	public function merge_tags_keys( $form ) {
+	/**
+	 * Merge Persian GForm tags in GForm
+	 *
+	 * @filter gform_admin_pre_render
+	 *
+	 * @param array $form
+	 *
+	 * @return array
+	 */
+	public function merge_tags_keys( array $form ): array {
 
 		if ( GFCommon::is_entry_detail() ) {
 			return $form;
 		}
 		?>
 
-        <script type="text/javascript">
+		<script type="text/javascript">
+
             gform.addFilter('gform_merge_tags', function (mergeTags, elementId, hideAllFields, excludeFieldTypes, isPrepop, option) {
                 mergeTags['gf_persian'] = {
-                    label: 'گرویتی فرم پارسی',
+                    label: 'گرویتی فرم فارسی',
                     tags: []
                 };
-				<?php foreach ( self::get_merge_tags( $form ) as $key => $val ) { ?>
-                mergeTags['gf_persian'].tags.push({tag: '<?php echo $key ?>', label: '<?php echo $val ?>'});
-				<?php } ?>
+
+				<?php foreach ( self::get_merge_tags( $form ) as $key => $val ) : ?>
+                mergeTags['gf_persian'].tags.push({
+                    tag: '<?php echo esc_js( $key ); ?>',
+                    label: '<?php echo esc_js( $val ); ?>'
+                });
+				<?php endforeach; ?>
+
+                // JS return
                 return mergeTags;
             });
 
 			<?php
+
 			/*todo:enable for next updates if was needed*/
 			if ( apply_filters( 'enable_subtotal_merge_tag', false ) ) :?>
             jQuery(document).ready(function ($) {
                 $('#field_calculation_formula_variable_select').find('optgroup').eq(0).append('<option value="{subtotal}">مجموع قیمت ها</option>');
             });
 			<?php endif; ?>
-        </script>
+
+		</script>
 		<?php
+
 		return $form;
 	}
 
-	public function merge_tags_values( $text, $form, $entry, $url_encode, $esc_html, $nl2br, $format ) {
+	/**
+	 * Replace Persian GForm custom tags
+	 *
+	 * @filter gform_replace_merge_tags
+	 *
+	 * @param string $text
+	 * @param false|array $form
+	 * @param false|array $entry
+	 * @param bool $url_encode
+	 * @param bool $esc_html
+	 * @param bool $nl2br
+	 * @param string $format
+	 *
+	 * @return string
+	 */
+	public function merge_tags_values( string $text, $form, $entry, bool $url_encode, bool $esc_html, bool $nl2br, string $format ): string {
 
 		//supprots deprecated merge tags
-		$deprecated_tags = array(
+		$deprecated_tags = [
 			'{payment_pack}'        => '{payment_table}',
 			'{payment_status_css}'  => '{payment_status_table}',
 			'{transaction_id_css}'  => '{transaction_id_table}',
 			'{payment_gateway_css}' => '{payment_gateway_table}',
-		);
+		];
 
 		$text = str_ireplace( array_keys( $deprecated_tags ), array_values( $deprecated_tags ), $text );
 
@@ -109,17 +164,17 @@ class GFPersian_Merge_Tags extends GFPersian_Core {
 		$payment_status  = GFPersian_Payments::_payment_status( $entry );
 		$payment_gateway = gform_get_meta( rgar( $entry, 'id' ), 'payment_gateway' );
 
-		$merge_tags = array(
+		$merge_tags = [
 			'{transaction_id}'  => $transaction_id,
 			'{payment_gateway}' => $payment_gateway,
 			'{payment_status}'  => strip_tags( $payment_status ),
-		);
+		];
 
-		$tabled_tags = array(
-			'{payment_status_table}'  => array( 'وضعیت پرداخت', $payment_status ),
-			'{payment_gateway_table}' => array( 'درگاه پرداخت', $payment_gateway ),
-			'{transaction_id_table}'  => array( __( 'Transaction Id', 'gravityforms' ), $transaction_id ),
-		);
+		$tabled_tags = [
+			'{payment_status_table}'  => [ 'وضعیت پرداخت', $payment_status ],
+			'{payment_gateway_table}' => [ 'درگاه پرداخت', $payment_gateway ],
+			'{transaction_id_table}'  => [ __( 'Transaction ID', 'gravityforms' ), $transaction_id ],
+		];
 
 		foreach ( $tabled_tags as $tag => $value ) {
 
@@ -128,17 +183,17 @@ class GFPersian_Merge_Tags extends GFPersian_Core {
 				continue;
 			}
 			ob_start(); ?>
-            <tr bgcolor="<?php echo esc_attr( apply_filters( 'gform_email_background_color_label', '#EAF2FA', $tag, $entry ) ); ?>">
-                <td colspan="2" style="padding:5px !important">
-                    <font style="font-family: sans-serif; font-size:12px;"><strong><?php echo $value[0]; ?></strong></font>
-                </td>
-            </tr>
-            <tr bgcolor="#FFFFFF">
-                <td width="20">&nbsp;</td>
-                <td style="padding:5px !important">
-                    <font style="font-family:sans-serif;font-size:12px"><?php echo $value[1]; ?></font>
-                </td>
-            </tr>
+			<tr bgcolor="<?php echo esc_attr( apply_filters( 'gform_email_background_color_label', '#EAF2FA', $tag, $entry ) ); ?>">
+				<td colspan="2" style="padding:5px !important">
+					<font style="font-family: sans-serif; font-size:12px;"><strong><?php echo esc_html( $value[0] ); ?></strong></font>
+				</td>
+			</tr>
+			<tr bgcolor="#FFFFFF">
+				<td width="20">&nbsp;</td>
+				<td style="padding:5px !important">
+					<font style="font-family:sans-serif;font-size:12px"><?php echo esc_html( $value[1] ); ?></font>
+				</td>
+			</tr>
 			<?php
 			$merge_tags[ $tag ] = ob_get_clean();
 		}
@@ -157,14 +212,15 @@ class GFPersian_Merge_Tags extends GFPersian_Core {
 			}
 		}
 
-		$merge_tags = array_merge( $merge_tags, array(
+		$merge_tags = array_merge( $merge_tags, [
 			'{rtl_start}'      => '<div style="text-align: right !important; direction: rtl !important;">',
 			'{rtl_end}'        => '</div>',
 			'{post_permalink}' => rgar( $entry, 'post_id' ) ? get_permalink( rgar( $entry, 'post_id' ) ) : '',
-		) );
+		] );
 
 		return str_replace( array_keys( $merge_tags ), array_values( $merge_tags ), $text );
 	}
+
 	/*-------------------------------------------------------------*/
 	/*--------End of Persian Gravity Merge Tags--------------------*/
 	/*-------------------------------------------------------------*/
@@ -175,7 +231,7 @@ class GFPersian_Merge_Tags extends GFPersian_Core {
 	/*-------------------------------------------------------------*/
 	public function maybe_replace_subtotal_merge_tag( $form, $filter_tags = true ) {
 
-		foreach ( $form['fields'] as &$field ) {
+		foreach ( $form['fields'] as $key => $field ) {
 
 			if ( current_filter() == 'gform_pre_render' ) {
 				$filter_tags = false;
@@ -191,6 +247,8 @@ class GFPersian_Merge_Tags extends GFPersian_Core {
 			$subtotal_merge_tags             = $this->get_subtotal_merge_tag_string( $form, $field, $filter_tags );
 			$field['origCalculationFormula'] = $field['calculationFormula'];
 			$field['calculationFormula']     = str_replace( '{subtotal}', $subtotal_merge_tags, $field['calculationFormula'] );
+
+			$form['fields'][ $key ] = $field;
 		}
 
 		return $form;
@@ -198,25 +256,25 @@ class GFPersian_Merge_Tags extends GFPersian_Core {
 
 	public function get_subtotal_merge_tag_string( $form, $current_field, $filter_tags = false ) {
 
-		$product_fields = array();
+		$product_fields = [];
 
 		foreach ( $form["fields"] as $field ) {
 
-			if ( ! in_array( $field["type"], array( 'product', 'shopping_cart' ) ) ) {
+			if ( ! in_array( $field["type"], [ 'product', 'shopping_cart' ] ) ) {
 				continue;
 			}
 
 			switch ( $field["type"] ) {
 				case 'product':
-					$option_fields = GFCommon::get_product_fields_by_type( $form, array( "option" ), $field['id'] );
+					$option_fields = GFCommon::get_product_fields_by_type( $form, [ "option" ], $field['id'] );
 					// can only have 1 quantity field
-					$quantity_field   = GFCommon::get_product_fields_by_type( $form, array( "quantity" ), $field['id'] );
+					$quantity_field   = GFCommon::get_product_fields_by_type( $form, [ "quantity" ], $field['id'] );
 					$quantity_field   = rgar( $quantity_field, 0 );
-					$product_fields[] = array(
+					$product_fields[] = [
 						'product'  => $field,
 						'options'  => $option_fields,
 						'quantity' => $quantity_field
-					);
+					];
 					break;
 
 				case 'shopping_cart':
@@ -224,10 +282,10 @@ class GFPersian_Merge_Tags extends GFPersian_Core {
 					break;
 			}
 		}
-		$shipping_field = GFCommon::get_fields_by_type( $form, array( "shipping" ) );
-		$pricing_fields = array( "products" => $product_fields, "shipping" => $shipping_field );
+		$shipping_field = GFCommon::get_fields_by_type( $form, [ "shipping" ] );
+		$pricing_fields = [ "products" => $product_fields, "shipping" => $shipping_field ];
 
-		$product_tag_groups = array();
+		$product_tag_groups = [];
 		foreach ( $pricing_fields['products'] as $product ) {
 
 			$product_field  = rgar( $product, 'product' );
@@ -243,18 +301,18 @@ class GFPersian_Merge_Tags extends GFPersian_Core {
 			$quantity_tag = 1;
 
 			// if a single product type, only get the "price" merge tag
-			if ( in_array( GFFormsModel::get_input_type( $product_field ), array(
+			if ( in_array( GFFormsModel::get_input_type( $product_field ), [
 				'singleproduct',
 				'calculation',
 				'hiddenproduct'
-			) ) ) {
+			] ) ) {
 
 				// single products provide quantity merge tag
 				if ( empty( $quantity_field ) && ! rgar( $product_field, 'disableQuantity' ) ) {
 					$quantity_tag = $product_tags[2]['tag'];
 				}
 
-				$product_tags = array( $product_tags[1] );
+				$product_tags = [ $product_tags[1] ];
 			}
 
 			// if quantity field is provided for product, get merge tag
@@ -278,7 +336,7 @@ class GFPersian_Merge_Tags extends GFPersian_Core {
 			}
 
 			$product_tags = wp_list_pluck( $product_tags, 'tag' );
-			$option_tags  = array();
+			$option_tags  = [];
 
 			foreach ( $option_fields as $option_field ) {
 
@@ -286,15 +344,16 @@ class GFPersian_Merge_Tags extends GFPersian_Core {
 
 					$choice_number = 1;
 
-					foreach ( $option_field['inputs'] as &$input ) {
+					foreach ( $option_field['inputs'] as $key => $input ) {
 
-						//hack to skip numbers ending in 0. so that 5.1 doesn't conflict with 5.10
+						// Hack to skip numbers ending in 0 so that 5.1 doesn't conflict with 5.10
 						if ( $choice_number % 10 == 0 ) {
 							$choice_number ++;
 						}
 
 						$input['id'] = $option_field['id'] . '.' . $choice_number ++;
 
+						$option_field['inputs'][ $key ] = $input;
 					}
 				}
 
@@ -358,11 +417,20 @@ class GFPersian_Merge_Tags extends GFPersian_Core {
 	/*-------------------------------------------------------------*/
 	/*--------Start of Post Content Merge Tags---------------------*/
 	/*-------------------------------------------------------------*/
-	public function merge_tags_values_post_content( $post_content ) {
+	/**
+	 * Inject form entries to post content
+	 *
+	 * @filter the_content
+	 *
+	 * @param string $post_content
+	 *
+	 * @return string
+	 */
+	public function merge_tags_values_post_content( string $post_content ): string {
 
 		$entry_time = $this->entry_time;
 
-		if ( ! self::$_entry ) {
+		if ( ! empty( self::$_entry ) ) {
 
 			$entry_id = rgget( 'entry' );
 
@@ -383,12 +451,15 @@ class GFPersian_Merge_Tags extends GFPersian_Core {
 				}
 			}
 
+			$entry = null;
+
 			if ( $entry_id ) {
 				$entry = self::get_entry( $entry_id );
 			}
 
-			self::$_entry = ! empty( $entry ) && $entry ? $entry : false;
+			self::$_entry = ! empty( $entry ) ? $entry : '';
 		}
+
 		$entry = self::$_entry;
 
 		if ( ! $entry ) {
@@ -412,50 +483,27 @@ class GFPersian_Merge_Tags extends GFPersian_Core {
 		return $post_content;
 	}
 
-	public function replace_field_label_merge_tags( $text, $form ) {
+	/**
+	 * Replace merge tags
+	 *
+	 * @param string $text
+	 * @param array|string|null $form
+	 *
+	 * @return string The replaced label tags
+	 */
+	public function replace_field_label_merge_tags( string $text, $form ): string {
 
-		if ( ! empty( $form ) ) {
-
-			preg_match_all( '/{([^:]+?)}/', $text, $matches, PREG_SET_ORDER );
-			if ( empty( $matches ) ) {
-				return $text;
-			}
-
-			foreach ( $matches as $match ) {
-
-				list( $search, $field_label ) = $match;
-
-				foreach ( $form['fields'] as $field ) {
-
-					$matches_admin_label = rgar( $field, 'adminLabel' ) == $field_label;
-					$matches_field_label = false;
-
-					if ( is_array( $field['inputs'] ) ) {
-						foreach ( $field['inputs'] as $input ) {
-							if ( GFFormsModel::get_label( $field, $input['id'] ) == $field_label ) {
-								$matches_field_label = true;
-								$input_id            = $input['id'];
-								break;
-							}
-						}
-					} else {
-						$matches_field_label = GFFormsModel::get_label( $field ) == $field_label;
-						$input_id            = $field['id'];
-					}
-
-					if ( ! $matches_admin_label && ! $matches_field_label ) {
-						continue;
-					}
-
-					$replace = sprintf( '{%s:%s}', $field_label, (string) $input_id );
-					$text    = str_replace( $search, $replace, $text );
-
-					break;
-				}
-			}
-		} else {
-
+		if ( empty( $form ) ) {
+			/**
+			 * Removes all {} containing shortcodes from the given text.
+			 *
+			 * @param string $text
+			 *
+			 * @return string The cleaned text.
+			 * @deprecated
+			 */
 			/*
+
 			preg_match_all( '/{[^{]*?:(\d+(\.\d+)?)(:(.*?))?}/mi', $text, $matches, PREG_SET_ORDER );
 			if( !empty( $matches ) ) {
 				foreach( $matches as $match ) {
@@ -473,14 +521,73 @@ class GFPersian_Merge_Tags extends GFPersian_Core {
 						$text = str_replace( $match[0], '' , $text );
 				}
 			}
+
 			*/
 
+			return $text;
+		}
+
+		preg_match_all( '/{([^:]+?)}/', $text, $matches, PREG_SET_ORDER );
+
+		if ( empty( $matches ) ) {
+			return $text;
+		}
+
+		foreach ( $matches as $match ) {
+
+			[ $search, $field_label ] = $match;
+
+			foreach ( $form['fields'] as $field ) {
+
+				$matches_admin_label = rgar( $field, 'adminLabel' ) == $field_label;
+				$matches_field_label = false;
+				$input_id            = '';
+
+				if ( is_array( $field['inputs'] ) ) {
+
+					foreach ( $field['inputs'] as $input ) {
+
+						if ( GFFormsModel::get_label( $field, $input['id'] ) !== $field_label ) {
+							continue;
+						}
+
+						$matches_field_label = true;
+						$input_id            = $input['id'];
+
+					}
+
+				} else {
+
+					$matches_field_label = GFFormsModel::get_label( $field ) == $field_label;
+					$input_id            = $field['id'];
+
+				}
+
+				if ( ( ! $matches_admin_label && ! $matches_field_label ) || empty( $input_id ) ) {
+					continue;
+				}
+
+				$replace = sprintf( '{%s:%s}', $field_label, (string) $input_id );
+				$text    = str_replace( $search, $replace, $text );
+
+			}
 		}
 
 		return $text;
 	}
 
-	public function confirmation_append_entry( $confirmation, $form, $entry ) {
+
+	/**
+	 * @filter gform_confirmation
+	 *
+	 * @param array|string $confirmation
+	 * @param ?array $form
+	 * @param array $entry
+	 * @param bool $is_ajax
+	 *
+	 * @return array|string
+	 */
+	public function confirmation_append_entry( $confirmation, ?array $form, array $entry, bool $is_ajax ) {
 
 		$is_ajax_redirect = is_string( $confirmation ) && strpos( $confirmation, 'gformRedirect' );
 		$is_redirect      = is_array( $confirmation ) && isset( $confirmation['redirect'] );
@@ -501,11 +608,11 @@ class GFPersian_Merge_Tags extends GFPersian_Core {
 
 		if ( $is_ajax_redirect ) {
 			preg_match_all( '/gformRedirect.+?(http.+?)(?=\'|")/', $confirmation, $matches, PREG_SET_ORDER );
-			list( $full_match, $url ) = $matches[0];
-			$redirect_url = add_query_arg( array( 'entry' => $entry_id ), $url );
+			[ $full_match, $url ] = $matches[0];
+			$redirect_url = add_query_arg( [ 'entry' => $entry_id ], $url );
 			$confirmation = str_replace( $url, $redirect_url, $confirmation );
 		} else {
-			$redirect_url             = add_query_arg( array( 'entry' => $entry_id ), $confirmation['redirect'] );
+			$redirect_url             = add_query_arg( [ 'entry' => $entry_id ], $confirmation['redirect'] );
 			$confirmation['redirect'] = $redirect_url;
 		}
 
@@ -533,35 +640,38 @@ class GFPersian_Merge_Tags extends GFPersian_Core {
 		}
 
 		// get all HTML fields on the current page
-		foreach ( $form['fields'] as &$field ) {
+		foreach ( $form['fields'] as $key => $field ) {
 
-			// skip all fields on the first page
-			if ( rgar( $field, 'pageNumber' ) <= 1 ) {
+			// Skip all fields on the first page
+			if ( rgar( $field, 'pageNumber', 0 ) <= 1 ) {
 				continue;
 			}
 
-			$default_value = rgar( $field, 'defaultValue' );
+			$default_value = rgar( $field, 'defaultValue', 0 );
 			preg_match_all( '/{.+}/', $default_value, $matches, PREG_SET_ORDER );
+
 			if ( ! empty( $matches ) ) {
-				// if default value needs to be replaced but is not on current page, wait until on the current page to replace it
-				if ( rgar( $field, 'pageNumber' ) != $current_page ) {
+				// If default value needs to be replaced but is not on current page, wait until on the current page to replace it
+				if ( rgar( $field, 'pageNumber', 0 ) != $current_page ) {
 					$field['defaultValue'] = '';
 				} else {
 					$field['defaultValue'] = $this->preview_replace_variables( $default_value, $form );
 				}
 			}
 
-			// only run 'content' filter for fields on the current page
-			if ( rgar( $field, 'pageNumber' ) != $current_page ) {
+			// Only run 'content' filter for fields on the current page
+			if ( rgar( $field, 'pageNumber', 0 ) != $current_page ) {
 				continue;
 			}
 
-			$html_content = rgar( $field, 'content' );
+			$html_content = rgar( $field, 'content', '' );
 			preg_match_all( '/{.+}/', $html_content, $matches, PREG_SET_ORDER );
+
 			if ( ! empty( $matches ) ) {
 				$field['content'] = $this->preview_replace_variables( $html_content, $form );
 			}
 
+			$form['fields'][ $key ] = $field;
 		}
 
 		return $form;
@@ -574,9 +684,9 @@ class GFPersian_Merge_Tags extends GFPersian_Core {
 			return $value;
 		}
 
-		$input_type = RGFormsModel::get_input_type( $field );
+		$input_type = GFFormsModel::get_input_type( $field );
 
-		$is_upload_field = in_array( $input_type, array( 'post_image', 'fileupload' ) );
+		$is_upload_field = in_array( $input_type, [ 'post_image', 'fileupload' ] );
 		$is_multi_input  = is_array( rgar( $field, 'inputs' ) );
 		$is_input        = intval( $input_id ) != $input_id;
 
@@ -589,26 +699,26 @@ class GFPersian_Merge_Tags extends GFPersian_Core {
 			return $value;
 		}
 
-		$form     = RGFormsModel::get_form_meta( $field['formId'] );
+		$form     = GFFormsModel::get_form_meta( $field['formId'] );
 		$entry    = $this->create_entry( $form );
 		$currency = GFCommon::get_currency();
 
 		if ( is_array( rgar( $field, 'inputs' ) ) ) {
-			$value = RGFormsModel::get_lead_field_value( $entry, $field );
+			$value = GFFormsModel::get_lead_field_value( $entry, $field );
 
 			return GFCommon::get_lead_field_display( $field, $value, $currency );
 		}
 
 		$input_name = "input_{$field['id']}";
 
-		$file_info = RGFormsModel::get_temp_filename( $form['id'], $input_name );
-		$source    = RGFormsModel::get_upload_url( $form['id'] ) . "/tmp/" . $file_info["temp_filename"];
+		$file_info = GFFormsModel::get_temp_filename( $form['id'], $input_name );
+		$source    = GFFormsModel::get_upload_url( $form['id'] ) . "/tmp/" . $file_info["temp_filename"];
 
 		$value = '';
 		if ( $file_info ) {
-			switch ( RGFormsModel::get_input_type( $field ) ) {
+			switch ( GFFormsModel::get_input_type( $field ) ) {
 				case "post_image":
-					list( , $image_title, $image_caption, $image_description ) = explode( "|:|", $entry[ $field['id'] ] );
+					[ , $image_title, $image_caption, $image_description ] = explode( "|:|", $entry[ $field['id'] ] );
 					$value = ! empty( $source ) ? $source . "|:|" . $image_title . "|:|" . $image_caption . "|:|" . $image_description : "";
 					break;
 
@@ -624,7 +734,7 @@ class GFPersian_Merge_Tags extends GFPersian_Core {
 
 				if ( ! empty( $value ) ) {
 					$input_name = "input_" . str_replace( '.', '_', $field['id'] );
-					$file_info  = RGFormsModel::get_temp_filename( $form['id'], $input_name );
+					$file_info  = GFFormsModel::get_temp_filename( $form['id'], $input_name );
 					$value      = esc_attr( str_replace( " ", "%20", $value ) );
 					$value      = "<a href='$value' target='_blank' title='" . __( "Click to view", "gravityforms" ) . "'>" . $file_info['uploaded_filename'] . "</a>";
 				}
@@ -642,32 +752,40 @@ class GFPersian_Merge_Tags extends GFPersian_Core {
 		$entry = $this->create_entry( $form );
 
 		// add filter that will handle getting temporary URLs for file uploads and post image fields (removed below)
-		// beware, the RGFormsModel::create_lead() function also triggers the gform_merge_tag_filter at some point and will
+		// beware, the GFormsModel::create_lead() function also triggers the gform_merge_tag_filter at some point and will
 		// result in an infinite loop if not called first above
-		add_filter( 'gform_merge_tag_filter', array( $this, 'preview_special_merge_tags' ), 10, 4 );
+		add_filter( 'gform_merge_tag_filter', [ $this, 'preview_special_merge_tags' ], 10, 4 );
 
 		$content = GFCommon::replace_variables( $content, $form, $entry, false, false, false );
 
 		// remove filter so this function is not applied after preview functionality is complete
-		remove_filter( 'gform_merge_tag_filter', array( $this, 'preview_special_merge_tags' ) );
+		remove_filter( 'gform_merge_tag_filter', [ $this, 'preview_special_merge_tags' ] );
 
 		return $content;
 	}
 
 	public function create_entry( $form ) {
 
-		if ( empty( self::$_virual_entry ) ) {
-			self::$_virual_entry = GFFormsModel::create_lead( $form );
+		if ( empty( self::$_virtual_entry ) ) {
+
+			self::$_virtual_entry = GFFormsModel::create_lead( $form );
+
 			if ( class_exists( 'GFCache' ) ) {
-				foreach ( $form['fields'] as &$field ) {
-					if ( GFFormsModel::get_input_type( $field ) == 'total' ) {
-						GFCache::delete( 'GFFormsModel::get_lead_field_value__' . $field['id'] );
+
+				foreach ( $form['fields'] as $field ) {
+
+					if ( GFFormsModel::get_input_type( $field ) !== 'total' ) {
+						continue;
 					}
+
+					GFCache::delete( 'GFFormsModel::get_lead_field_value__' . $field['id'] );
 				}
+
 			}
+
 		}
 
-		return self::$_virual_entry;
+		return self::$_virtual_entry;
 	}
 	/*-------------------------------------------------------------*/
 	/*--------End of Pre Submission Merge Tags---------------------*/
@@ -675,4 +793,4 @@ class GFPersian_Merge_Tags extends GFPersian_Core {
 
 }
 
-new GFPersian_Merge_Tags;
+new GFPersian_Merge_Tags();

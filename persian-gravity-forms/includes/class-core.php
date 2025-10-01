@@ -1,222 +1,97 @@
-<?php if ( ! defined( 'ABSPATH' ) ) {
-	exit;
+<?php
+
+defined( 'ABSPATH' ) || exit;
+
+if ( class_exists( 'GFPersian_Core' ) ) {
+	return;
 }
 
 class GFPersian_Core {
-
+	/**
+	 * It'll maybe bool if settings haven't been saved
+	 *
+	 * @var array|false $settings
+	 */
 	private static $settings;
 
-	public function __construct() {
-
-		if ( ! class_exists( 'GFCommon' ) ) {
-			add_action( 'admin_notices', array( $this, 'gform_not_exist' ) );
-
-			return;
-		}
-
-		/*if ( version_compare( GFCommon::$version, '1.9.9.9.9', "<=" ) ) {
-			add_action( 'admin_notices', array( $this, 'gform_min_version' ) );
-		}*/
-
-		add_action( 'admin_notices', array( $this, 'plugin_update' ), 9999 );
-		add_filter( 'load_textdomain_mofile', array( $this, 'load_translate' ), 10, 2 );
-		add_action( 'gform_loaded', array( $this, 'load_settings' ), 5 );
-		add_filter( 'gform_tooltips', array( $this, 'tooltips' ) );
-		add_filter( 'gform_add_field_buttons', array( $this, 'fields_group' ) );
-
-		$this->include_files();
-	}
-
-	public function gform_not_exist() {
-		$message = sprintf( 'شما فقط بسته گرویتی فرم پارسی را نصب کرده اید. در حالیکه نصب هسته اصلی گرویتی فرم هم نیاز است. %sسوالات متداول%s', '<a href="http://gravityforms.ir/faq/" target="_blank">', '</a>' );
-		printf( '<div class="notice notice-error"><p>%s</p></div>', $message );
-	}
-
-	public function gform_min_version() {
-		$message = sprintf( 'برای استفاده از کلیه پلاگین های گرویتی فرم پارسی نسخه هسته گرویتی فرم شما باید حداقل 2.0 به بالا باشد. هرچه سریعتر نسبت به ارتقای هسته گرویتی فرم خود اقدام نمایید. وگرنه ممکن است در حین کار با پلاگین ها دچار مشکل شوید. %sراهنمای بروز رسانی%s', '<a href="http://gravityforms.ir/11378/" target="_blank">', '</a>' );
-		printf( '<div class="notice notice-error"><p>%s</p></div>', $message );
-	}
-
-	public function plugin_update() {
-
-		if ( get_option( 'gform_pending_installation' ) ) {
-			update_option( 'gform_pending_installation', false );
-			$current_version = get_option( 'rg_form_version' );
-			if ( $current_version === false ) {
-				if ( class_exists( 'GFCommon' ) ) {
-					update_option( 'rg_form_version', GFCommon::$version );
-				} else {
-					update_option( 'rg_form_version', '2.0.0' );
-				}
-			}
-		}
-
-		if ( ! get_option( 'gf_persian_updated' ) ) {
-
-			for ( $i = 1; $i <= 5; $i ++ ) {
-				delete_option( 'persian_gf_notice_v' . $i );
-			}
-
-			//update national id
-			global $wpdb;
-			$table  = RGFormsModel::get_meta_table_name();
-			$update = $wpdb->query( "UPDATE $table SET display_meta = REPLACE(display_meta, 'mellicart', 'ir_national_id')" );
-			if ( $update !== false ) {
-				$wpdb->query( "UPDATE $table SET display_meta = REPLACE(display_meta, '\"field_ir_national_id\"', '\"showLocation\"')" );
-				$wpdb->query( "UPDATE $table SET display_meta = REPLACE(display_meta, '\"field_ir_national_id_sp\"', '\"showSeperator\"')" );
-				$wpdb->query( "UPDATE $table SET display_meta = REPLACE(display_meta, '\"field_ir_national_id_sp1\"', '\"notDigitError\"')" );
-				$wpdb->query( "UPDATE $table SET display_meta = REPLACE(display_meta, '\"field_ir_national_id_sp2\"', '\"qtyDigitError\"')" );
-				$wpdb->query( "UPDATE $table SET display_meta = REPLACE(display_meta, '\"field_ir_national_id_sp3\"', '\"duplicateError\"')" );
-				$wpdb->query( "UPDATE $table SET display_meta = REPLACE(display_meta, '\"field_ir_national_id_sp4\"', '\"isInvalidError\"')" );
-				update_option( 'gf_persian_updated', GF_PERSIAN_VERSION );
-			}
-
-			echo '<div class="notice notice-success is-dismissible"><p>' . sprintf( 'گرویتی فرم پارسی با موفقیت بروز شد. %sرفتن به صفحه تنظیمات%s', '<a href="' . admin_url( 'admin.php?page=gf_settings&subview=persian' ) . '">', '</a>' ) . '</p></div>';
-		}
-
-		if ( get_option( 'gf_persian_notice' ) != GF_PERSIAN_VERSION ) {
-
-			delete_option( 'gf_persian_gateway' );
-			update_option( 'gf_persian_notice', GF_PERSIAN_VERSION );
-
-			$notices   = array();
-			$notices[] = sprintf( 'تمام پلاگین های گرویتی فرم پارسی بروزرسانی و با نسخه آخر گرویتی فرم هماهنگ شده اند. برای دانلود بروز رسانی ها به سایت گرویتی فرم پارسی و منوی "%sسوابق خرید%s" مراجعه نمایید.', '<a target="_blank" href="http://gravityforms.ir/payment/download-history/">', '</a>' );
-			$notices[] = sprintf( 'برای مشاهده راهنمای بروز رسانی درگاه های پرداخت %sکلیک کنید.%s', '<a target="_blank" href="http://gravityforms.ir/33598">', '</a>' );
-			echo '<div class="notice notice-success is-dismissible"><p>' . implode( '<hr>', $notices ) . '</p></div>';
-		}
-	}
-
-	public function tooltips( $tooltips ) {
-
-		$tooltips['form_gf_persian_fields'] = '<h6>گرویتی فرم پارسی</h6>فیلدهای برنامه نویسی شده توسط گرویتی فرم پارسی به مرور اینجا اضافه خواهند شد.';
-
-		return $tooltips;
-	}
-
-
-	public function fields_group( $field_groups ) {
-
-		$group = 'gf_persian_fields';
-
-		if ( ! function_exists( 'wp_list_pluck' ) || ! in_array( $group, wp_list_pluck( $field_groups, 'name' ) ) ) {
-			array_push( $field_groups, array(
-				'name'   => $group,
-				'label'  => 'فیلدهای گرویتی فرم پارسی',
-				'fields' => array()
-			) );
-		}
-
-		return $field_groups;
-	}
-
-	public function load_settings() {
-
-		if ( method_exists( 'GFForms', 'include_addon_framework' ) ) {
-
-			GFForms::include_addon_framework();
-			GFAddOn::register( 'GFPersian_Settings' );
-
-			require_once( 'class-settings.php' );
-		}
-	}
-
-	public function load_translate( $mo_file, $domain ) {
-
-		if ( $this->option( 'translate', '1' ) == '1' && get_locale() == 'fa_IR' ) {
-
-			$translates = array(
-				'gravityforms',
-				'gravityformscoupons',
-				'gravityformsmailchimp',
-				'gravityformspolls',
-				'gravityformsquiz',
-				'gravityformssignature',
-				'gravityformssurvey',
-				'gravityformsuserregistration',
-				'gravityformsauthorizenet',
-				'gravityformsaweber',
-				'gravityformscampaignmonitor',
-				'gravityformspaypalpaymentspro',
-				'gravityformsfreshbooks',
-				'gravityformspaypal',
-				'gravityformspaypalpro',
-				'gravityformstwilio',
-				'gravityformsstripe',
-				'gravityformszapier',
-				'sticky-list',
-				'gf-limit'
-			);
-
-			if ( in_array( $domain, $translates ) ) {
-				$mo_file = dirname( plugin_dir_path( __FILE__ ) ) . "/languages/$domain/$domain-fa_IR.mo";
-			}
-		}
-
-		return $mo_file;
-	}
-
-	private function include_files() {
-		include 'class-admin.php';
-		include 'class-address.php';
-		include 'class-payments.php';
-		include 'class-snippets.php';
-		include 'class-merge-tag.php';
-		include 'class-currencies.php';
-		include 'class-jalali-date.php';
-		include 'class-live-preview.php';
-		include 'class-transaction-id.php';
-		include 'class-multi-page-navi.php';
-
-		include 'class-deprecated.php';
-		if ( get_option( 'gf_persian_updated' ) ) {
-			include 'class-national-id.php';
-		} else {
-			//the class is existed in class-deprecated.php
-			new GFParsi_MelliCode();
-		}
-	}
-
-	public static function _option( $setting_name = '', $default = null ) {
+	/**
+	 * Set whole Persian GForm settings in the $settings property and get value of $setting_name
+	 *
+	 * @param string $setting_name
+	 * @param mixed  $default
+	 *
+	 * @return mixed
+	 */
+	public static function _option( string $setting_name = '', $default = null ) {
 
 		if ( empty( self::$settings ) ) {
-			if ( class_exists( 'GFPersian_Settings' ) ) {
-				if ( method_exists( 'GFPersian_Settings', 'get_plugin_settings' ) ) {
-					if ( is_callable( array( 'GFPersian_Settings' => 'get_plugin_settings' ) ) ) {
-						self::$settings = GFPersian_Settings::get_instance()->get_plugin_settings();
-					}
-				}
+
+			if ( method_exists( 'GFPersian_Settings', 'get_plugin_settings' ) ) {
+				self::$settings = GFPersian_Settings::get_instance()->get_plugin_settings();
 			}
+
 			if ( empty( self::$settings ) && defined( 'GF_PERSIAN_SLUG' ) ) {
 				self::$settings = get_option( 'gravityformsaddon_' . GF_PERSIAN_SLUG . '_settings' );
 			}
+
 		}
 
 		$settings = self::$settings;
 
 		if ( ! empty( $setting_name ) ) {
-			$settings = isset( $settings[ $setting_name ] ) ? $settings[ $setting_name ] : '';
+			$settings = $settings[ $setting_name ] ?? '';
 		}
 
 		return ! empty( $settings ) || strval( $settings ) == '0' ? $settings : $default;
 	}
 
-	public function option( $setting_name = '', $default = null ) {
+	/**
+	 * Get option from $settings property (wrapper of _option)
+	 *
+	 * @param string $setting_name
+	 * @param mixed  $default
+	 *
+	 * @return mixed
+	 */
+	public function option( string $setting_name = '', $default = null ) {
 		return self::_option( $setting_name, $default );
 	}
 
-	public function is_gravity_page() {
-
-		$is_gform     = class_exists( 'RGForms' ) ? RGForms::is_gravity_page() : false;
+	/**
+	 * Check if it's a gravity page showing
+	 *
+	 * @return bool
+	 */
+	public function is_gravity_page(): bool {
+		$is_gform     = class_exists( 'GFForms' ) && GFForms::is_gravity_page();
 		$current_page = trim( strtolower( rgget( 'page' ) ) );
 
 		return $is_gform || substr( $current_page, 0, 2 ) == 'gf' || stripos( $current_page, 'gravity' ) !== false;
 	}
 
-	public static function get_base_url() {
+	/**
+	 * Get plugin base url
+	 *
+	 * @return string
+	 */
+	public static function get_base_url(): string {
 		return plugins_url( '', dirname( __FILE__ ) );
 	}
-	
-	public static function get_entry( $entry_id ) {
+
+	/**
+	 * Returns the Entry object for a given Entry ID.
+	 * It's a wrapper for GFAPI::get_entry with safe return of false
+	 *
+	 * @param ?int $entry_id
+	 *
+	 * @return array|false
+	 */
+	public static function get_entry( ?int $entry_id ) {
+
+		if ( is_null( $entry_id ) ) {
+			return false;
+		}
+
 		$entry = GFAPI::get_entry( $entry_id );
 
 		if ( is_wp_error( $entry ) ) {
@@ -225,21 +100,90 @@ class GFPersian_Core {
 
 		return $entry;
 	}
-	
-	public static function is_elementor(){
+
+	/**
+	 * Check if current showing page is Elementor based
+	 *
+	 * @return bool
+	 */
+	public static function is_elementor(): bool {
 		try {
+
 			if ( class_exists( '\Elementor\Plugin' ) ) {
-				$instance = \Elementor\Plugin::$instance;
-				
-				return $instance->editor->is_edit_mode()
-				       || $instance->preview->is_preview_mode()
-				       || @$_REQUEST['action'] == 'elementor';
+				$instance         = \Elementor\Plugin::$instance;
+				$elementor_action = rgar( $_REQUEST, 'action', '' ) == 'elementor';
+
+				return $instance->editor->is_edit_mode() || $instance->preview->is_preview_mode() || $elementor_action;
 			}
-		} catch (Exception $e) {
+
+		} catch ( Exception $e ) {
+			return false;
 		}
-		
+
 		return false;
 	}
-}
 
-new GFPersian_Core;
+	/**
+	 * Get url of registered script
+	 *
+	 * @param string $handle
+	 *
+	 * @return string
+	 */
+	public static function get_registered_script_url( string $handle ): string {
+		$scripts = wp_scripts();
+
+		if ( isset( $scripts->registered[ $handle ] ) ) {
+			return $scripts->registered[ $handle ]->src;
+		}
+
+		return '';
+	}
+
+
+	/**
+	 * Generate Gravity Forms edit link with a custom form ID
+	 *
+	 * @param int $form_id Gravity Forms form ID
+	 *
+	 * @return string Admin URL to edit the form
+	 */
+	public static function get_form_edit_link( int $form_id ): string {
+		$args = [
+			'page' => 'gf_edit_forms',
+			'id'   => intval( $form_id ),
+		];
+
+		return add_query_arg( $args, admin_url( 'admin.php' ) );
+	}
+
+	/**
+	 * Generate Gravity Forms entry link
+	 *
+	 * @param int $form_id  Gravity Forms form ID
+	 *
+	 * @param int $entry_id Form entry ID
+	 *
+	 * @return string Admin URL to edit the form
+	 */
+	public static function get_form_entry_link( int $form_id, int $entry_id ): string {
+		$args = [
+			'page' => 'gf_entries',
+			'view' => 'entry',
+			'id'   => intval( $form_id ),
+			'lid'  => intval( $entry_id ),
+		];
+
+		return add_query_arg( $args, admin_url( 'admin.php' ) );
+	}
+
+	/**
+	 * Returns .min if minified script should get loaded
+	 *
+	 * @erturn string
+	 */
+	public static function minified(): string {
+		return ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '.min' : '';
+	}
+
+}

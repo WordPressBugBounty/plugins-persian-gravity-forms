@@ -538,8 +538,7 @@ function GFPersian_National_ID_Handler(national_id, field_id, message1, message2
             document.getElementById("ir_national_id_location_" + field_id).innerHTML = GFPersian_National_ID_Location(location);
             return true;
         }
-    }
-    else {
+    } else {
         document.getElementById("ir_national_id_location_" + field_id).innerHTML = message3;
         return false;
     }

@@ -1,6 +1,6 @@
-<?php if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
+<?php
+
+defined( 'ABSPATH' ) || exit;
 
 class GFPersian_Transaction_ID extends GFPersian_Core {
 
@@ -14,9 +14,9 @@ class GFPersian_Transaction_ID extends GFPersian_Core {
 
 		$this->transaction_id_title = $this->option( 'transaction_id_title', 'شماره تراکنش' );
 
-		add_filter( 'gettext', array( $this, 'change_transaction_id_title' ), 999, 3 );
-		add_filter( 'ngettext', array( $this, 'change_transaction_id_title' ), 999, 3 );
-		add_action( 'gform_entry_created', array( __CLASS__, 'create_transaction_id' ), 10, 2 );
+		add_filter( 'gettext', [ $this, 'change_transaction_id_title' ], 999, 3 );
+		add_filter( 'ngettext', [ $this, 'change_transaction_id_title' ], 999, 3 );
+		add_action( 'gform_entry_created', [ __CLASS__, 'create_transaction_id' ], 10, 2 );
 	}
 
 	public static function create_transaction_id( $entry, $form ) {
@@ -28,8 +28,8 @@ class GFPersian_Transaction_ID extends GFPersian_Core {
 
 		$transaction_id = '';
 		foreach ( str_split( $masked_input ) as $string ) {
-			if ( in_array( $string, array( '*', 'a' ) ) ) {
-				$rand = $string == '*' ? array_map( 'strval', range( 0, 9 ) ) : array();
+			if ( in_array( $string, [ '*', 'a' ] ) ) {
+				$rand = $string == '*' ? array_map( 'strval', range( 0, 9 ) ) : [];
 				$rand = array_merge( $rand, range( 'A', 'Z' ), range( 'a', 'z' ) );
 				shuffle( $rand );
 				$transaction_id .= $rand[ rand( 0, count( $rand ) - 1 ) ];
@@ -63,4 +63,4 @@ class GFPersian_Transaction_ID extends GFPersian_Core {
 
 }
 
-new GFPersian_Transaction_ID;
+new GFPersian_Transaction_ID();
