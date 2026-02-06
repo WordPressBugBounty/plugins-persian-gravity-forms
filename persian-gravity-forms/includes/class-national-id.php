@@ -148,14 +148,49 @@ class GFPersian_National_ID extends GFPersian_Core {
 		<?php
 	}
 
-
 	public function admin_conditional_logic( $form ) {
-
 		if ( GFCommon::is_entry_detail() ) {
 			return $form;
 		}
+		?>
+		<script type="text/javascript">
+            function initPersianConditionalLogic() {
 
-		echo "<script type='text/javascript'>" . " gform.addFilter('gform_is_conditional_logic_field', function (isConditionalLogicField, field) {" . "     return field.type == 'ir_national_id' ? true : isConditionalLogicField;" . '	});' . "	gform.addFilter('gform_conditional_logic_operators', function (operators, objectType, fieldId) {" . '		var targetField = GetFieldById(fieldId);' . "		if (targetField && targetField['type'] == 'ir_national_id') {" . "			operators = {'is':'is','isnot':'isNot', '>':'greaterThan', '<':'lessThan', 'contains':'contains', 'starts_with':'startsWith', 'ends_with':'endsWith'};" . '		}' . '		return operators;' . '	});' . '</script>';
+                // This is because of GF Jungle Gym admin life cycle...
+                if (typeof gform === 'undefined') {
+                    setTimeout(initPersianConditionalLogic, 100);
+                    return;
+                }
+
+                gform.addFilter('gform_is_conditional_logic_field', function (isConditionalLogicField, field) {
+                    return field.type == 'ir_national_id' ? true : isConditionalLogicField;
+                });
+
+                gform.addFilter('gform_conditional_logic_operators', function (operators, objectType, fieldId) {
+                    var targetField = GetFieldById(fieldId);
+                    if (targetField && targetField['type'] == 'ir_national_id') {
+                        operators = {
+                            'is': 'is',
+                            'isnot': 'isNot',
+                            '>': 'greaterThan',
+                            '<': 'lessThan',
+                            'contains': 'contains',
+                            'starts_with': 'startsWith',
+                            'ends_with': 'endsWith'
+                        };
+                    }
+                    return operators;
+                });
+            }
+
+            // Initialize when DOM is ready
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', initPersianConditionalLogic);
+            } else {
+                initPersianConditionalLogic();
+            }
+		</script>
+		<?php
 
 		return $form;
 	}

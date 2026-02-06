@@ -78,15 +78,22 @@ class GFPersian_Notice {
 		$view    = sanitize_text_field( $_GET['view'] ?? null );
 		$subview = sanitize_text_field( $_GET['subview'] ?? null );
 
-		$has_gateland         = is_plugin_active( 'gateland/gateland.php' );
-		$gateland_install_url = admin_url( 'plugin-install.php?tab=plugin-information&plugin=gateland' );
+		$gateland_install_url = self::get_plugin_action_url( 'gateland/gateland.php' );
+
+		//
 
 		$notices = [
 			[
 				'id'        => 'gateland_dashboard',
-				'content'   => sprintf( '<b>افزونه درگاه پرداخت هوشمند «گیت لند»:</b> با گیت‌لند می‌توانید فرم‌های گرویتی فرمز را به بیش از ۳۴ درگاه پرداخت (واسط و مستقیم) متصل کنید: <a href="%s" target="_blank">نصب سریع و رایگان از مخزن وردپرس</a>', $gateland_install_url ),
-				'condition' => ! $has_gateland,
+				'content'   => sprintf( '<b>افزونه درگاه پرداخت هوشمند «گیت لند»:</b> با گیت‌لند می‌توانید فرم‌های گرویتی فرمز را به بیش از ۳۷ درگاه پرداخت (واسط، مستقیم و اعتباری) متصل کنید: <a href="%s" target="_blank">نصب سریع و رایگان از مخزن وردپرس</a>', $gateland_install_url ),
+				'condition' => $gateland_install_url,
 				'dismiss'   => 6 * MONTH_IN_SECONDS,
+			],
+			[
+				'id'        => 'sms_alarm',
+				'content'   => '<b>هشدار:</b> شما در حال استفاده از افزونه «پیامک گرویتی فرم» هستید. قابلیت ارسال پیامک به گرویتی فرم فارسی اضافه شده است. جهت جلوگیری از اختلال، این افزونه را غیرفعال کنید.',
+				'condition' => is_plugin_active( 'persian-gravity-sms-pro/gravity_sms_pro.php' ),
+				'dismiss'   => WEEK_IN_SECONDS,
 			],
 		];
 
@@ -151,6 +158,34 @@ class GFPersian_Notice {
 
 	public function is_dismiss( $notice_id ): bool {
 		return intval( get_option( 'persian_gf_dismiss_notice_' . $notice_id ) ) >= time();
+	}
+
+	public static function get_plugin_action_url( $plugin ): ?string {
+
+		if ( is_plugin_active( $plugin ) ) {
+			return null;
+		}
+
+		if ( ! isset( get_plugins()[ $plugin ] ) ) {
+
+			$plugin = strtok( $plugin, '/' );
+
+			return wp_nonce_url(
+				add_query_arg(
+					[
+						'action' => 'install-plugin',
+						'plugin' => $plugin,
+					],
+					admin_url( 'update.php' )
+				),
+				'install-plugin_' . $plugin
+			);
+		}
+
+		return wp_nonce_url(
+			admin_url( 'plugins.php?action=activate&plugin=' . $plugin ),
+			'activate-plugin_' . $plugin
+		);
 	}
 
 }

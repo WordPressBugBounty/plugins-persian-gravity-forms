@@ -4,162 +4,160 @@ defined( 'ABSPATH' ) || exit;
 
 class GFPersian_Multipage_Navigation extends GFPersian_Core {
 
-	public $_args = [];
-
-	private static $script_displayed;
-
 	public function __construct() {
 
 		if ( is_admin() || $this->option( 'multipage_nav', '1' ) != '1' ) {
 			return;
 		}
 
-		$this->_args = [
-			'activate_on_last_page' => $this->option( 'multipage_nav_last', '1' )
-		];
+		add_filter( 'gform_pre_render', [ $this, 'output_navigation_script' ], 100, 2 );
+	}
 
-		add_filter( 'gform_pre_render', [ $this, 'output_navigation_script' ], 10, 2 );
+	public function add_last_page_input( $tag, $form ) {
+
+		if ( str_contains( $tag, 'gform_multi_page_nav_last_page_reached' ) ) {
+			return $tag;
+		}
+
+		return $tag .= '<input id="gform_multi_page_nav_last_page_reached" name="gform_multi_page_nav_last_page_reached" value="' . esc_attr( $this->is_last_page( $form ) ? '1' : '0' ) . '" type="hidden" />';
 	}
 
 	public function output_navigation_script( $form, $is_ajax ) {
 
-		// only apply this to multi-page forms
-		if ( empty( $form['pagination']['pages'] ) || ! is_array( $form['pagination']['pages'] ) || count( $form['pagination']['pages'] ) <= 1 ) {
+		if ( ! isset( $form['pagination']['pages'], $form['pagination']['type'] ) || ! is_array( $form['pagination']['pages'] ) || count( $form['pagination']['pages'] ) <= 1 || $form['pagination']['type'] !== 'steps' ) {
 			return $form;
 		}
 
 		$this->register_script( $form );
 
-		if ( ! $this->_args['activate_on_last_page'] || $this->is_last_page( $form ) || $this->is_last_page_reached() ) {
-			add_filter( "gform_form_tag_{$form['id']}", function ( $tag ) {
-				return $tag . '<input id="gform_multi_page_nav_last_page_reached" name="gform_multi_page_nav_last_page_reached" value="1" type="hidden" />';
-			} );
-		}
-
-		// only output the gform_multi_page_nav object once regardless of how many forms are being displayed
-		// also do not output again on ajax submissions
-		if ( self::$script_displayed || ( $is_ajax && rgpost( 'gform_submit' ) ) ) {
-			return $form;
-		}
-		?>
-
-        <script type="text/javascript">
-
-            (function ($) {
-
-                window.gform_multi_page_navObj = function (args) {
-
-                    this.formId = args.formId;
-                    this.formElem = jQuery('form#gform_' + this.formId);
-                    this.currentPage = args.currentPage;
-                    this.lastPage = args.lastPage;
-                    this.activateOnLastPage = args.activateOnLastPage;
-
-                    this.init = function () {
-
-                        // if this form is ajax-enabled, we'll need to get the current page via JS
-                        if (this.isAjax())
-                            this.currentPage = this.getCurrentPage();
-
-                        if (!this.isLastPage() && !this.isLastPageReached())
-                            return;
-
-                        var gform_multi_page_nav = this;
-                        var steps = $('form#gform_' + this.formId + ' .gf_step');
-
-                        steps.each(function () {
-
-                            var stepNumber = parseInt($(this).find('span.gf_step_number').text());
-
-                            if (stepNumber != gform_multi_page_nav.currentPage) {
-                                $(this).html(gform_multi_page_nav.createPageLink(stepNumber, $(this).html()))
-                                    .addClass('gform_multi_page_nav-step-linked');
-                            } else {
-                                $(this).addClass('gform_multi_page_nav-step-current');
-                            }
-
-                        });
-
-                        $(document).on('click', '#gform_' + this.formId + ' a.gform_multi_page_nav-page-link', function (event) {
-                            event.preventDefault();
-
-                            var hrefArray = $(this).attr('href').split('#');
-                            if (hrefArray.length >= 2) {
-                                var pageNumber = hrefArray.pop();
-                                gform_multi_page_nav.postToPage(pageNumber, !$(this).hasClass('gform_multi_page_navmp-default'));
-                            }
-
-                        });
-
-                    };
-
-                    this.createPageLink = function (stepNumber, HTML) {
-                        return '<a href="#' + stepNumber + '" class="gform_multi_page_nav-page-link gform_multi_page_nav-default">' + HTML + '</a>';
-                    };
-
-                    this.postToPage = function (page) {
-                        this.formElem.append('<input type="hidden" name="gform_multi_page_nav_page_change" value="1" />');
-                        this.formElem.find('input[name="gform_target_page_number_' + this.formId + '"]').val(page);
-                        this.formElem.submit();
-                    };
-
-                    this.getCurrentPage = function () {
-                        return this.formElem.find('input#gform_source_page_number_' + this.formId).val();
-                    };
-
-                    this.isLastPage = function () {
-                        return this.currentPage >= this.lastPage;
-                    };
-
-                    this.isLastPageReached = function () {
-                        return this.formElem.find('input[name="gform_multi_page_nav_last_page_reached"]').val() == true;
-                    };
-
-                    this.isAjax = function () {
-                        return this.formElem.attr('target') == 'gform_ajax_frame_' + this.formId;
-                    };
-
-                    this.init();
-
-                }
-
-            })(jQuery);
-
-        </script>
-
-		<?php
-		self::$script_displayed = true;
+		add_filter( "gform_form_tag_{$form['id']}", [ $this, 'add_last_page_input' ], 10, 2 );
 
 		return $form;
 	}
 
 	public function register_script( $form ) {
-
 		$page_number = GFFormDisplay::get_current_page( $form['id'] );
 		$last_page   = count( $form['pagination']['pages'] );
 
-		$args = [
+		$args = wp_json_encode( [
 			'formId'             => $form['id'],
 			'currentPage'        => $page_number,
 			'lastPage'           => $last_page,
-			'activateOnLastPage' => $this->_args['activate_on_last_page'],
-		];
+			'activateOnLastPage' => $this->option( 'multipage_nav_last', '1' ) === '1',
+		] );
+		?>
 
-		$script = "window.gform_multi_page_nav = new gform_multi_page_navObj(" . json_encode( $args ) . ");";
-		GFFormDisplay::add_init_script( $form['id'], 'gform_multi_page_nav', GFFormDisplay::ON_PAGE_RENDER, $script );
+		<script type="text/javascript">
+            (function () {
 
+                const args = <?php echo $args; ?>;
+
+                function gformMultiPageNavInit() {
+                    const form = document.querySelector('#gform_' + args.formId);
+                    const stepContainer = document.querySelector('#gf_page_steps_' + args.formId);
+
+                    if (!form || !stepContainer) return;
+
+                    const steps = stepContainer.querySelectorAll('.gf_step');
+                    const currentPage = parseInt(form.querySelector('#gform_source_page_number_' + args.formId)?.value || 1);
+                    const lastPage = steps.length;
+                    const isLastPage = currentPage >= lastPage;
+
+                    let hidden = form.querySelector('#gform_multi_page_nav_last_page_reached');
+
+                    if (!hidden) {
+
+                        hidden = document.createElement('input');
+                        hidden.type = 'hidden';
+                        hidden.id = 'gform_multi_page_nav_last_page_reached';
+                        hidden.name = 'gform_multi_page_nav_last_page_reached';
+                        form.appendChild(hidden);
+
+                    }
+
+                    hidden.value = isLastPage ? '1' : '0';
+
+                    steps.forEach(step => {
+
+                        const numberElem = step.querySelector('.gf_step_number');
+
+                        if (!numberElem) return;
+
+                        const stepNumber = parseInt(numberElem.textContent);
+
+                        step.classList.remove('gform_multi_page_nav-step-current', 'gform_multi_page_nav-step-linked');
+
+                        if (stepNumber === currentPage) {
+                            step.classList.add('gform_multi_page_nav-step-current');
+                            numberElem.style.cursor = 'default';
+                            return;
+                        } else {
+                            step.classList.add('gform_multi_page_nav-step-linked');
+                        }
+
+                        const allowClick = !args.activateOnLastPage || isLastPage;
+                        numberElem.style.cursor = allowClick ? 'pointer' : 'default';
+
+                        const newElem = numberElem.cloneNode(true);
+                        numberElem.parentNode.replaceChild(newElem, numberElem);
+
+                        if (allowClick) {
+
+                            newElem.addEventListener('click', function (e) {
+                                e.preventDefault();
+
+                                let hiddenChange = form.querySelector('input[name="gform_multi_page_nav_page_change"]');
+
+                                if (!hiddenChange) {
+
+                                    hiddenChange = document.createElement('input');
+                                    hiddenChange.type = 'hidden';
+                                    hiddenChange.name = 'gform_multi_page_nav_page_change';
+                                    hiddenChange.value = '1';
+                                    form.appendChild(hiddenChange);
+
+                                }
+
+                                const targetInput = form.querySelector('input[name="gform_target_page_number_' + args.formId + '"]');
+                                if (targetInput) targetInput.value = stepNumber;
+
+                                if (typeof jQuery !== 'undefined' && jQuery(form).data('gfAjax')) {
+                                    jQuery(form).trigger('submit');
+                                } else {
+                                    form.submit();
+                                }
+
+                            });
+
+                        }
+
+                    });
+
+                }
+
+                document.addEventListener('DOMContentLoaded', gformMultiPageNavInit);
+
+                document.addEventListener('gform/post_render', function (event) {
+                    if (event.detail.formId === args.formId) {
+                        gformMultiPageNavInit();
+                    }
+                });
+
+            })();
+		</script>
+
+		<?php
 	}
 
-	public function is_last_page( $form ) {
+	public function is_last_page( ?array $form ): bool {
+		if ( is_null( $form ) ) {
+			return false;
+		}
 
 		$page_number = GFFormDisplay::get_current_page( $form['id'] );
 		$last_page   = count( $form['pagination']['pages'] );
 
 		return $page_number >= $last_page;
-	}
-
-	public function is_last_page_reached() {
-		return rgpost( 'gform_multi_page_nav_last_page_reached' );
 	}
 
 }

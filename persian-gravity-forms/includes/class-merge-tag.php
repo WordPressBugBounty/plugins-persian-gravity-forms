@@ -21,7 +21,8 @@ class GFPersian_Merge_Tags extends GFPersian_Core {
 		if ( $this->option( 'add_merge_tags', '1' ) == '1' ) {
 
 			add_filter( 'gform_admin_pre_render', [ $this, 'merge_tags_keys' ] );
-			add_filter( 'gform_replace_merge_tags', [ $this, 'merge_tags_values' ], 999, 7 );
+			add_filter( 'gform_pre_replace_merge_tags', [ $this, 'merge_tags_deprecation' ], 10, 6 );
+			add_filter( 'gform_replace_merge_tags', [ $this, 'merge_tags_values' ], 10, 7 );
 
 			/*------------------------------------------------------------*/
 			//todo:enable for next updates if was needed
@@ -66,13 +67,15 @@ class GFPersian_Merge_Tags extends GFPersian_Core {
 		$merge_tags = [
 			'{rtl_start}'             => 'ابتدای راستچین سازی',
 			'{rtl_end}'               => 'انتهای راستچین سازی',
-			'{transaction_id}'        => __( 'Transaction Id', 'gravityforms' ),
-			'{transaction_id_table}'  => sprintf( 'جدول %s', __( 'Transaction Id', 'gravityforms' ) ),
-			'{payment_gateway}'       => 'عنوان درگاه پرداخت',
+			'{gateway_trans_id}'      => 'شناسه پیگیری',
+			'{transaction_id}'        => 'شناسه تراکنش',
+			'{transaction_id_table}'  => 'جدول شناسه تراکنش',
+			'{payment_gateway}'       => 'نام درگاه پرداخت',
 			'{payment_gateway_table}' => 'جدول درگاه پرداخت',
-			'{payment_status}'        => 'عنوان وضعیت پرداخت',
+			'{payment_status}'        => 'وضعیت پرداخت',
 			'{payment_status_table}'  => 'جدول وضعیت پرداخت',
-			'{payment_table}'         => sprintf( 'جدول پرداخت (وضعیت - نام درگاه - %s)', __( 'Transaction Id', 'gravityforms' ) ),
+			'{payment_table}'         => 'جدول پرداخت (وضعیت - نام درگاه - شناسه تراکنش)',
+			'{date_ymd}'              => 'تاریخ (yyyy/mm/dd)',
 		];
 
 		if ( GFCommon::has_post_field( rgar( $form, 'fields' ) ) ) {
@@ -92,44 +95,65 @@ class GFPersian_Merge_Tags extends GFPersian_Core {
 	 * @return array
 	 */
 	public function merge_tags_keys( array $form ): array {
-
 		if ( GFCommon::is_entry_detail() ) {
 			return $form;
 		}
 		?>
-
 		<script type="text/javascript">
+            function initPersianMergeTags() {
 
-            gform.addFilter('gform_merge_tags', function (mergeTags, elementId, hideAllFields, excludeFieldTypes, isPrepop, option) {
-                mergeTags['gf_persian'] = {
-                    label: 'گرویتی فرم فارسی',
-                    tags: []
-                };
+                // This is because of GF Jungle Gym admin life cycle...
+                if (typeof gform === 'undefined') {
+                    setTimeout(initPersianMergeTags, 100);
+                    return;
+                }
 
-				<?php foreach ( self::get_merge_tags( $form ) as $key => $val ) : ?>
-                mergeTags['gf_persian'].tags.push({
-                    tag: '<?php echo esc_js( $key ); ?>',
-                    label: '<?php echo esc_js( $val ); ?>'
+                gform.addFilter('gform_merge_tags', function (mergeTags, elementId, hideAllFields, excludeFieldTypes, isPrepop, option) {
+
+                    if (mergeTags.other && mergeTags.other.tags) {
+                        mergeTags.other.tags = mergeTags.other.tags.filter(function (t) {
+                            return t.tag !== '{date_mdy}' && t.tag !== '{date_dmy}';
+                        });
+                    }
+
+                    mergeTags['gf_persian'] = {
+                        label: 'گرویتی فرم فارسی',
+                        tags: []
+                    };
+
+					<?php foreach ( self::get_merge_tags( $form ) as $key => $val ) : ?>
+                    mergeTags['gf_persian'].tags.push({
+                        tag: '<?php echo esc_js( $key ); ?>',
+                        label: '<?php echo esc_js( $val ); ?>'
+                    });
+					<?php endforeach; ?>
+
+                    return mergeTags;
                 });
-				<?php endforeach; ?>
+            }
 
-                // JS return
-                return mergeTags;
-            });
-
-			<?php
-
-			/*todo:enable for next updates if was needed*/
-			if ( apply_filters( 'enable_subtotal_merge_tag', false ) ) :?>
-            jQuery(document).ready(function ($) {
-                $('#field_calculation_formula_variable_select').find('optgroup').eq(0).append('<option value="{subtotal}">مجموع قیمت ها</option>');
-            });
-			<?php endif; ?>
-
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', initPersianMergeTags);
+            } else {
+                initPersianMergeTags();
+            }
 		</script>
 		<?php
 
 		return $form;
+	}
+
+	public function merge_tags_deprecation( $text, $form, $entry, $url_encode, $esc_html, $nl2br ) {
+		$deprecated_tags = [
+			'{payment_pack}'        => '{payment_table}',
+			'{payment_status_css}'  => '{payment_status_table}',
+			'{transaction_id_css}'  => '{transaction_id_table}',
+			'{payment_gateway_css}' => '{payment_gateway_table}',
+			'{date_mdy}'            => '{date_ymd}',
+			'{date_dmy}'            => '{date_ymd}',
+		];
+
+		return str_ireplace( array_keys( $deprecated_tags ), array_values( $deprecated_tags ), $text );
 	}
 
 	/**
@@ -149,29 +173,25 @@ class GFPersian_Merge_Tags extends GFPersian_Core {
 	 */
 	public function merge_tags_values( string $text, $form, $entry, bool $url_encode, bool $esc_html, bool $nl2br, string $format ): string {
 
-		//supprots deprecated merge tags
-		$deprecated_tags = [
-			'{payment_pack}'        => '{payment_table}',
-			'{payment_status_css}'  => '{payment_status_table}',
-			'{transaction_id_css}'  => '{transaction_id_table}',
-			'{payment_gateway_css}' => '{payment_gateway_table}',
-		];
+		$entry    = is_numeric( $entry ) ? GFAPI::get_entry( (int) $entry ) : $entry;
+		$entry_id = rgar( $entry, 'id' );
 
-		$text = str_ireplace( array_keys( $deprecated_tags ), array_values( $deprecated_tags ), $text );
-
-		$entry           = self::get_entry( rgar( $entry, 'id' ) );
-		$transaction_id  = rgar( $entry, 'transaction_id' );
-		$payment_status  = GFPersian_Payments::_payment_status( $entry );
-		$payment_gateway = gform_get_meta( rgar( $entry, 'id' ), 'payment_gateway' );
+		$transaction_id       = rgar( $entry, 'transaction_id' );
+		$gateway_trans_id     = gform_get_meta( $entry_id, 'gateway_trans_id' );
+		$payment_status_table = GFPersian_Payments::_payment_status( $entry );
+		$payment_status       = GFPersian_Payments::_payment_status( $entry, true );
+		$payment_gateway      = $entry['payment_method'];
 
 		$merge_tags = [
-			'{transaction_id}'  => $transaction_id,
-			'{payment_gateway}' => $payment_gateway,
-			'{payment_status}'  => strip_tags( $payment_status ),
+			'{transaction_id}'   => $transaction_id,
+			'{gateway_trans_id}' => $gateway_trans_id,
+			'{payment_gateway}'  => $payment_gateway,
+			'{payment_status}'   => $payment_status,
+			'{date_ymd}'         => $this->get_jalali_date( 'Y/m/d', $entry ),
 		];
 
 		$tabled_tags = [
-			'{payment_status_table}'  => [ 'وضعیت پرداخت', $payment_status ],
+			'{payment_status_table}'  => [ 'وضعیت پرداخت', $payment_status_table ],
 			'{payment_gateway_table}' => [ 'درگاه پرداخت', $payment_gateway ],
 			'{transaction_id_table}'  => [ __( 'Transaction ID', 'gravityforms' ), $transaction_id ],
 		];
@@ -183,15 +203,16 @@ class GFPersian_Merge_Tags extends GFPersian_Core {
 				continue;
 			}
 			ob_start(); ?>
-			<tr bgcolor="<?php echo esc_attr( apply_filters( 'gform_email_background_color_label', '#EAF2FA', $tag, $entry ) ); ?>">
-				<td colspan="2" style="padding:5px !important">
-					<font style="font-family: sans-serif; font-size:12px;"><strong><?php echo esc_html( $value[0] ); ?></strong></font>
+			<tr style="background-color: <?php echo esc_attr( apply_filters( 'gform_email_background_color_label', '#EAF2FA', $tag, $entry ) ); ?>;">
+				<td colspan="2" style="padding:5px; font-family:sans-serif; font-size:12px; font-weight:bold;">
+					<?php echo esc_html( $value[0] ); ?>
 				</td>
 			</tr>
-			<tr bgcolor="#FFFFFF">
+
+			<tr style="background-color:#FFFFFF;">
 				<td width="20">&nbsp;</td>
-				<td style="padding:5px !important">
-					<font style="font-family:sans-serif;font-size:12px"><?php echo esc_html( $value[1] ); ?></font>
+				<td style="padding:5px; font-family:sans-serif; font-size:12px;">
+					<?php echo $value[1]; ?>
 				</td>
 			</tr>
 			<?php
@@ -790,7 +811,12 @@ class GFPersian_Merge_Tags extends GFPersian_Core {
 	/*-------------------------------------------------------------*/
 	/*--------End of Pre Submission Merge Tags---------------------*/
 	/*-------------------------------------------------------------*/
+	private function get_jalali_date( string $format, $entry ): string {
+		$date_string = rgar( $entry, 'date_created' );
+		$timestamp   = $date_string ? strtotime( $date_string ) : time();
 
+		return verta( $timestamp )->format( $format );
+	}
 }
 
 new GFPersian_Merge_Tags();

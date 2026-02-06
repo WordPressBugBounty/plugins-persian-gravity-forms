@@ -85,7 +85,7 @@ class GFPersian_Payments extends GFPersian_Core {
 			$urls[] = '<a href="' . $url . '"> ' . $status . ' </a>';
 		}
 
-		$gateway = gform_get_meta( rgar( $entry, 'id' ), 'payment_gateway' );
+		$gateway = $entry['payment_method' ];
 		if ( ! empty( $gateway ) ) {
 			$url    = add_query_arg( [
 				's'        => $gateway,

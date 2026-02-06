@@ -3,7 +3,7 @@
  * Plugin Name: گرویتی فرم فارسی
  * Plugin URI: https://wordpress.org/plugins/persian-gravity-forms
  * Description: بسته کامل فارسی و بومی ساز گرویتی فرم برای ایرانیان - به همراه امکانات جانبی
- * Version: 3.0.0
+ * Version: 3.0.1
  * Author: گرویتی فرم فارسی
  * Author URI: https://profiles.wordpress.org/persianscript
  *
@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 if ( ! defined( 'GF_PERSIAN_VERSION' ) ) {
-	define( 'GF_PERSIAN_VERSION', '3.0.0' );
+	define( 'GF_PERSIAN_VERSION', '3.0.1' );
 }
 
 if ( ! defined( 'GF_PERSIAN_SLUG' ) ) {

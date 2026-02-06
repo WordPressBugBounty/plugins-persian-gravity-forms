@@ -33,14 +33,21 @@ class GFPersian_SMS_Entry {
 	 * Extract phone numbers from entry
 	 *
 	 * @param int $form_id
-	 * @param array $entry
+	 * @param ?array $entry
 	 *
 	 * @return string
 	 */
-	public static function get_phone_numbers( int $form_id, array $entry ): string {
+	public static function get_phone_numbers( int $form_id, ?array $entry ): string {
 
+		if ( empty( $entry ) ) {
+			return '';
+		}
 
 		$clients = self::get_existing_clients( $entry );
+
+		if ( empty( $clients ) ) {
+			return '';
+		}
 
 		$clients = array_unique( $clients );
 		$clients = str_replace( ',,', ',', implode( ',', $clients ) );
@@ -55,11 +62,11 @@ class GFPersian_SMS_Entry {
 	/**
 	 * Extract existing client phones from form meta
 	 *
-	 * @param array $entry
+	 * @param ?array $entry
 	 *
 	 * @return array|null
 	 */
-	private static function get_existing_clients( array $entry ): ?array {
+	private static function get_existing_clients( ?array $entry ): ?array {
 		return gform_get_meta( $entry['id'], 'client_mobile_numbers' ) ? explode( ',', gform_get_meta( $entry['id'], 'client_mobile_numbers' ) ) : null;
 	}
 
@@ -492,10 +499,8 @@ class GFPersian_SMS_Entry {
 		$tags = [
 			'{payment_gateway}'       => 'درگاه / روش پرداخت',
 			'{payment_status}'        => __( "Payment Status", "gravityforms" ),
-			'{transaction_id}'        => __( "Transaction Id", "gravityforms" ),
+			'{transaction_id}'        => 'شناسه تراکنش',
 			'{ip}'                    => __( "IP", "gravityforms" ),
-			'{date_mdy}'              => __( "Date (mm/dd/yyyy)", "gravityforms" ),
-			'{date_dmy}'              => __( "Date (dd/mm/yyyy)", "gravityforms" ),
 			'{embed_post:ID}'         => __( "Embed Post/Page Id", "gravityforms" ),
 			'{embed_post:post_title}' => __( "Embed Post/Page Title", "gravityforms" ),
 			'{embed_url}'             => __( "Embed URL", "gravityforms" ),
@@ -526,11 +531,7 @@ class GFPersian_SMS_Entry {
 		$html = $data['header'];
 
 		foreach ( $data['groups'] as $group ) {
-			$html .= sprintf(
-				'<optgroup label="%s">%s</optgroup>',
-				esc_attr( $group['label'] ),
-				$group['options']
-			);
+			$html .= sprintf( '<optgroup label="%s">%s</optgroup>', esc_attr( $group['label'] ), $group['options'] );
 		}
 
 		return $html;
@@ -540,11 +541,7 @@ class GFPersian_SMS_Entry {
 	 * Safe option tag generator
 	 */
 	private static function get_merge_tag_option( $label, $value ) {
-		return sprintf(
-			'<option value="%s">%s</option>',
-			esc_attr( $value ),
-			esc_html( $label )
-		);
+		return sprintf( '<option value="%s">%s</option>', esc_attr( $value ), esc_html( $label ) );
 	}
 
 	public static function get_fields_options( $field, $max_label_size = 100 ) {

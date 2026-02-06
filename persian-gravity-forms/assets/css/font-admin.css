@@ -47,6 +47,7 @@ div.gf-pagebreak-text-main span,
 .gform-admin .gform-settings-panel__content .form-list-head h2,
 .gcolumn_wrapper .gform_select_column_heading,
 .gcolumn_wrapper .sortable_available .ui-sortable-handle,
-.gform-admin .gform-text.gform-text--color-port.gform-droplist__item-trigger-text{
+.gform-admin .gform-text.gform-text--color-port.gform-droplist__item-trigger-text,
+.gform-dialog__content{
     font-family: GFPersian, Tahoma, serif !important;
 }

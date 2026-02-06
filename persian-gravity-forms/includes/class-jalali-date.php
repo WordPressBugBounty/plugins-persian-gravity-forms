@@ -1,7 +1,5 @@
 <?php
 
-use Hekmatinasser\Verta\Verta;
-
 defined( 'ABSPATH' ) || exit;
 
 class GFPersian_JalaliDate extends GFPersian_Core {
@@ -20,6 +18,9 @@ class GFPersian_JalaliDate extends GFPersian_Core {
 
 		add_filter( 'gform_field_validation', [ $this, 'jalali_validator' ], 999999, 4 );
 		add_filter( 'gform_predefined_choices', [ $this, 'jalali_predefined_choices' ], 1 );
+
+		add_filter( 'gform_date_min_year', [ $this, 'min_year' ], 10, 3 );
+		add_filter( 'gform_date_max_year', [ $this, 'max_year' ], 10, 3 );
 	}
 
 	/**
@@ -148,7 +149,7 @@ class GFPersian_JalaliDate extends GFPersian_Core {
 
 		foreach ( $form['fields'] as $field ) {
 
-			if ( $field['type'] !== 'date' || ! rgar( $field, 'check_jalali', false ) ) {
+			if ( $field['type'] !== 'date' || $field['dateType'] !== 'datepicker' || ! rgar( $field, 'check_jalali', false ) ) {
 				continue;
 			}
 
@@ -178,7 +179,6 @@ class GFPersian_JalaliDate extends GFPersian_Core {
 			wp_add_inline_script( 'gf-persian-datepicker', $inline_script );
 		}
 
-
 	}
 
 	public static function convert_field_date_format( $date_format ): string {
@@ -203,7 +203,6 @@ class GFPersian_JalaliDate extends GFPersian_Core {
 		}
 	}
 
-
 	public static function configure_date_picker( $field, $form ) {
 		global $wp_locale;
 
@@ -212,47 +211,45 @@ class GFPersian_JalaliDate extends GFPersian_Core {
 		$theme = rgar( $field, 'datepicker_theme', 'default' );
 		wp_enqueue_style( 'gf-persian-datepicker-theme-' . $theme, GF_PERSIAN_URL . 'assets/js/datepicker/persian-datepicker-' . $theme . '.css', [ 'gf-persian-datepicker' ], GF_PERSIAN_VERSION );
 
-		return wp_json_encode(
-			[
-				'formatDate'        => $date_format,
-				'months'            => [
-					"فروردین",
-					"اردیبهشت",
-					"خرداد",
-					"تیر",
-					"مرداد",
-					"شهریور",
-					"مهر",
-					"آبان",
-					"آذر",
-					"دی",
-					"بهمن",
-					"اسفند",
-				],
-				'dowTitle'          => [ "شنبه", "یکشنبه", "دوشنبه", "سه شنبه", "چهارشنبه", "پنج شنبه", "جمعه" ],
-				'shortDowTitle'     => [ "ش", "ی", "د", "س", "چ", "پ", "ج" ],
-				'showGregorianDate' => false,
-				'persianNumbers'    => true,
-				'selectedBefore'    => false,
-				'selectedDate'      => null,
-				'startDate'         => null,
-				'endDate'           => null,
-				'prevArrow'         => '◄',
-				'nextArrow'         => '►',
-				'theme'             => $theme,
-				'alwaysShow'        => false,
-				'selectableYears'   => null,
-				'selectableMonths'  => [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 ],
-				'cellWidth'         => 25, // in pixels
-				'cellHeight'        => 20, // in pixels
-				'fontSize'          => 13, // in pixels
-				'isRTL'             => $wp_locale->is_rtl(),
-				'calendarPosition'  => [
-					'x' => 0,
-					'y' => 0,
-				],
-			]
-		);
+		return wp_json_encode( [
+			'formatDate'        => $date_format,
+			'months'            => [
+				'فروردین',
+				'اردیبهشت',
+				'خرداد',
+				'تیر',
+				'مرداد',
+				'شهریور',
+				'مهر',
+				'آبان',
+				'آذر',
+				'دی',
+				'بهمن',
+				'اسفند',
+			],
+			'dowTitle'          => [ 'شنبه', 'یکشنبه', 'دوشنبه', 'سه شنبه', 'چهارشنبه', 'پنج شنبه', 'جمعه' ],
+			'shortDowTitle'     => [ 'ش', 'ی', 'د', 'س', 'چ', 'پ', 'ج' ],
+			'showGregorianDate' => false,
+			'persianNumbers'    => true,
+			'selectedBefore'    => false,
+			'selectedDate'      => null,
+			'startDate'         => null,
+			'endDate'           => null,
+			'prevArrow'         => '◄',
+			'nextArrow'         => '►',
+			'theme'             => $theme,
+			'alwaysShow'        => false,
+			'selectableYears'   => null,
+			'selectableMonths'  => [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 ],
+			'cellWidth'         => 25, // in pixels
+			'cellHeight'        => 20, // in pixels
+			'fontSize'          => 13, // in pixels
+			'isRTL'             => $wp_locale->is_rtl(),
+			'calendarPosition'  => [
+				'x' => 0,
+				'y' => 0,
+			],
+		] );
 
 	}
 
@@ -292,19 +289,19 @@ class GFPersian_JalaliDate extends GFPersian_Core {
 			$value = null;
 		}
 
-		if ( ! empty( $value ) ) {
+		if ( empty( $value ) ) {
+			return $result;
+		}
 
-			$date  = GFCommon::parse_date( $value, $format );
-			$day   = intval( rgar( $date, 'day' ) );
-			$month = intval( rgar( $date, 'month' ) );
-			$year  = intval( rgar( $date, 'year' ) );
+		$date  = GFCommon::parse_date( $value, $format );
+		$day   = intval( rgar( $date, 'day' ) );
+		$month = intval( rgar( $date, 'month' ) );
+		$year  = intval( rgar( $date, 'year' ) );
 
-			$result['is_valid'] = Verta::isValidDate( $year, $month, $day );;
+		$result['is_valid'] = verta()::isValidDate( $year, $month, $day );
 
-			if ( ! $result['is_valid'] && empty( $result['message'] ) ) {
-				$result['message'] = $message;
-			}
-
+		if ( ! $result['is_valid'] && empty( $result['message'] ) ) {
+			$result['message'] = $message;
 		}
 
 		return $result;
@@ -337,6 +334,25 @@ class GFPersian_JalaliDate extends GFPersian_Core {
 		];
 
 		return array_merge( $month, $choices );
+	}
+
+
+	public function min_year( string $default, array $form, GF_Field_Date $field ): string {
+
+		if ( empty( $field->check_jalali ) ) {
+			return $default;
+		}
+
+		return '1300';
+	}
+
+	public function max_year( string $default, array $form, GF_Field_Date $field ): string {
+
+		if ( empty( $field->check_jalali ) ) {
+			return $default;
+		}
+
+		return verta( '+1 year' )->format( 'Y' );
 	}
 
 }

@@ -6,7 +6,7 @@ plugin URI: https://wordpress.org/plugins/persian-gravity-forms/
 Requires at least: 6.5
 Tested up to: 6.8.3
 Requires PHP: 7.4
-Stable tag: 3.0.0
+Stable tag: 3.0.1
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -53,6 +53,11 @@ License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
 
 == Changelog ==
+= 3.0.1 =
+* بهبود تگ‌های مربوط به فرم‌های پرداخت
+* افزودن تگ شناسه پیگیری تراکنش در گیت‌لند
+* حل مشکل فرم‌های چند مرحله‌ای در برخی سایت‌ها
+* شمسی‌سازی و بومی سازی تگ تاریخ در تاییدیه‌ها
 = 3.0.0 =
 * افزودن قابلیت ارسال پیامک در رویدادهای مختلف
 * سازگاری با پی.اچ.پی ۸.۲ و آخرین نسخه وردپرس
@@ -139,7 +144,5 @@ License URI: https://www.gnu.org/licenses/gpl-3.0.html
 * رفع مشکلات
 
 == Upgrade Notice ==
-= 3.0.0 =
-افزونه پیامک گرویتی فرم به هسته فارسی ساز اضافه شده است. پس از بروزرسانی فرآیندهای ثبت و پرداخت فرم‌ها را بررسی کنید
-= 2.8.0 =
-* رفع مشکل ماه های شمسی - بروزرسانی ترجمه
+= 3.0.1 =
+رفع مشکلات گزارش شده و بهبود تاریخ شمسی

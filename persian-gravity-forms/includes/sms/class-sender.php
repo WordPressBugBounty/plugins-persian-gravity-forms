@@ -488,16 +488,14 @@ class GFPersian_SMS_Sender {
 	public static function tags( $text, $form, $entry, $url_encode, $esc_html, $nl2br, $format ) {
 		$placeholders = [ '{payment_gateway}', '{payment_status}', '{transaction_id}' ];
 
-		$entry_id = rgar( $entry, 'id' );
-		$entry    = GFAPI::get_entry( $entry_id );
-		if ( is_wp_error( $entry ) ) {
+		if ( empty( $entry ) ) {
 			return $text;
 		}
 
 		$values = [
-			ucfirst( gform_get_meta( $entry['id'], 'payment_gateway' ) ?? $entry['payment_method'] ?? '' ),
-			ucfirst( $entry['payment_status'] ?? '' ),
-			$entry['transaction_id'] ?? ''
+			$entry['payment_method'],
+			GFPersian_Payments::_payment_status( $entry, true ),
+			rgar( $entry, 'transaction_id' )
 		];
 
 		return str_replace( $placeholders, $values, $text );
