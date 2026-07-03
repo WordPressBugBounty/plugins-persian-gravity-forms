@@ -1,7 +1,7 @@
 <?php
 defined( 'ABSPATH' ) || exit;
 
-class GFPersian_Version extends \Nabik_Net_Version {
+class GFPersian_Version extends \Nabik\Utils\V1\Version {
 
 	protected string $current_version = GF_PERSIAN_VERSION;
 

@@ -1,23 +1,8 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
+defined( 'ABSPATH' ) || exit;
 
-/**
- * Create tables, make relations, helper methods
- */
 class GFPersian_SMS_DB {
-
-	/**
-	 * @var object WordPress Database
-	 */
-	private static object $wpdb;
-
-	/**
-	 * @var string
-	 */
-	private static string $prefix;
 
 	/**
 	 * @var string sms table name
@@ -29,11 +14,10 @@ class GFPersian_SMS_DB {
 	 */
 	public static string $verification_table;
 
-
 	/**
 	 * @var string Gravity Forms table
 	 */
-	private static string $form_table;
+	public static string $form_table;
 
 	public static function init() {
 		global $wpdb;
@@ -43,148 +27,139 @@ class GFPersian_SMS_DB {
 		self::$form_table         = RGFormsModel::get_form_table_name();
 	}
 
-	public static function save_sms_sent( $form_id, $entry_id, $sender, $receiver, $message, $verify_code = '' ) {
+	public static function save_sms_sent( $data ): void {
 		global $wpdb;
 
-		if ( empty( $entry_id ) ) {
-			$entry_id = ! empty( $verify_code ) ? '_' . $verify_code . '_' : '';
+		if ( empty( $data['entry_id'] ) ) {
+			$data['entry_id'] = ! empty( $data['verify_code'] ) ? '_' . $data['verify_code'] . '_' : 0;
 		} else {
-			$entry_id = is_array( $entry_id ) ? implode( ',', $entry_id ) : $entry_id;
+			$data['entry_id'] = is_array( $data['entry_id'] ) ? implode( ',', $data['entry_id'] ) : $data['entry_id'];
 		}
 
-		$form_id = ! empty( $form_id ) ? $form_id : 0;
+		$data['mobile'] = is_array( $data['mobile'] ) ? implode( ',', $data['mobile'] ) : $data['mobile'];
 
-		$receiver = is_array( $receiver ) ? implode( ',', $receiver ) : $receiver;
-
-		$wpdb->insert(
-			self::$sms_table,
-			[
-				'date'     => date( 'Y-m-d H:i:s', current_time( 'timestamp', 0 ) ),
-				'form_id'  => $form_id,
-				'entry_id' => $entry_id,
-				'sender'   => $sender,
-				'reciever' => $receiver, // TODO: Rename the column with rollback support
-				'message'  => $message
-			],
-			[
-				'%s',  // date
-				'%d',  // form_id
-				'%s',  // entry_id
-				'%s',  // sender
-				'%s',  // receiver
-				'%s'   // message
-			]
-		);
+		$wpdb->insert( self::$sms_table, [
+			'date'     => date( 'Y-m-d H:i:s', current_time( 'timestamp', 0 ) ),
+			'form_id'  => $data['form_id'] ?? 0,
+			'entry_id' => $data['entry_id'],
+			'sender'   => $data['sender_number'] ?? 0,
+			'reciever' => $data['mobile'] ?? 0,
+			'message'  => $data['message'] ?? 0,
+		], [
+			'%s',  // date
+			'%d',  // form_id
+			'%s',  // entry_id
+			'%s',  // sender
+			'%s',  // receiver
+			'%s',   // message
+		] );
 
 		if ( $wpdb->last_error ) {
-			error_log( 'Database Error: ' . $wpdb->last_error );
+			error_log( '[PersianGravityForms][DB] Database Error: ' . $wpdb->last_error );
 		}
-	}
-
-	public static function update_entry_verify_sent( $form_id, $entry_id, $verify_code ) {
-		global $wpdb;
-
-		$form_id = ! empty( $form_id ) ? $form_id : 0;
-
-		// Handle entry_id: set to empty string if it's not provided
-		if ( empty( $entry_id ) ) {
-			$entry_id = '';
-		} else {
-			// Convert entry_id to a string if it's an array
-			$entry_id = is_array( $entry_id ) ? implode( ',', $entry_id ) : $entry_id;
-		}
-
-		// Format verify_code
-		$verify_code = '_' . $verify_code . '_';
-
-		$wpdb->update(
-			self::$sms_table,
-			[
-				'entry_id' => $entry_id,
-			],
-			[
-				'form_id'  => $form_id,
-				'entry_id' => $verify_code,
-			],
-			[ '%s' ], // Format for entry_id
-			[ '%d', '%s' ] // Formats for form_id and verify_code
-		);
-	}
-
-	public static function insert_verify( $form_id, $entry_id, $mobile, $code, $status, $try_num, $sent_num ) {
-		global $wpdb;
-
-		$sent_verify_table = self::$verification_table;
-		$entry_id          = ! empty( $entry_id ) ? $entry_id : '';
-		$form_id           = ! empty( $form_id ) ? $form_id : 0;
-
-		$wpdb->insert(
-			$sent_verify_table,
-			[
-				'form_id'  => $form_id,
-				'entry_id' => $entry_id,
-				'mobile'   => $mobile,
-				'code'     => $code,
-				'try_num'  => $try_num,
-				'sent_num' => $sent_num,
-				'status'   => $status
-			],
-			[
-				'%d', // form_id
-				'%d', // entry_id
-				'%s', // mobile
-				'%s', // code
-				'%d', // try_num
-				'%d', // sent_num
-				'%d'  // status
-			]
-		);
-	}
-
-	public static function update_verify( $id, $try_num, $sent_num, $entry_id, $status ) {
-		global $wpdb;
-
-		$entry_id = ! empty( $entry_id ) ? $entry_id : '';
-		$wpdb->update(
-			self::$verification_table,
-			[
-				'entry_id' => $entry_id,
-				'try_num'  => $try_num,
-				'sent_num' => $sent_num,
-				'status'   => $status
-			],
-			[ 'id' => $id ],
-			[
-				'%s', // entry_id
-				'%d', // try_num
-				'%d', // sent_num
-				'%d'  // status
-			],
-			[ '%d' ] // id
-		);
 	}
 
 	/**
-	 * Check if a sms is already sent and stored in the gf_sms_sent
+	 * @param array $data
 	 *
-	 * @param int $entry_id
-	 * @param int $form_id
-	 * @param string $message
-	 *
-	 * @return bool
-	 * */
-	public static function check_sms_sent( int $entry_id, int $form_id, string $receiver = '', string $message = '' ): bool {
+	 * @return false|int
+	 */
+	public static function update_entry_verify_sent( array $data ) {
 		global $wpdb;
 
-		$sql = $wpdb->prepare( "SELECT entry_id FROM " . self::$sms_table . " WHERE entry_id = %d AND form_id = %d AND reciever = %s AND message = %s ", $entry_id, $form_id, $receiver, $message );
+		$data['entry_id'] = is_array( $data['entry_id'] ) ? implode( ',', $data['entry_id'] ) : $data['entry_id'];
 
-		$results = $wpdb->get_results( $sql, ARRAY_A );
+		$data['verify_code'] = '_' . $data['verify_code'] ?? 0 . '_';
 
-		if ( empty( $results ) ) {
+		return $wpdb->update( self::$sms_table, [
+			'entry_id' => $data['entry_id'] ?? 0,
+		], [
+			'form_id'  => $data['form_id'] ?? 0,
+			'entry_id' => $data['verify_code'],
+		], [ '%s' ], [ '%d', '%s' ] );
+	}
+
+	/**
+	 * @param array $data
+	 *
+	 * @return false|int
+	 */
+	public static function insert_verify( array $data ) {
+		global $wpdb;
+
+		$mobile = $data['mobile'] ?? '';
+
+		if ( is_array( $data['mobile'] ) ) {
+			$mobile = implode( ',', $data['mobile'] );
+		}
+
+		return $wpdb->insert( self::$verification_table, [
+			'form_id'  => $data['form_id'] ?? 0,
+			'entry_id' => $data['entry_id'] ?? 0,
+			'mobile'   => $mobile,
+			'code'     => $data['verify_code'] ?? 0,
+			'try_num'  => $data['try_num'] ?? 0,
+			'sent_num' => $data['sent_num'] ?? 0,
+			'status'   => $data['status'] ?? 0,
+		], [
+			'%d', // form_id
+			'%d', // entry_id
+			'%s', // mobile
+			'%s', // code
+			'%d', // try_num
+			'%d', // sent_num
+			'%d',  // status
+		] );
+	}
+
+	/**
+	 * @param array $data
+	 *
+	 * @return false|int
+	 */
+	public static function update_verify( array $data ) {
+		global $wpdb;
+
+		if ( empty( $data['id'] ) ) {
+			error_log( '[PersianGravityForms][DB]: Theres no ID provided to update verify.' );
+
 			return false;
 		}
 
-		return true;
+		return $wpdb->update( self::$verification_table, [
+			'entry_id' => $data['entry_id'] ?? 0,
+			'try_num'  => $data['try_num'] ?? 0,
+			'sent_num' => $data['sent_num'] ?? 0,
+			'status'   => $data['status'] ?? 0,
+		], [
+			'id' => $data['id'],
+		], [
+			'%s', // entry_id
+			'%d', // try_num
+			'%d', // sent_num
+			'%d',  // status
+		], [ '%d' ] // id
+		);
+	}
+
+	public static function check_sms_sent( $data ): bool {
+		global $wpdb;
+
+		$mobile = $data['mobile'] ?? '';
+
+		if ( is_array( $data['mobile'] ) ) {
+			$mobile = implode( ',', $data['mobile'] );
+		}
+
+		$query = $wpdb->prepare( "SELECT entry_id FROM %i WHERE entry_id = %d AND form_id  = %d AND reciever = %s AND message = %s", [
+			self::$sms_table,
+			$data['entry_id'] ?? 0,
+			$data['form_id'] ?? 0,
+			$mobile,
+			$data['message'] ?? '',
+		] );
+
+		return boolval( $wpdb->get_var( $query ) );
 	}
 
 }

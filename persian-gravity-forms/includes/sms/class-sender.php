@@ -1,5 +1,8 @@
 <?php
 
+use PersianGravityForms\Objects\Mobile;
+use PersianGravityForms\Objects\SMS;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
@@ -63,61 +66,36 @@ class GFPersian_SMS_Sender {
 		self::send_sms_form( $entry, $form, $action, 'immediately' );
 	}
 
-
 	/**
-	 * Send verification sms
+	 * @param array $sms_data
+	 *
+	 * @return true
+	 *
+	 * @throws Exception
 	 */
-	public static function send( $receiver, $message, $from = '', $form_id = '', $entry_id = '', $verify_code = '' ) {
-		$receiver = self::change_mobile( $receiver, '' );
-		$from     = ( ! empty( $from ) && $from != '' ) ? $from : self::$settings['from_default'];
-		$result   = GFPersian_SMS_Gateway::action( self::$settings, "send", $from, $receiver, $message );
-		if ( $result == 'OK' ) {
-			GFPersian_SMS_DB::save_sms_sent( $form_id, $entry_id, $from, $receiver, $message, $verify_code );
+	public static function send( array $sms_data ): bool {
+
+		if ( empty( $sms_data['mobile'] ) ) {
+			throw new Exception( 'شماره موبایل خالی/نامعتبر است.' );
 		}
 
-		return $result;
-	}
-
-	public static function change_mobile( string $mobile = '', string $code = '' ): string {
-
-		if ( empty( $mobile ) ) {
-			return '';
+		if ( empty( $sms_data['message'] ) ) {
+			throw new Exception( 'متن پیامک خالی است.' );
 		}
 
-		if ( empty( $code ) ) {
-			$code = self::$settings["code"] ?? '';
+		if ( isset( $sms_data['entry_id'] ) && GFPersian_SMS_DB::check_sms_sent( $sms_data ) ) {
+			throw new Exception( 'پیام قبلا ارسال شده است.' );
 		}
 
-		$mobiles = array_map( 'trim', explode( ',', $mobile ) );
-		$changed = array_map( fn( $m ) => self::change_mobile_separately( $m, $code ), $mobiles );
+		$sms_data['sender_number'] = GFPersian_SMS_Gateway::get_sender_number();
 
-		return implode( ',', array_filter( $changed ) );
-	}
+		$gateway_obj = GFPersian_SMS_Gateway::get_sms_gateway( $sms_data );
 
+		$gateway_obj->send();
 
-	public static function change_mobile_separately( string $mobile = '', string $code = '' ): string {
-		if ( empty( $mobile ) ) {
-			return '';
-		}
+		GFPersian_SMS_DB::save_sms_sent( $sms_data );
 
-		if ( empty( $code ) ) {
-			$code = self::$settings["code"] ?? '';
-		}
-
-		preg_match_all( '/\d+/', $mobile, $matches );
-		$phone = ! empty( $matches[0] ) ? implode( '', $matches[0] ) : '';
-
-		if ( str_contains( $mobile, '+' ) || str_contains( $mobile, '%2B' ) ) {
-			return '+' . $phone;
-		} elseif ( str_starts_with( $phone, '00' ) ) {
-			return '+' . substr( $phone, 2 );
-		} elseif ( str_starts_with( $phone, '0' ) ) {
-			$phone = substr( $phone, 1 );
-		}
-
-		$code = str_starts_with( $code, '+' ) ? $code : '+' . $code;
-
-		return $code . $phone;
+		return true;
 	}
 
 	/**
@@ -138,16 +116,18 @@ class GFPersian_SMS_Sender {
 
 		foreach ( $form['fields'] as $field ) {
 			// Check the phone type
-			if ( $field->type === 'phone' || stripos( $field->label, 'موبایل' ) !== false ) {
-				$field_id = (string) $field->id;
-
-				if ( ! empty( $entry[ $field_id ] ) ) {
-					$mobile = self::change_mobile( sanitize_text_field( $entry[ $field_id ] ) );
-					if ( ! empty( $mobile ) ) {
-						$numbers[] = $mobile;
-					}
-				}
+			if ( $field->type !== 'phone' || stripos( $field->label, 'موبایل' ) === false ) {
+				continue;
 			}
+
+			$field_id = strval( $field->id );
+
+			if ( empty( $entry[ $field_id ] ) ) {
+				continue;
+			}
+
+			$numbers[] = ( new Mobile( sanitize_text_field( $entry[ $field_id ] ) ) )->get_recipients_string();
+
 		}
 
 		$numbers = implode( ',', array_unique( array_filter( $numbers ) ) );
@@ -155,7 +135,6 @@ class GFPersian_SMS_Sender {
 		if ( ! empty( $numbers ) ) {
 			gform_update_meta( $entry['id'], 'client_mobile_numbers', $numbers );
 		}
-
 
 	}
 
@@ -292,9 +271,7 @@ class GFPersian_SMS_Sender {
 		// Basic phone validation
 		$form_is_invalid = ! is_null( $phone ) && ! preg_match( '/^\+?[0-9\s\-]{7,15}$/', $phone );
 
-		$validation_output = $form_is_invalid
-			? sprintf( '<div class="gfield_description gfield_validation_message" id="phone-validation-error" aria-live="assertive">%s</div>', $phone_validation_message )
-			: '';
+		$validation_output = $form_is_invalid ? sprintf( '<div class="gfield_description gfield_validation_message" id="phone-validation-error" aria-live="assertive">%s</div>', $phone_validation_message ) : '';
 
 		$nonce_input = '';
 		if ( GFCommon::form_requires_login( $form ) ) {
@@ -345,11 +322,12 @@ class GFPersian_SMS_Sender {
 			$default_spinner = GFCommon::get_base_url() . '/images/spinner.svg';
 			$spinner_url     = gf_apply_filters( [ 'gform_ajax_spinner_url', $form_id ], $default_spinner, $form );
 			$theme_slug      = GFFormDisplay::get_form_theme_slug( $form );
-			$is_legacy       = $default_spinner !== $spinner_url || in_array( $theme_slug, [ 'gravity-theme', 'legacy' ] );
+			$is_legacy       = $default_spinner !== $spinner_url || in_array( $theme_slug, [
+					'gravity-theme',
+					'legacy',
+				] );
 
-			$resume_form .= '<script>gform.initializeOnLoaded( function() {' .
-			                "gformInitSpinner( {$form_id}, '{$spinner_url}', " . ( $is_legacy ? 'true' : 'false' ) . " );" .
-			                " });</script>";
+			$resume_form .= '<script>gform.initializeOnLoaded( function() {' . "gformInitSpinner( {$form_id}, '{$spinner_url}', " . ( $is_legacy ? 'true' : 'false' ) . " )" . " });</script>";
 		}
 
 		return str_replace( '{save_phone_input}', $resume_form, $text );
@@ -401,13 +379,12 @@ class GFPersian_SMS_Sender {
 		}
 
 		// Running through variable replacement
-		$to             = GFCommon::remove_extra_commas( GFCommon::replace_variables( $sms_to, $form, $lead, false, false, false, 'text', $data ) );
-		$from           = GFCommon::replace_variables( rgar( $notification, 'from' ), $form, $lead, false, false, false, 'text', $data );
+		$mobile         = GFCommon::remove_extra_commas( GFCommon::replace_variables( $sms_to, $form, $lead, false, false, false, 'text', $data ) );
 		$message_format = rgempty( 'message_format', $notification ) ? 'html' : rgar( $notification, 'message_format' );
 
 		$merge_tag_format = $message_format === 'multipart' ? 'html' : $message_format;
 
-		$message = GFCommon::replace_variables( rgar( $notification, 'message' ), $form, $lead, false, false, ! rgar( $notification, 'disableAutoformat' ), $merge_tag_format, $data );
+		$message = GFCommon::replace_variables( rgar( $notification, 'message' ), $form, $lead, false, false, false, 'text', $data );
 
 		if ( apply_filters( 'gform_enable_shortcode_notification_message', true, $form, $lead ) ) {
 			$message = do_shortcode( $message );
@@ -417,7 +394,7 @@ class GFPersian_SMS_Sender {
 		if ( $message_format === 'multipart' ) {
 
 			// Creating alternate text message.
-			$text_message = GFCommon::replace_variables( rgar( $notification, 'message' ), $form, $lead, false, false, ! rgar( $notification, 'disableAutoformat' ), 'text', $data );
+			$text_message = GFCommon::replace_variables( rgar( $notification, 'message' ), $form, $lead, false, false, false, 'text', $data );
 
 			if ( apply_filters( 'gform_enable_shortcode_notification_message', true, $form, $lead ) ) {
 				$text_message = do_shortcode( $text_message );
@@ -433,25 +410,33 @@ class GFPersian_SMS_Sender {
 			];
 		}
 
-		if ( empty( $to ) ) {
-			GFPersian_SMS_Entry::add_note( $lead, sprintf( "ارسال پیامک با خطا مواجه شد. شماره: %s | شماره فرستنده: %s | دلیل: عدم وجود شماره مقصد. | متن پیام: %s.", $to, $from, $message ) );
+		if ( empty( $mobile ) ) {
+			GFPersian_SMS_Entry::add_note( $lead, sprintf( "ارسال پیامک با خطا مواجه شد. شماره: %s | شماره فرستنده: %s | دلیل: عدم وجود شماره مقصد. | متن پیام: %s.", $mobile, GFPersian_SMS_Gateway::get_sender_number(), $message ) );
 
 			return;
 		}
 
-		if ( GFPersian_SMS_DB::check_sms_sent( intval( $lead['id'] ), intval( $form['id'] ), $to, $message ) ) {
-			return;
-		}
+		$mobiles_object = new Mobile( $mobile );
 
-		$result = GFPersian_SMS_Gateway::action( self::$settings, 'send', $from, $to, $message );
+		$data = [
+			'mobile'   => $mobiles_object->get_recipients(),
+			'message'  => $message,
+			'form_id'  => $form['id'],
+			'entry_id' => $lead['id'],
+		];
 
-		if ( $result == 'OK' ) {
-			GFPersian_SMS_DB::save_sms_sent( $form['id'], $lead['id'], $from, $to, $message );
-			GFPersian_SMS_Entry::add_note( $lead, sprintf( "پیامک با موفقیت ارسال شد. شماره: %s | شماره فرستنده: %s | متن پیام: %s .", $to, $from, $message ) );
+		try {
+
+			GFPersian_SMS_Sender::send( $data );
+
+			GFPersian_SMS_Entry::add_note( $lead, sprintf( "پیامک با موفقیت ارسال شد. شماره: %s | متن پیام: %s .", implode( ',', $data['mobile'] ), $data['message'] ) );
 			//echo '<div class="updated fade" style="padding:6px;">' . sprintf( "پیامک با موفقیت ارسال شد. شماره: %s . جزئیات را در یادداشت‌ها مشاهده کنید.", $to ) . '</div>';
-		} else {
-			GFPersian_SMS_Entry::add_note( $lead, sprintf( "ارسال پیامک با خطا مواجه شد. شماره: %s | شماره فرستنده: %s | دلیل: %s | متن پیام: %s.", $to, $from, $result, $message ) );
+
+		} catch ( Exception $e ) {
+
+			GFPersian_SMS_Entry::add_note( $lead, sprintf( "ارسال پیامک با خطا مواجه شد. شماره: %s | دلیل: %s | متن پیام: %s.", implode( ',', $data['mobile'] ), $e->getMessage(), $data['message'] ) );
 			//echo '<div class="error fade" style="padding:6px;">' . sprintf( "ارسال پیامک با خطا مواجه شد. شماره: %s - دلیل: %s . جزئیات را در یادداشت‌ها مشاهده کنید.", $to, $result ) . '</div>';
+
 		}
 	}
 
@@ -495,7 +480,7 @@ class GFPersian_SMS_Sender {
 		$values = [
 			$entry['payment_method'],
 			GFPersian_Payments::_payment_status( $entry, true ),
-			rgar( $entry, 'transaction_id' )
+			rgar( $entry, 'transaction_id' ),
 		];
 
 		return str_replace( $placeholders, $values, $text );

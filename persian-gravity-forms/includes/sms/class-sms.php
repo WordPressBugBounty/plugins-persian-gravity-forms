@@ -1,7 +1,5 @@
 <?php
 
-use Gravity_Forms\Gravity_Forms\Settings\Fields;
-use Gravity_Forms\Gravity_Forms\Settings\Fields\Base;
 use Gravity_Forms\Gravity_Forms\Settings\Settings;
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -78,7 +76,7 @@ class GFPersian_SMS extends GFPersian_Core {
 	 * Get sms notifications from form
 	 *
 	 * @param string $event
-	 * @param array $form
+	 * @param array  $form
 	 *
 	 * @return array
 	 */
@@ -104,8 +102,8 @@ class GFPersian_SMS extends GFPersian_Core {
 	 * Get the list of notification to send
 	 *
 	 * @param string $event
-	 * @param array $form
-	 * @param mixed $lead
+	 * @param array  $form
+	 * @param mixed  $lead
 	 *
 	 * @return array
 	 */
@@ -198,7 +196,7 @@ class GFPersian_SMS extends GFPersian_Core {
 	 * Add SMS notification tab to form settings
 	 *
 	 * @param array $setting_tabs
-	 * @param int $form_id
+	 * @param int   $form_id
 	 *
 	 * @return array
 	 */
@@ -271,7 +269,7 @@ class GFPersian_SMS extends GFPersian_Core {
 				'strings'         => [
 					'pleaseSelectAForm'   => wp_strip_all_tags( __( 'Please select a form.', 'gravityforms' ) ),
 					'errorLoadingPreview' => wp_strip_all_tags( __( 'Failed to load the preview for this form.', 'gravityforms' ) ),
-				]
+				],
 			] );
 
 		}
@@ -368,7 +366,7 @@ class GFPersian_SMS extends GFPersian_Core {
 			"name"       => "gfpersian_sms",
 			"label"      => 'پیامک',
 			"callback"   => [ GFPersian_SMS_Feeds::class, 'show_feeds_table' ],
-			"permission" => 'manage_options'
+			"permission" => 'manage_options',
 		];
 
 		return $submenus;
@@ -416,7 +414,7 @@ class GFPersian_SMS extends GFPersian_Core {
 			'code'     => self::_option( 'sms_country_code', '' ),
 		];
 
-		$options['from_array']   = explode( ',', $options['from'], );
+		$options['from_array']   = explode( ',', $options['from'] );
 		$options['from_default'] = ! empty( $options['from_array'] ) ? $options['from_array'][0] : '';
 
 		return $options;
@@ -471,22 +469,12 @@ class GFPersian_SMS extends GFPersian_Core {
 	 * @return array suitable for GF Options
 	 */
 	public static function create_gateway_choices(): array {
-		$choices       = [];
-		$gateways_list = self::get_gateways_list();
+		$choices = [];
 
-		if ( empty( $gateways_list ) ) {
-			$choices[] = [
-				'label' => 'درگاه پیامکی تعریف نشده.',
-				'value' => 'none'
-			];
-
-			return $choices;
-		}
-
-		foreach ( $gateways_list as $class => $name ) {
+		foreach ( self::get_gateways_list() as $class => $name ) {
 			$choices[] = [
 				'label' => $name,
-				'value' => $class
+				'value' => $class,
 			];
 		}
 
@@ -496,7 +484,7 @@ class GFPersian_SMS extends GFPersian_Core {
 	/**
 	 * Create choices from fields
 	 *
-	 * @param array $form
+	 * @param array  $form
 	 * @param string $type optional field type filtering
 	 *
 	 * @return array
@@ -577,10 +565,10 @@ class GFPersian_SMS extends GFPersian_Core {
 	/**
 	 * Get notification metadata
 	 *
-	 * @param array $notification
-	 * @param array $form
+	 * @param array  $notification
+	 * @param array  $form
 	 * @param string $meta
-	 * @param mixed $default
+	 * @param mixed  $default
 	 *
 	 */
 	public static function get_notification_meta( array $notification, array $form, string $meta, $default = '' ) {
@@ -603,31 +591,6 @@ class GFPersian_SMS extends GFPersian_Core {
 		}
 
 		return $form_notification_meta[ $meta ];
-	}
-
-
-	/**
-	 * Create choices field options from sender number
-	 *
-	 * @param array $form
-	 *
-	 * @return array
-	 */
-	public static function create_from_numbers_choices( array $form ): array {
-		$choices      = [ [ 'value' => '', 'label' => '-- انتخاب شماره فرستنده --', 'disable' => true ] ];
-		$from_numbers = GFPersian_Core::_option( 'sms_from_numbers', '' );
-
-		if ( empty( $from_numbers ) ) {
-			return $choices;
-		}
-
-		$from_numbers = explode( ',', $from_numbers );
-
-		foreach ( $from_numbers as $from ) {
-			$choices[] = [ 'value' => $from, 'label' => $from ];
-		}
-
-		return $choices;
 	}
 
 	/**
@@ -741,14 +704,14 @@ class GFPersian_SMS extends GFPersian_Core {
 		 * Filters the notifications to be re-sent
 		 *
 		 * @param array $form_meta The Form Object
-		 * @param array $leads The entry IDs
+		 * @param array $leads     The entry IDs
 		 *
 		 * @since Unknown
 		 *
 		 */
 		$form = gf_apply_filters( [
 			'gform_before_resend_notifications',
-			$form_id
+			$form_id,
 		], RGFormsModel::get_form_meta( $form_id ), $leads );
 
 		if ( empty( $leads ) || empty( $form ) ) {
@@ -786,10 +749,10 @@ class GFPersian_SMS extends GFPersian_Core {
 				/**
 				 * Allow the resend notification email to be skipped
 				 *
-				 * @param bool $abort_email Should we prevent this email being sent?
+				 * @param bool  $abort_email  Should we prevent this email being sent?
 				 * @param array $notification The current notification object.
-				 * @param array $form The current form object.
-				 * @param array $lead The current entry object.
+				 * @param array $form         The current form object.
+				 * @param array $lead         The current entry object.
 				 *
 				 * @since 2.3
 				 *
@@ -804,8 +767,8 @@ class GFPersian_SMS extends GFPersian_Core {
 				 * Fires after the current notification processing is finished
 				 *
 				 * @param array $notification The current notification object.
-				 * @param array $form The current form object.
-				 * @param array $lead The current entry object.
+				 * @param array $form         The current form object.
+				 * @param array $lead         The current entry object.
 				 *
 				 * @since 2.3
 				 *

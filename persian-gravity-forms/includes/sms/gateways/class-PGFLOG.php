@@ -1,43 +1,48 @@
 <?php
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
 
-/*
- * Class Name : GFPersian_SMS_{file-postfix}
- */
+defined( 'ABSPATH' ) || exit;
 
 class GFPersian_SMS_PGFLOG extends GFPersian_SMS_Gateway {
 
-	/*
-	* Gateway title
-	*/
+	public static function id(): string {
+		return 'logger';
+	}
+
 	public static function name(): string {
-		return 'PGF.LOG';
+		return 'pgf.log - مخصوص وبمستران و توسعه دهندگان';
 	}
 
-	public static function process( $options, $action, $from, $to, $message ) :string{
-		self::logVariables( $options, $action, $from, $to, $message );
+	public function send(): bool {
 
-		return 'OK';
+		$this->log_variables( [
+			'username'      => $this->username,
+			'password'      => $this->password,
+			'sender_number' => $this->sender_number,
+			'mobile'        => $this->mobiles,
+			'message'       => $this->message,
+		] );
+
+		return true;
 	}
 
+	public function log_variables( $args ) {
 
-	public static function logVariables( ...$args ) {
-		foreach ( $args as $index => $arg ) {
-			self::log( PHP_EOL . "Arg $index: " . print_r( $arg, true ) );
+		self::log( PHP_EOL . '######## ' . date( 'Y-m-d H:i:s' ) );
+
+		foreach ( $args as $key => $value ) {
+			self::log( "$key: " . print_r( $value, true ) );
 		}
 
-		self::log( '######################################################' );
 	}
 
-	public static function log( $message ) {
-		if ( is_array( $message ) || is_object( $message ) ) {
-			$message = print_r( $message, true );
+	public function log( $message ) {
+		$log_file =  wp_upload_dir()['basedir'] . '/gravity_forms/logs/pgf.log';
+
+		if ( ! file_exists($log_file) ) { 
+			wp_mkdir_p( dirname( $log_file ) );
+			touch( $log_file );
 		}
 
-		error_log( date( 'Y-m-d H:i:s' ) . ' - ' . $message . PHP_EOL, 3, WP_CONTENT_DIR . '/debug.log' );
+		error_log( $message . PHP_EOL, 3, $log_file);
 	}
-
-
 }

@@ -4,9 +4,9 @@ Tags: گرویتی فرم,گراویتی فرم,gravityforms,گراویتی فر
 author URI: https://profiles.wordpress.org/persianscript/
 plugin URI: https://wordpress.org/plugins/persian-gravity-forms/
 Requires at least: 6.5
-Tested up to: 6.8.3
+Tested up to: 7.0
 Requires PHP: 7.4
-Stable tag: 3.0.1
+Stable tag: 3.0.3
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -30,6 +30,7 @@ License URI: https://www.gnu.org/licenses/gpl-3.0.html
 * پیش نیاز و هسته مرکزی درگاه‌های پرداخت
 * واحد پولی ریال و تومان
 * ابزارهای بکار رفته کاربردی
+* ارسال پیامک
 * امکانات فراوان دیگر
 
 = Compatibility =
@@ -53,6 +54,16 @@ License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
 
 == Changelog ==
+= 3.0.3 =
+* افزودن توضیحات شماره تلفن در بخش ارسال پیامک
+* حذف تگ های html از متن پیامک
+* حل مشکل ثبت فرم در فیلد تایید شماره تلفن
+= 3.0.2 =
+* بروزرسانی درگاه ملی پیامک
+* افزودن درگاه پیامک پنلچی
+* بروزرسانی تنظیمات درگاه پیامکی
+* حذف شماره ارسال کننده از فرم‌ها
+* بازنویسی فیلد تایید شماره تلفن همراه
 = 3.0.1 =
 * بهبود تگ‌های مربوط به فرم‌های پرداخت
 * افزودن تگ شناسه پیگیری تراکنش در گیت‌لند
@@ -144,5 +155,7 @@ License URI: https://www.gnu.org/licenses/gpl-3.0.html
 * رفع مشکلات
 
 == Upgrade Notice ==
-= 3.0.1 =
-رفع مشکلات گزارش شده و بهبود تاریخ شمسی
+= 3.0.0 =
+افزونه پیامک گرویتی فرم به هسته فارسی ساز اضافه شده است. پس از بروزرسانی فرآیندهای ثبت و پرداخت فرم‌ها را بررسی کنید
+= 2.8.0 =
+* رفع مشکل ماه های شمسی - بروزرسانی ترجمه

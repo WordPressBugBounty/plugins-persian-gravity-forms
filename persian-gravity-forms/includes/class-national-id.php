@@ -271,6 +271,7 @@ class GFPersian_National_ID extends GFPersian_Core {
 
 		$flag_js = $flag_fn = false;
 		$fields  = GFCommon::get_fields_by_type( $form, [ 'ir_national_id' ] );
+		$min = wp_scripts_get_suffix();
 
 		foreach ( (array) $fields as $field ) {
 
@@ -285,7 +286,7 @@ class GFPersian_National_ID extends GFPersian_Core {
 				wp_dequeue_script( 'gform_ir_national_id' );
 				wp_deregister_script( 'gform_ir_national_id' );
 
-				wp_register_script( 'gform_ir_national_id', GF_PERSIAN_URL . 'assets/js/national_id' . GFPersian_Core::minified() . '.js', [], GF_PERSIAN_VERSION, false );
+				wp_register_script( 'gform_ir_national_id', GF_PERSIAN_URL . 'assets/js/national_id' . $min . '.js', [], GF_PERSIAN_VERSION, false );
 				wp_enqueue_script( 'gform_ir_national_id' );
 			}
 			?>

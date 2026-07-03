@@ -1,5 +1,7 @@
 <?php
 
+use PersianGravityForms\Objects\Mobile;
+
 defined( 'ABSPATH' ) || exit;
 
 /**
@@ -313,10 +315,10 @@ class GFPersian_SMS_WPSMS {
 						<div class="field_wp_sms_<?php echo esc_attr( $key ) ?>">
 							<br/>
 							<label for="field_wp_sms_<?php echo esc_attr( $key ) ?>">
-								<?php echo esc_html($value) ?>
+								<?php echo esc_html( $value ) ?>
 								<?php gform_tooltip( 'field_wp_sms_' . $key ) ?>
 							</label>
-							<select id="field_wp_sms_<?php echo esc_attr($key) ?>"
+							<select id="field_wp_sms_<?php echo esc_attr( $key ) ?>"
 							        onchange="SetFieldProperty('field_wp_sms_<?php echo esc_attr( $key ) ?>', this.value);"></select>
 						</div>
 					<?php } ?>
@@ -410,7 +412,7 @@ class GFPersian_SMS_WPSMS {
 						<?php
 						$get_group_result = $wpdb->get_results( "SELECT * FROM {$table_prefix}sms_subscribes_group" );
 						foreach ( (array) $get_group_result as $items ) { ?>
-							<option value="<?php echo esc_attr($items->ID) ?>"><?php echo esc_html($items->name) ?></option>
+							<option value="<?php echo esc_attr( $items->ID ) ?>"><?php echo esc_html( $items->name ) ?></option>
 						<?php } ?>
 					</select>
 				</div>
@@ -518,7 +520,7 @@ class GFPersian_SMS_WPSMS {
 						if ( $field_val->enableEnhancedUI && in_array( $input_type, [
 								'select',
 								'multiselect',
-								'sms_subscribtion'
+								'sms_subscribtion',
 							] ) ) {
 							$chosen_fields[] = "#input_{$form['id']}_{$field_val->id}";
 						}
@@ -744,7 +746,7 @@ class GFPersian_SMS_WPSMS {
 				$mobile = str_replace( '.', '_', $mobile );
 				$mobile = "input_{$mobile}";
 				$mobile = ! rgempty( $mobile ) ? sanitize_text_field( rgpost( $mobile ) ) : '';
-				$mobile = GFPersian_SMS_Sender::change_mobile_separately( $mobile, self::country_code( $field ) );
+				$mobile = Mobile::format( $mobile, self::country_code( $field ) );
 
 				$mobile_exist = $wpdb->query( $wpdb->prepare( "SELECT * FROM {$table_prefix}sms_subscribes WHERE mobile = %s", $mobile ) );
 
@@ -789,7 +791,7 @@ class GFPersian_SMS_WPSMS {
 			$mobile = str_replace( '.', '_', $mobile );
 			$mobile = "input_{$mobile}";
 			$mobile = ! rgempty( $mobile ) ? sanitize_text_field( rgpost( $mobile ) ) : '';
-			$mobile = GFPersian_SMS_Sender::change_mobile_separately( $mobile, self::country_code( $field ) );
+			$mobile = Mobile::format( $mobile, self::country_code( $field ) );
 
 			if ( rgar( $field, 'wp_sms_group_select' ) == 'force' ) {
 				$groups = rgar( $field, 'wp_sms_group_forced' );
@@ -827,7 +829,19 @@ class GFPersian_SMS_WPSMS {
 					//$template_vars = array( 'subscribe_name' => $name, 'subscribe_mobile' => $mobile );
 					$final_message = preg_replace( '/%(.*?)%/ime', "\$template_vars['$1']", $string );
 
-					GFPersian_SMS_Sender::Send( $mobile, $final_message, $from = '', $form['id'], '', '' );
+					$mobiles_object = new Mobile( $mobile, self::country_code( $field ) );
+
+					$data = [
+						'mobile'  => $mobiles_object->get_recipients(),
+						'message' => $final_message,
+						'form_id' => $form['id'],
+					];
+
+					try {
+						GFPersian_SMS_Sender::send( $data );
+					} catch ( Exception $e ) {
+						RGFormsModel::add_note( $entry["id"], 0, 'پیامک گرویتی - پیامک وردپرس', 'خطا: ' . $e->getMessage() );
+					}
 
 				}
 			}
@@ -859,25 +873,23 @@ class GFPersian_SMS_WPSMS {
 
 				foreach ( (array) $groups as $group ) {
 
-					$insert = $wpdb->insert( "{$table_prefix}sms_subscribes",
-						[
-							'date'     => date( 'Y-m-d H:i:s', current_time( 'timestamp', 0 ) ),
-							'name'     => $name,
-							'mobile'   => $mobile,
-							'status'   => '1',
-							'group_ID' => $group
-						]
-					);
+					$insert = $wpdb->insert( "{$table_prefix}sms_subscribes", [
+						'date'     => date( 'Y-m-d H:i:s', current_time( 'timestamp', 0 ) ),
+						'name'     => $name,
+						'mobile'   => $mobile,
+						'status'   => '1',
+						'group_ID' => $group,
+					] );
 
 					if ( $insert ) {
 						return [
 							'status'  => 'success-1',
-							'message' => 'عضویت در خبرنامه پیامکی با موفقیت انجام شد.'
+							'message' => 'عضویت در خبرنامه پیامکی با موفقیت انجام شد.',
 						];
 					} else {
 						return [
 							'status'  => 'failed-1',
-							'message' => 'عضویت در خبرنامه پیامکی ناموفق بود.'
+							'message' => 'عضویت در خبرنامه پیامکی ناموفق بود.',
 						];
 					}
 				}
@@ -895,19 +907,19 @@ class GFPersian_SMS_WPSMS {
 					if ( ! empty( $delete ) ) {
 						return [
 							'status'  => 'success-2',
-							'message' => 'لغو عضویت در خبرنامه پیامکی با موفقیت انجام شد.'
+							'message' => 'لغو عضویت در خبرنامه پیامکی با موفقیت انجام شد.',
 						];
 					} else {
 						return [
 							'status'  => 'failed-2',
-							'message' => 'لغو عضویت در خبرنامه پیامکی ناموفق بود.'
+							'message' => 'لغو عضویت در خبرنامه پیامکی ناموفق بود.',
 						];
 					}
 
 				} else {
 					return [
 						'status'  => 'not-sub',
-						'message' => 'شماره وارد شده به خبرنامه پیامکی عضو نشده بود و لغو عضویت انجام نشد.'
+						'message' => 'شماره وارد شده به خبرنامه پیامکی عضو نشده بود و لغو عضویت انجام نشد.',
 					];
 				}
 			}
@@ -915,7 +927,7 @@ class GFPersian_SMS_WPSMS {
 		} else {
 			return [
 				'status'  => 'repeat',
-				'message' => 'شماره موبایل وارد شده قبلاً در خبرنامه استفاده شده است.'
+				'message' => 'شماره موبایل وارد شده قبلاً در خبرنامه استفاده شده است.',
 			];
 		}
 

@@ -53,9 +53,6 @@ class GFPersian_Merge_Tags extends GFPersian_Core {
 
 	}
 
-	/*-------------------------------------------------------------*/
-	/*--------Start of Persian Gravity Merge Tags------------------*/
-	/*-------------------------------------------------------------*/
 	/**
 	 * Get tags to be merged
 	 *
@@ -173,14 +170,17 @@ class GFPersian_Merge_Tags extends GFPersian_Core {
 	 */
 	public function merge_tags_values( string $text, $form, $entry, bool $url_encode, bool $esc_html, bool $nl2br, string $format ): string {
 
-		$entry    = is_numeric( $entry ) ? GFAPI::get_entry( (int) $entry ) : $entry;
+		if ( false === $entry ) {
+			return $text;
+		}
+
 		$entry_id = rgar( $entry, 'id' );
 
 		$transaction_id       = rgar( $entry, 'transaction_id' );
 		$gateway_trans_id     = gform_get_meta( $entry_id, 'gateway_trans_id' );
 		$payment_status_table = GFPersian_Payments::_payment_status( $entry );
 		$payment_status       = GFPersian_Payments::_payment_status( $entry, true );
-		$payment_gateway      = $entry['payment_method'];
+		$payment_gateway      = rgar( $entry, 'payment_method' );
 
 		$merge_tags = [
 			'{transaction_id}'   => $transaction_id,
@@ -202,6 +202,7 @@ class GFPersian_Merge_Tags extends GFPersian_Core {
 				$merge_tags[ $tag ] = '';
 				continue;
 			}
+
 			ob_start(); ?>
 			<tr style="background-color: <?php echo esc_attr( apply_filters( 'gform_email_background_color_label', '#EAF2FA', $tag, $entry ) ); ?>;">
 				<td colspan="2" style="padding:5px; font-family:sans-serif; font-size:12px; font-weight:bold;">
@@ -217,7 +218,9 @@ class GFPersian_Merge_Tags extends GFPersian_Core {
 			</tr>
 			<?php
 			$merge_tags[ $tag ] = ob_get_clean();
+
 		}
+
 		$merge_tags['{payment_table}'] = $merge_tags['{payment_status_table}'] . $merge_tags['{payment_gateway_table}'] . $merge_tags['{transaction_id_table}'];
 
 		foreach ( $merge_tags as $key => $value ) {
@@ -242,14 +245,6 @@ class GFPersian_Merge_Tags extends GFPersian_Core {
 		return str_replace( array_keys( $merge_tags ), array_values( $merge_tags ), $text );
 	}
 
-	/*-------------------------------------------------------------*/
-	/*--------End of Persian Gravity Merge Tags--------------------*/
-	/*-------------------------------------------------------------*/
-
-
-	/*-------------------------------------------------------------*/
-	/*--------Start of Subtotal Merge Tags-------------------------*/
-	/*-------------------------------------------------------------*/
 	public function maybe_replace_subtotal_merge_tag( $form, $filter_tags = true ) {
 
 		foreach ( $form['fields'] as $key => $field ) {
@@ -430,14 +425,7 @@ class GFPersian_Merge_Tags extends GFPersian_Core {
 
 		return false;
 	}
-	/*-------------------------------------------------------------*/
-	/*--------End of Subtotal Merge Tags---------------------------*/
-	/*-------------------------------------------------------------*/
 
-
-	/*-------------------------------------------------------------*/
-	/*--------Start of Post Content Merge Tags---------------------*/
-	/*-------------------------------------------------------------*/
 	/**
 	 * Inject form entries to post content
 	 *
@@ -639,14 +627,7 @@ class GFPersian_Merge_Tags extends GFPersian_Core {
 
 		return $confirmation;
 	}
-	/*-------------------------------------------------------------*/
-	/*--------End of Post Content Merge Tags-----------------------*/
-	/*-------------------------------------------------------------*/
 
-
-	/*-------------------------------------------------------------*/
-	/*--------Start of Pre Submission Merge Tags-------------------*/
-	/*-------------------------------------------------------------*/
 	public function merge_tags_pre_submission( $form ) {
 
 		if ( function_exists( 'is_checkout' ) && is_checkout() ) {
@@ -808,9 +789,7 @@ class GFPersian_Merge_Tags extends GFPersian_Core {
 
 		return self::$_virtual_entry;
 	}
-	/*-------------------------------------------------------------*/
-	/*--------End of Pre Submission Merge Tags---------------------*/
-	/*-------------------------------------------------------------*/
+
 	private function get_jalali_date( string $format, $entry ): string {
 		$date_string = rgar( $entry, 'date_created' );
 		$timestamp   = $date_string ? strtotime( $date_string ) : time();

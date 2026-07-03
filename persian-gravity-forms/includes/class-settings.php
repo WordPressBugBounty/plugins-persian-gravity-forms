@@ -141,7 +141,7 @@ class GFPersian_Settings extends GFAddOn {
 						],
 					],
 
-				]
+				],
 			],
 			[
 				'title'       => 'پیامک حرفه ای',
@@ -157,7 +157,7 @@ class GFPersian_Settings extends GFAddOn {
 					],
 					[
 						'name'          => 'sms_username',
-						'label'         => 'نام کاربری وبسرویس',
+						'label'         => 'نام کاربری/توکن وبسرویس',
 						'tooltip'       => 'پس از ثبت نام در وبسرویس با توجه به مستندات، در اختیار شما قرار خواهد گرفت.',
 						'type'          => 'text',
 						'default_value' => '',
@@ -172,7 +172,6 @@ class GFPersian_Settings extends GFAddOn {
 					[
 						'name'          => 'sms_from_numbers',
 						'label'         => 'شماره ارسال کننده پیامک',
-						'tooltip'       => 'ابتدا ارسال پنل پیامک را بررسی کرده و پس از تست شماره های ارسال کننده یکی را در این ورودی ثبت کنید. بدون فاصله ثبت کرده و با , جدا کنید.',
 						'type'          => 'text',
 						'default_value' => '',
 					],
@@ -183,7 +182,7 @@ class GFPersian_Settings extends GFAddOn {
 						'type'          => 'text',
 						'default_value' => '',
 					],
-				]
+				],
 			],
 			[
 				'title'  => 'کد رهگیری',
@@ -215,8 +214,8 @@ class GFPersian_Settings extends GFAddOn {
 						'default_value' => '9999999999',
 						'style'         => 'text-align:left; direction:ltr;',
 						'after_input'   => $this->mask_instructions(),
-					]
-				]
+					],
+				],
 			],
 			[
 				'title'       => 'برچسب های ادغام (شورتکد)',
@@ -269,7 +268,7 @@ class GFPersian_Settings extends GFAddOn {
 							[ 'label' => 'خیر', 'value' => '0' ],
 						],
 					],
-				]
+				],
 			],
 			[
 				'title'  => 'تنظیمات سایر ویژگی ها',
@@ -357,12 +356,12 @@ class GFPersian_Settings extends GFAddOn {
 							[ 'label' => 'همواره فعال باشد', 'value' => '0' ],
 							[
 								'label' => 'فقط زمانی که تمام مراحل طی شدند و به مرحله آخر رسید فعال شود',
-								'value' => '1'
+								'value' => '1',
 							],
 						],
 					],
-				]
-			]
+				],
+			],
 		];
 	}
 
@@ -408,7 +407,7 @@ class GFPersian_Settings extends GFAddOn {
 						<span class="label"><?php esc_html_e( 'Mask', 'gravityforms' ) ?></span>
 						<code>999-99-9999</code><br/>
 						<span
-							class="label">نمونه خروجی</span>
+								class="label">نمونه خروجی</span>
 						<code>987-65-4329</code>
 					</li>
 					<li>
@@ -416,7 +415,7 @@ class GFPersian_Settings extends GFAddOn {
 						<span class="label"><?php esc_html_e( 'Mask', 'gravityforms' ) ?></span>
 						<code>aaa 999</code><br/>
 						<span
-							class="label">نمونه خروجی</span>
+								class="label">نمونه خروجی</span>
 						<code>BIO 101</code>
 					</li>
 					<li>
@@ -424,7 +423,7 @@ class GFPersian_Settings extends GFAddOn {
 						<span class="label"><?php esc_html_e( 'Mask', 'gravityforms' ) ?></span>
 						<code>***-***-***</code><br/>
 						<span
-							class="label">نمونه خروجی</span>
+								class="label">نمونه خروجی</span>
 						<code>a9a-f0c-28Q</code>
 					</li>
 				</ul>

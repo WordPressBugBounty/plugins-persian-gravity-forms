@@ -2,135 +2,135 @@
 
 abstract class GFPersian_SMS_Gateway {
 
+	public string $gateway;
+	public ?string $username = null;
+	public ?string $password = null;
+	public ?string $sender_number = null;
+	public ?string $country_code;
+	public array $mobiles = [];
+	public string $message = '';
+	public array $failed_numbers = [];
+
 	/**
-	 * Return class name to show as label
-	 *
-	 * @return string
+	 * @throws Exception
 	 */
+	public function __construct( $data ) {
+
+		$this->username = $this->get_username();
+		$this->password = $this->get_password();
+
+		if ( empty( $this->username ) ) {
+			throw new Exception( 'لطفاً مشخصات وبسرویس پیامک را از پیشخوان مدیریت > فرم ها > پیکربندی > گرویتی فرم فارسی، وارد نمایید.' );
+		}
+
+		$this->sender_number = $data['sender_number'] ?? '';
+		$this->country_code  = $data['country_code'] ?? '';
+		$this->mobiles       = $data['mobile'] ?? '';
+		$this->message       = wp_strip_all_tags( $data['message'] ?? '' );
+	}
+
+	/**
+	 * @return mixed
+	 *
+	 * @throws Exception
+	 */
+	abstract public function send(): bool;
+
 	abstract public static function name(): string;
 
-	/**
-	 * Process given action
-	 *
-	 * @param array $options
-	 * @param string $action
-	 * @param string $from
-	 * @param string $to
-	 * @param string $message
-	 *
-	 * @return string
-	 */
-	abstract public static function process( array $options, string $action, string $from, string $to, string $message ): string;
-
+	public static function id(): string {
+		return get_called_class();
+	}
 
 	/**
-	 * Create standard phone numbers with 0 prefix as default
-	 *
-	 * @param string $numbers String of numbers separated with ,
-	 * @param string $prefix Default prefix
-	 *
-	 * @return array List of phone numbers starting with $prefix
+	 * @throws Exception
 	 */
-	public static function normalize_numbers( string $numbers, string $prefix = '0' ): array {
-		$result = [];
+	public function format_failed_numbers(): bool {
 
-		if ( empty( $numbers ) ) {
-			return $result;
+		if ( empty( $this->failed_numbers ) ) {
+			return true;
 		}
 
-		if ( str_contains( $numbers, ',' ) ) {
-			$numbers = explode( ',', $numbers );
-		} else {
-			$numbers = [ $numbers ];
+		$grouped = [];
+
+		foreach ( $this->failed_numbers as $number => $message ) {
+
+			if ( isset( $grouped[ $message ] ) ) {
+				$grouped[ $message ] = $number . ', ' . $grouped[ $message ];
+			} else {
+				$grouped[ $message ] = $number . ': ' . $message;
+			}
+
 		}
 
-		foreach ( $numbers as $number ) {
+		throw new Exception( implode( ' | ', array_values( $grouped ) ) );
+	}
 
-			$number   = trim( $number );
-			$number   = preg_replace( '/^(%2B98|%2b98|\+98|0098|98|098)/', '', $number );
-			$result[] = $prefix . ltrim( $number, '0' );
+	public function is_pattern(): bool {
+		return str_starts_with( $this->message, 'pattern:' ) || str_starts_with( $this->message, 'pcode:' ) || str_starts_with( $this->message, 'patterncode:' );
+	}
+
+	public function parse_pattern(): array {
+
+		$result = [
+			'code' => '',
+			'vars' => [],
+		];
+
+		$message = str_replace( [ "\r\n", "\n", "\\r\\n", "\\n" ], '~', $this->message );
+		$parts   = explode( '~', $message );
+
+		foreach ( $parts as $part ) {
+
+			[ $key, $value ] = explode( ':', $part, 2 );
+
+			$key   = trim( $key, "}{% \n\r\t\v\x00" );
+			$value = trim( $value );
+
+			if ( in_array( $key, [ 'pattern', 'pcode', 'patterncode' ] ) ) {
+				$result['code'] = $value;
+			} elseif ( strlen( $key ) ) {
+				$result['vars'][ $key ] = $value;
+			}
 
 		}
 
 		return $result;
 	}
 
+	public static function get_sms_gateway( $data ): self {
 
-	/**
-	 * Get current SMS gateway
-	 *
-	 * @return string
-	 */
-	public static function get_current_gateway(): string {
-		$current_gateway = GFPersian_Core::_option( 'sms_gateway', 'none' );
+		$active_gateway = GFPersian_SMS::_option( 'sms_gateway' );
 
-		if ( empty( $current_gateway ) ) {
-			return '';
+		if ( ! $active_gateway || ! class_exists( $active_gateway ) || ! is_subclass_of( $active_gateway, self::class ) ) {
+			$active_gateway = GFPersian_SMS_PGFLOG::class;
 		}
 
-		return $current_gateway;
+		return new $active_gateway( $data );
 	}
 
 	public static function get_sender_number(): string {
-		$sender_number = GFPersian_Core::_option( 'sms_from_numbers', '' );
-
-		if ( empty( $sender_number ) ) {
-			return '';
-		}
-
-		return $sender_number;
+		return GFPersian_SMS::_option( 'sms_from_numbers', '' );
 	}
 
 	protected function get_username(): string {
-		$username = GFPersian_Core::_option( 'sms_username', '' );
-
-		if ( empty( $username ) ) {
-			return '';
-		}
-
-		return $username;
+		return GFPersian_Core::_option( 'sms_username', '' );
 	}
 
 	protected function get_password(): string {
-		$password = GFPersian_Core::_option( 'sms_password', '' );
+		return GFPersian_Core::_option( 'sms_password', '' );
+	}
 
-		if ( empty( $password ) ) {
+	public function get_token(): string {
+		$username = trim( $this->username );
+		$password = trim( $this->password );
+		if ( empty( $username ) && empty( $password ) ) {
 			return '';
+		}
+		if ( ! empty( $username ) ) {
+			return $username;
 		}
 
 		return $password;
 	}
-
-
-	public static function action( array $settings, string $action, string $from, string $to, string $message ) {
-
-		$current_gateway = $settings['ws'];
-
-		if ( empty( $current_gateway ) ) {
-			return 'درگاه پیامکی یافت نشد.';
-		}
-
-
-		$message = str_replace( [ "<br>", "<br/>", "<br />", '&nbsp;' ], [
-			"\n",
-			"\n",
-			"\n",
-			''
-		], $message );
-		$message = strip_tags( $message );
-
-
-		if ( class_exists( $current_gateway ) ) {
-
-			/**
-			 * @var self $current_gateway
-			 */
-			return $current_gateway::process( $settings, $action, $from, $to, $message );
-		}
-
-		return 'درگاه پیامکی یافت نشد.';
-
-	}
-
-
 }

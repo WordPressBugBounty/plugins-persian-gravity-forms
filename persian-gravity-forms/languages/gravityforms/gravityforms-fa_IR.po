@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: Gravity Forms 2.8.15\n"
 "Report-Msgid-Bugs-To: https://gravityforms.com/support\n"
 "POT-Creation-Date: 2024-12-12T17:02:53+00:00\n"
-"PO-Revision-Date: 2025-09-07 11:16+0330\n"
+"PO-Revision-Date: 2026-06-03 13:18+0330\n"
 "Last-Translator: \n"
 "Language-Team: Gravity Forms <support@gravityforms.com>\n"
 "Language: fa_IR\n"
@@ -13,13 +13,13 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n==0 || n==1);\n"
-"X-Generator: Poedit 3.6\n"
+"X-Generator: Poedit 3.8\n"
 "X-Domain: gravityforms\n"
 
 #. Plugin Name of the plugin
 #. Author of the plugin
-#: gravityforms.php:1578 gravityforms.php:1639 gravityforms.php:2790 includes/blocks/config/class-gf-blocks-config.php:127
-#: includes/system-status/class-gf-system-report.php:364 includes/system-status/class-gf-update.php:207
+#: gravityforms.php:1578 gravityforms.php:1639 gravityforms.php:2790 includes/blocks/config/class-gf-blocks-config.php:127 includes/system-status/class-gf-system-report.php:364
+#: includes/system-status/class-gf-update.php:207
 msgid "Gravity Forms"
 msgstr "گرویتی فرم"
 
@@ -48,8 +48,8 @@ msgstr "همه فیلد های قیمت گذاری"
 msgid "User IP Address"
 msgstr "آدرس آی‌پی کاربر"
 
-#: common.php:796 common.php:800 entry_detail.php:1157 form_detail.php:865 form_detail.php:1938 form_detail.php:3067 form_detail.php:3068
-#: includes/addon/class-gf-payment-addon.php:3165 includes/fields/class-gf-field-date.php:13 js.php:892 js.php:1630
+#: common.php:796 common.php:800 entry_detail.php:1157 form_detail.php:865 form_detail.php:1938 form_detail.php:3067 form_detail.php:3068 includes/addon/class-gf-payment-addon.php:3165
+#: includes/fields/class-gf-field-date.php:13 js.php:892 js.php:1630
 msgid "Date"
 msgstr "تاریخ"
 
@@ -153,8 +153,7 @@ msgstr "تصویر بند انگشتی - وسط"
 msgid "Thumbnail - Right Aligned"
 msgstr "تصویر بند انگشتی - راست چین"
 
-#: common.php:956 form_detail.php:918 form_detail.php:1629 form_display.php:3771 includes/blocks/config/class-gf-blocks-config.php:139
-#: includes/fields/class-gf-field.php:2723
+#: common.php:956 form_detail.php:918 form_detail.php:1629 form_display.php:3771 includes/blocks/config/class-gf-blocks-config.php:139 includes/fields/class-gf-field.php:2723
 msgid "Medium"
 msgstr "متوسط"
 
@@ -399,8 +398,7 @@ msgstr "غیرفعال شده"
 msgid "Configure"
 msgstr "پیکربندی"
 
-#: common.php:5482 export.php:817 includes/addon/class-gf-payment-addon.php:2683 includes/addon/class-gf-payment-addon.php:2685 tooltips.php:104 tooltips.php:122
-#: tooltips.php:145
+#: common.php:5482 export.php:817 includes/addon/class-gf-payment-addon.php:2683 includes/addon/class-gf-payment-addon.php:2685 tooltips.php:104 tooltips.php:122 tooltips.php:145
 msgid "Conditional Logic"
 msgstr "منطق شرطی"
 
@@ -410,14 +408,14 @@ msgstr "منطق شرطی به شما امکان می‌دهد تا بر اسا�
 
 #: common.php:5488
 msgid ""
-"Adding conditional logic to the form submit button could cause usability problems for some users and negatively impact the accessibility of your form. Learn more about "
-"button conditional logic in our %1$sdocumentation%2$s."
+"Adding conditional logic to the form submit button could cause usability problems for some users and negatively impact the accessibility of your form. Learn more about button "
+"conditional logic in our %1$sdocumentation%2$s."
 msgstr ""
-"اضافه کردن منطق مشروط به دکمه ارسال فرم می تواند مشکلات قابلیت استفاده برای برخی از کاربران و تاثیر منفی دسترسی به فرم خود را ایجاد کند. اطلاعات بیشتر در مورد منطق مشروط "
-"دکمه در %1$sمستندات%2$s."
+"اضافه کردن منطق مشروط به دکمه ارسال فرم می تواند مشکلات قابلیت استفاده برای برخی از کاربران و تاثیر منفی دسترسی به فرم خود را ایجاد کند. اطلاعات بیشتر در مورد منطق مشروط دکمه در "
+"%1$sمستندات%2$s."
 
-#: common.php:5492 includes/class-confirmation.php:235 includes/class-confirmation.php:285 includes/class-confirmation.php:1184
-#: includes/embed-form/config/class-gf-embed-config.php:179 includes/fields/class-gf-field-page.php:12 js.php:90
+#: common.php:5492 includes/class-confirmation.php:235 includes/class-confirmation.php:285 includes/class-confirmation.php:1184 includes/embed-form/config/class-gf-embed-config.php:179
+#: includes/fields/class-gf-field-page.php:12 js.php:90
 msgid "Page"
 msgstr "صفحه"
 
@@ -443,38 +441,31 @@ msgstr "هرکدام"
 msgid "of the following match:"
 msgstr "مطابق گزینه های زیر باشند:"
 
-#: common.php:5498 includes/addon/class-gf-addon.php:4200 includes/settings/fields/class-notification-routing.php:76
-#: includes/settings/fields/class-notification-routing.php:227
+#: common.php:5498 includes/addon/class-gf-addon.php:4200 includes/settings/fields/class-notification-routing.php:76 includes/settings/fields/class-notification-routing.php:227
 msgid "is"
 msgstr "هست"
 
-#: common.php:5499 includes/addon/class-gf-addon.php:4204 includes/settings/fields/class-notification-routing.php:77
-#: includes/settings/fields/class-notification-routing.php:228
+#: common.php:5499 includes/addon/class-gf-addon.php:4204 includes/settings/fields/class-notification-routing.php:77 includes/settings/fields/class-notification-routing.php:228
 msgid "is not"
 msgstr "نیست"
 
-#: common.php:5500 includes/addon/class-gf-addon.php:4208 includes/settings/fields/class-notification-routing.php:78
-#: includes/settings/fields/class-notification-routing.php:229
+#: common.php:5500 includes/addon/class-gf-addon.php:4208 includes/settings/fields/class-notification-routing.php:78 includes/settings/fields/class-notification-routing.php:229
 msgid "greater than"
 msgstr "بیشتر از"
 
-#: common.php:5501 includes/addon/class-gf-addon.php:4212 includes/settings/fields/class-notification-routing.php:79
-#: includes/settings/fields/class-notification-routing.php:230
+#: common.php:5501 includes/addon/class-gf-addon.php:4212 includes/settings/fields/class-notification-routing.php:79 includes/settings/fields/class-notification-routing.php:230
 msgid "less than"
 msgstr "کمتر از"
 
-#: common.php:5502 includes/addon/class-gf-addon.php:4216 includes/settings/fields/class-notification-routing.php:80
-#: includes/settings/fields/class-notification-routing.php:231
+#: common.php:5502 includes/addon/class-gf-addon.php:4216 includes/settings/fields/class-notification-routing.php:80 includes/settings/fields/class-notification-routing.php:231
 msgid "contains"
 msgstr "شامل"
 
-#: common.php:5503 includes/addon/class-gf-addon.php:4220 includes/settings/fields/class-notification-routing.php:81
-#: includes/settings/fields/class-notification-routing.php:232
+#: common.php:5503 includes/addon/class-gf-addon.php:4220 includes/settings/fields/class-notification-routing.php:81 includes/settings/fields/class-notification-routing.php:232
 msgid "starts with"
 msgstr "شروع می شود با"
 
-#: common.php:5504 includes/addon/class-gf-addon.php:4224 includes/settings/fields/class-notification-routing.php:82
-#: includes/settings/fields/class-notification-routing.php:233
+#: common.php:5504 includes/addon/class-gf-addon.php:4224 includes/settings/fields/class-notification-routing.php:82 includes/settings/fields/class-notification-routing.php:233
 msgid "ends with"
 msgstr "به پایان می رسد با"
 
@@ -485,8 +476,8 @@ msgstr "خالی (هیچ چیزی انتخاب نشده است)"
 #: common.php:5507
 msgid "This form has legacy markup enabled and doesn’t support field resizing within the editor. Please disable legacy markup in the form settings to enable live resizing."
 msgstr ""
-"این فرم در حالت علامت زدن قدیمی قرار دارد و تغییر اندازه فیلد درون ویرایشگر را پشتیبانی نمی کند. لطفاً حالت علامت زدن قدیمی را در پیکربندی فرم غیرفعال کنید تا تغییر اندازه "
-"زنده فعال شود."
+"این فرم در حالت علامت زدن قدیمی قرار دارد و تغییر اندازه فیلد درون ویرایشگر را پشتیبانی نمی کند. لطفاً حالت علامت زدن قدیمی را در پیکربندی فرم غیرفعال کنید تا تغییر اندازه زنده فعال "
+"شود."
 
 #: common.php:5508
 msgid "Use this confirmation if"
@@ -550,29 +541,25 @@ msgstr "هشدار"
 
 #: common.php:5527
 msgid ""
-"This form contains conditional logic dependent upon this field. Deleting this field will deactivate those conditional logic rules and also delete all entry data "
-"associated with the field. 'Cancel' to abort. 'OK' to delete."
+"This form contains conditional logic dependent upon this field. Deleting this field will deactivate those conditional logic rules and also delete all entry data associated with the "
+"field. 'Cancel' to abort. 'OK' to delete."
 msgstr ""
-"این فرم دارای منطق شرطی است که به این فیلد وابسته است. حذف این فیلد باعث غیرفعال شدن قوانین منطق شرطی و همچنین حذف تمام داده‌های ورودی مرتبط با این فیلد خواهد شد. برای لغو "
-"روی \"لغو\" کلیک کنید. برای حذف روی \"تایید\" کلیک کنید."
+"این فرم دارای منطق شرطی است که به این فیلد وابسته است. حذف این فیلد باعث غیرفعال شدن قوانین منطق شرطی و همچنین حذف تمام داده‌های ورودی مرتبط با این فیلد خواهد شد. برای لغو روی \"لغو\" "
+"کلیک کنید. برای حذف روی \"تایید\" کلیک کنید."
 
 #: common.php:5528
 msgid "This form contains conditional logic dependent upon this choice. Are you sure you want to delete this choice? 'Cancel' to abort. 'OK' to delete."
-msgstr ""
-"این فرم دارای منطق شرطی است که به این گزینه وابسته است. آیا مطمئن هستید که می‌خواهید این گزینه را حذف کنید؟ برای لغو روی \"لغو\" کلیک کنید. برای حذف روی \"تایید\" کلیک "
-"کنید."
+msgstr "این فرم دارای منطق شرطی است که به این گزینه وابسته است. آیا مطمئن هستید که می‌خواهید این گزینه را حذف کنید؟ برای لغو روی \"لغو\" کلیک کنید. برای حذف روی \"تایید\" کلیک کنید."
 
 #: common.php:5529
 msgid "This form contains conditional logic dependent upon this choice. Are you sure you want to modify this choice? 'Cancel' to abort. 'OK' to continue."
-msgstr ""
-"این فرم دارای منطق شرطی است که به این گزینه وابسته است. آیا مطمئن هستید که می‌خواهید این گزینه را تغییر دهید؟ برای لغو روی \"لغو\" کلیک کنید. برای ادامه روی \"تایید\" کلیک "
-"کنید."
+msgstr "این فرم دارای منطق شرطی است که به این گزینه وابسته است. آیا مطمئن هستید که می‌خواهید این گزینه را تغییر دهید؟ برای لغو روی \"لغو\" کلیک کنید. برای ادامه روی \"تایید\" کلیک کنید."
 
 #: common.php:5530
 msgid "This form contains conditional logic dependent upon this field. Are you sure you want to mark this field as Administrative? 'Cancel' to abort. 'OK' to continue."
 msgstr ""
-"این فرم دارای منطق شرطی است که به این فیلد وابسته است. آیا مطمئن هستید که می‌خواهید این فیلد را به عنوان فیلد اجرایی علامت‌گذاری کنید؟ برای لغو روی \"لغو\" کلیک کنید. برای "
-"ادامه روی \"تایید\" کلیک کنید."
+"این فرم دارای منطق شرطی است که به این فیلد وابسته است. آیا مطمئن هستید که می‌خواهید این فیلد را به عنوان فیلد اجرایی علامت‌گذاری کنید؟ برای لغو روی \"لغو\" کلیک کنید. برای ادامه روی "
+"\"تایید\" کلیک کنید."
 
 #: common.php:5531
 msgid "Conditional Logic Warning"
@@ -705,11 +692,11 @@ msgstr "صفحه خالی"
 
 #: common.php:5583
 msgid ""
-"This form currently has one or more pages without any fields. Blank pages are a result of Page Breaks that are positioned as the first or last field in the form or right "
-"after each other. Please adjust the Page Breaks."
+"This form currently has one or more pages without any fields. Blank pages are a result of Page Breaks that are positioned as the first or last field in the form or right after each "
+"other. Please adjust the Page Breaks."
 msgstr ""
-"این فرم در حال حاضر شامل یک یا چند صفحه بدون هیچ فیلدی می‌باشد. صفحات خالی حاصل نقاط شکست صفحه هستند که به عنوان اولین یا آخرین فیلد در فرم یا درست بعد از هم قرار "
-"گرفته‌اند. لطفاً نقاط شکست صفحه را اصلاح کنید."
+"این فرم در حال حاضر شامل یک یا چند صفحه بدون هیچ فیلدی می‌باشد. صفحات خالی حاصل نقاط شکست صفحه هستند که به عنوان اولین یا آخرین فیلد در فرم یا درست بعد از هم قرار گرفته‌اند. لطفاً نقاط "
+"شکست صفحه را اصلاح کنید."
 
 #: common.php:5584
 msgid "Missing Product Label"
@@ -1143,8 +1130,7 @@ msgstr "ارسال شده در"
 msgid "Updated"
 msgstr "بروز شد"
 
-#: entry_detail.php:1307 export.php:1264 forms_model.php:6747 includes/addon/class-gf-addon.php:3159 includes/settings/fields/class-generic-map.php:579
-#: select_columns.php:198
+#: entry_detail.php:1307 export.php:1264 forms_model.php:6747 includes/addon/class-gf-addon.php:3159 includes/settings/fields/class-generic-map.php:579 select_columns.php:198
 msgid "User IP"
 msgstr "آی‌پی کاربر"
 
@@ -1545,11 +1531,11 @@ msgstr "درون‌ریزی فرم ها"
 
 #: export.php:485
 msgid ""
-"Select the Gravity Forms export files you would like to import. Please make sure your files have the .json extension, and that they were generated by the %sGravity Forms "
-"Export form%s tool. When you click the import button below, Gravity Forms will import the forms."
+"Select the Gravity Forms export files you would like to import. Please make sure your files have the .json extension, and that they were generated by the %sGravity Forms Export "
+"form%s tool. When you click the import button below, Gravity Forms will import the forms."
 msgstr ""
-"فایل‌های برون‌بری شده گرویتی فرم را برای درون‌ریزی، انتخاب نمایید. لطفاً اطمینان حاصل کنید که فایل‌های شما دارای پسوند .json هستند و توسط ابزار %sبرون‌بری گرویتی فرم%s تولید "
-"شده‌اند. هنگامی که روی دکمه درون‌ریزی در زیر کلیک کنید، فرم‌ها درون‌ریزی خواهند شد."
+"فایل‌های برون‌بری شده گرویتی فرم را برای درون‌ریزی، انتخاب نمایید. لطفاً اطمینان حاصل کنید که فایل‌های شما دارای پسوند .json هستند و توسط ابزار %sبرون‌بری گرویتی فرم%s تولید شده‌اند. هنگامی "
+"که روی دکمه درون‌ریزی در زیر کلیک کنید، فرم‌ها درون‌ریزی خواهند شد."
 
 #: export.php:495 tooltips.php:148
 msgid "Select Files"
@@ -1573,11 +1559,11 @@ msgstr "برون‌بری فرم‌ها"
 
 #: export.php:556
 msgid ""
-"Select the forms you would like to export. When you click the download button below, Gravity Forms will create a JSON file for you to save to your computer. Once you've "
-"saved the download file, you can use the Import tool to import the forms."
+"Select the forms you would like to export. When you click the download button below, Gravity Forms will create a JSON file for you to save to your computer. Once you've saved the "
+"download file, you can use the Import tool to import the forms."
 msgstr ""
-"فرم‌هایی که مایل به برون‌بری آن‌ها هستید را انتخاب نمایید. هنگامی که بر روی دکمه دانلود زیر کلیک کنید، گرویتی فرم یک فایل JSON برای ذخیره‌سازی در رایانه شما ایجاد خواهد کرد. "
-"پس از ذخیره فایل دانلودی، می‌توانید از ابزار درون‌ریزی برای وارد کردن فرم‌ها استفاده نمایید."
+"فرم‌هایی که مایل به برون‌بری آن‌ها هستید را انتخاب نمایید. هنگامی که بر روی دکمه دانلود زیر کلیک کنید، گرویتی فرم یک فایل JSON برای ذخیره‌سازی در رایانه شما ایجاد خواهد کرد. پس از ذخیره "
+"فایل دانلودی، می‌توانید از ابزار درون‌ریزی برای وارد کردن فرم‌ها استفاده نمایید."
 
 #: export.php:561
 msgid "Select Forms"
@@ -1609,11 +1595,11 @@ msgstr "برون‌بری محتویات"
 
 #: export.php:772
 msgid ""
-"Select a form below to export entries. Once you have selected a form you may select the fields you would like to export and then define optional filters for field values "
-"and the date range. When you click the download button below, Gravity Forms will create a CSV file for you to save to your computer."
+"Select a form below to export entries. Once you have selected a form you may select the fields you would like to export and then define optional filters for field values and the date "
+"range. When you click the download button below, Gravity Forms will create a CSV file for you to save to your computer."
 msgstr ""
-"یک فرم را از پایین برای برون‌بری ورودی‌ها انتخاب نمایید. پس از انتخاب فرم، می‌توانید فیلد های مورد نظر برای برون‌بری را انتخاب نموده و سپس فیلترهای دلخواه برای مقادیر فیلد ها "
-"و محدوده تاریخ را تعیین کنید. وقتی روی دکمه بارگیری زیر کلیک می‌کنید، گرویتی فرم یک فایل CSV برای ذخیره‌سازی در رایانه شما ایجاد خواهد کرد."
+"یک فرم را از پایین برای برون‌بری ورودی‌ها انتخاب نمایید. پس از انتخاب فرم، می‌توانید فیلد های مورد نظر برای برون‌بری را انتخاب نموده و سپس فیلترهای دلخواه برای مقادیر فیلد ها و محدوده "
+"تاریخ را تعیین کنید. وقتی روی دکمه بارگیری زیر کلیک می‌کنید، گرویتی فرم یک فایل CSV برای ذخیره‌سازی در رایانه شما ایجاد خواهد کرد."
 
 #: export.php:778 gravityforms.php:6270 includes/blocks/config/class-gf-blocks-config.php:150 widget.php:142
 msgid "Select a Form"
@@ -1685,8 +1671,8 @@ msgstr "تاییدیه یافت نشد"
 
 #: forms_model.php:1860 forms_model.php:1887 forms_model.php:1939 forms_model.php:1972 forms_model.php:2008 forms_model.php:8420 includes/api.php:131 includes/api.php:158
 #: includes/api.php:180 includes/api.php:212 includes/api.php:328 includes/api.php:389 includes/api.php:410 includes/api.php:443 includes/api.php:726 includes/api.php:760
-#: includes/api.php:810 includes/api.php:1204 includes/api.php:1328 includes/api.php:1504 includes/api.php:1559 includes/api.php:1665 includes/api.php:2132
-#: includes/api.php:2171 includes/api.php:2218
+#: includes/api.php:810 includes/api.php:1204 includes/api.php:1328 includes/api.php:1504 includes/api.php:1559 includes/api.php:1665 includes/api.php:2132 includes/api.php:2171
+#: includes/api.php:2218
 msgid "Submissions are currently blocked due to an upgrade in progress"
 msgstr "ارسال ها به دلیل بروزرسانی در حال حاضر مسدود شده اند"
 
@@ -2000,8 +1986,7 @@ msgid "Submit Input Type"
 msgstr "ثبت کردن"
 
 #: form_detail.php:606 includes/blocks/config/class-gf-blocks-config.php:159 includes/class-confirmation.php:231 includes/class-confirmation.php:1181
-#: includes/template-library/templates/templates.php:1593 includes/template-library/templates/templates.php:5972 includes/template-library/templates/templates.php:11212
-#: js.php:1060
+#: includes/template-library/templates/templates.php:1593 includes/template-library/templates/templates.php:5972 includes/template-library/templates/templates.php:11212 js.php:1060
 msgid "Text"
 msgstr "متن"
 
@@ -2114,8 +2099,8 @@ msgstr "فیلد های پیشرفته"
 msgid "Time"
 msgstr "زمان"
 
-#: form_detail.php:867 includes/fields/class-gf-field-phone.php:38 includes/template-library/templates/templates.php:737
-#: includes/template-library/templates/templates.php:5750 includes/template-library/templates/templates.php:6427 js.php:881
+#: form_detail.php:867 includes/fields/class-gf-field-phone.php:38 includes/template-library/templates/templates.php:737 includes/template-library/templates/templates.php:5750
+#: includes/template-library/templates/templates.php:6427 js.php:881
 msgid "Phone"
 msgstr "تلفن"
 
@@ -3844,12 +3829,10 @@ msgstr "لطفاً یک فیلد %s به فرم خود اضافه کنید."
 
 #. Translators: 1. Opening <a> tag with link to the form export page, 2. closing <a> tag, 3. Opening <a> tag for documentation link, 4. Closing <a> tag.
 #: form_detail.php:3348
-msgid ""
-"If you continue to encounter this error, you can %1$sexport your form%2$s to include in your support request. You can also disable AJAX saving for this form. %3$sLearn "
-"more%4$s."
+msgid "If you continue to encounter this error, you can %1$sexport your form%2$s to include in your support request. You can also disable AJAX saving for this form. %3$sLearn more%4$s."
 msgstr ""
-"در صورت ادامه مواجه شدن با این خطا، می توانید %1$s فرم خود را %2$s کنید تا در درخواست پشتیبانی خود قرار گیرید. همچنین می توانید ذخیره AJAX را برای این فرم غیرفعال کنید. "
-"%3$s بیشتر یاد بگیرید%4$s."
+"در صورت ادامه مواجه شدن با این خطا، می توانید %1$s فرم خود را %2$s کنید تا در درخواست پشتیبانی خود قرار گیرید. همچنین می توانید ذخیره AJAX را برای این فرم غیرفعال کنید. %3$s بیشتر "
+"یاد بگیرید%4$s."
 
 #: form_detail.php:3359 form_detail.php:3360 form_detail.php:3478 form_detail.php:3479
 msgid "Dismiss notification"
@@ -3860,12 +3843,10 @@ msgid "This form has legacy markup enabled, which may prevent some new features 
 msgstr "این فرم در حالت علامت گذاری قدیمی قرار دارد، که ممکن است از عملکرد برخی ویژگی های جدید جلوگیری کند."
 
 #: form_detail.php:3389
-msgid ""
-"Legacy markup will be removed from Gravity Forms in version 3.1.0, and then all forms will use modern markup.  We recommend updating this form's settings to use modern "
-"markup."
+msgid "Legacy markup will be removed from Gravity Forms in version 3.1.0, and then all forms will use modern markup.  We recommend updating this form's settings to use modern markup."
 msgstr ""
-"کد قدیمی از نسخه‌ی 3.1.0 به بعد از گرویتی فرم حذف خواهد شد و سپس تمام فرم‌ها از کد مدرن استفاده خواهند کرد. ما پیشنهاد می‌کنیم که پیکربندی این فرم را برای استفاده از کد مدرن "
-"بروزرسانی کنید."
+"کد قدیمی از نسخه‌ی 3.1.0 به بعد از گرویتی فرم حذف خواهد شد و سپس تمام فرم‌ها از کد مدرن استفاده خواهند کرد. ما پیشنهاد می‌کنیم که پیکربندی این فرم را برای استفاده از کد مدرن بروزرسانی "
+"کنید."
 
 #: form_detail.php:3394 form_settings.php:683
 msgid "Learn more about form legacy markup"
@@ -4407,15 +4388,15 @@ msgstr "پیام اتمام محدودیت ورودی"
 
 #: form_settings.php:412 form_settings.php:417 tooltips.php:20
 msgid "Schedule Form"
-msgstr "فرم برنامه"
+msgstr "زمان‌بندی فرم"
 
 #: form_settings.php:424
 msgid "Schedule Start Date/Time"
-msgstr "زمان‌بندی تاریخ/زمان شروع"
+msgstr "تاریخ/زمان شروع فعال بودن فرم"
 
 #: form_settings.php:437
 msgid "Schedule Form End Date/Time"
-msgstr "زمان‌بندی تاریخ/زمان پایان فرم"
+msgstr "تاریخ/زمان پایان فعال بودن فرم"
 
 #: form_settings.php:450
 msgid "Form Pending Message"
@@ -4427,11 +4408,11 @@ msgstr "پیام فرم منقضی شده"
 
 #: form_settings.php:481 form_settings.php:486 tooltips.php:111
 msgid "Require user to be logged in"
-msgstr "از کاربر بخواهید وارد سیستم شوید"
+msgstr "کاربر باید وارد سیستم شده باشد"
 
 #: form_settings.php:493 tooltips.php:112
 msgid "Require Login Message"
-msgstr "به پیام ورود نیاز دارید"
+msgstr "متن درخواست ورود به سیستم"
 
 #: form_settings.php:510
 msgid "Form Options"
@@ -4472,15 +4453,14 @@ msgstr "نشانه گذاری قدیمی با بسیاری از ویژگی ها�
 #: form_settings.php:678
 msgid "Legacy markup will be removed in Gravity Forms 3.1.0, and then all forms will use modern markup.  We recommend using modern markup on all forms."
 msgstr ""
-"نشانه گذاری قدیمی در نسخه‌ی 3.1.0 از گرویتی فرم حذف خواهد شد و سپس تمام فرم‌ها از نشانه‌ گذاری مدرن استفاده خواهند کرد. ما پیشنهاد می‌کنیم که از نشانه گذاری مدرن در تمام "
-"فرم‌ها استفاده کنید."
+"نشانه گذاری قدیمی در نسخه‌ی 3.1.0 از گرویتی فرم حذف خواهد شد و سپس تمام فرم‌ها از نشانه‌ گذاری مدرن استفاده خواهند کرد. ما پیشنهاد می‌کنیم که از نشانه گذاری مدرن در تمام فرم‌ها استفاده "
+"کنید."
 
 #: form_settings.php:960 form_settings.php:1127 includes/class-personal-data.php:176 includes/class-personal-data.php:578
 msgid "Personal Data"
 msgstr "اطلاعات شخصی"
 
-#: form_settings.php:1106 includes/addon/class-gf-addon.php:1754 includes/blocks/config/class-gf-blocks-config.php:123 includes/class-gf-osdxp.php:245
-#: includes/class-gf-osdxp.php:246
+#: form_settings.php:1106 includes/addon/class-gf-addon.php:1754 includes/blocks/config/class-gf-blocks-config.php:123 includes/class-gf-osdxp.php:245 includes/class-gf-osdxp.php:246
 msgid "Form Settings"
 msgstr "پیکربندی فرم"
 
@@ -4494,11 +4474,11 @@ msgstr "ذخیره و ادامه ایمیل"
 
 #: form_settings.php:1322
 msgid ""
-"Thank you for saving {form_title}. Please use the unique link below to return to the form from any computer. <br /><br /> {save_link} <br /><br /> Remember that the link "
-"will expire after 30 days so please return via the provided link to complete your form submission."
+"Thank you for saving {form_title}. Please use the unique link below to return to the form from any computer. <br /><br /> {save_link} <br /><br /> Remember that the link will expire "
+"after 30 days so please return via the provided link to complete your form submission."
 msgstr ""
-"برای ذخیره کردن فرم {form_title} متشکریم. لطفاً از لینک منحصر به فرد زیر برای برگشت به فرم استفاده کنید.<br /><br /> {save_link} <br /><br /> به خاطر داشته باشید که این "
-"لینک بعد از 30 روز منقضی می شود بنابراین برای تکمیل و ارسال فرم دوباره برگردید."
+"برای ذخیره کردن فرم {form_title} متشکریم. لطفاً از لینک منحصر به فرد زیر برای برگشت به فرم استفاده کنید.<br /><br /> {save_link} <br /><br /> به خاطر داشته باشید که این لینک بعد از 30 "
+"روز منقضی می شود بنابراین برای تکمیل و ارسال فرم دوباره برگردید."
 
 #: gravityforms.php:1595
 msgid "Create Forms"
@@ -4725,8 +4705,8 @@ msgstr "لطفا یک فرم انتخاب کنید"
 #. translators: 1: The name of the add-on, 2: version number.
 #: gravityforms.php:2527
 msgid ""
-"This version of the %1$s is not compatible with the version of Gravity Forms that is installed. Upgrade this add-on to version %2$s or greater to avoid compatibility "
-"issues and potential loss of data."
+"This version of the %1$s is not compatible with the version of Gravity Forms that is installed. Upgrade this add-on to version %2$s or greater to avoid compatibility issues and "
+"potential loss of data."
 msgstr "این نسخه از %1$s با این نسخه نصب شده ی گرویتی فرم سازگار نیست. شما باید این افزودنی را به نسخه %2$s و یا بالاتر ارتقا دهید تا مشکل ناسازگاری حل شود."
 
 #. translators: 1: plugin name, 2: open <a> tag, 3: version number, 4: close </a> tag
@@ -4762,11 +4742,10 @@ msgstr "مهم: همانطور که این یک بروز رسانی با تغی�
 #. translators: %s: version number
 #: gravityforms.php:2700
 msgid ""
-"The versions of the following add-ons you're running haven't been tested with Gravity Forms %s. Please update them or confirm compatibility before updating Gravity Forms, "
-"or you may experience issues:"
+"The versions of the following add-ons you're running haven't been tested with Gravity Forms %s. Please update them or confirm compatibility before updating Gravity Forms, or you may "
+"experience issues:"
 msgstr ""
-"این نسخه از افزودنی های زیر با گرویتی فرم %s تست نشده اند.لطفاً قبل از بروزرسانی گرویتی فرم ، آنها را بروز کرده یا سازگاری را تایید کنید ، در غیر این صورت ممکن است با مشکل "
-"روبرو شوید:"
+"این نسخه از افزودنی های زیر با گرویتی فرم %s تست نشده اند.لطفاً قبل از بروزرسانی گرویتی فرم ، آنها را بروز کرده یا سازگاری را تایید کنید ، در غیر این صورت ممکن است با مشکل روبرو شوید:"
 
 #: gravityforms.php:2762
 msgid "Oops!! Something went wrong. %sPlease try again or %scontact us%s."
@@ -4777,10 +4756,9 @@ msgid "Unread"
 msgstr "خوانده نشده"
 
 #: gravityforms.php:2813 includes/addon/class-gf-payment-addon.php:2952 includes/fields/class-gf-field-total.php:24 includes/orders/summaries/views/view-order-summary.php:60
-#: includes/orders/summaries/views/view-pricing-fields-html.php:61 includes/orders/summaries/views/view-pricing-fields-text.php:25
-#: includes/template-library/templates/templates.php:2113 includes/template-library/templates/templates.php:2991 includes/template-library/templates/templates.php:3907
-#: includes/template-library/templates/templates.php:4770 includes/template-library/templates/templates.php:7093 includes/template-library/templates/templates.php:7972
-#: js.php:996
+#: includes/orders/summaries/views/view-pricing-fields-html.php:61 includes/orders/summaries/views/view-pricing-fields-text.php:25 includes/template-library/templates/templates.php:2113
+#: includes/template-library/templates/templates.php:2991 includes/template-library/templates/templates.php:3907 includes/template-library/templates/templates.php:4770
+#: includes/template-library/templates/templates.php:7093 includes/template-library/templates/templates.php:7972 js.php:996
 msgid "Total"
 msgstr "مجموع"
 
@@ -4955,11 +4933,11 @@ msgstr "فرم ها در هر صفحه"
 #. translators: 1: The table name 2: the URL with further details
 #: gravityforms.php:6898
 msgid ""
-"An outdated add-on or custom code is attempting to access the %1$s table which is not valid in this version of Gravity Forms. Update your add-ons and custom code to "
-"prevent loss of form data. Further details: %2$s"
+"An outdated add-on or custom code is attempting to access the %1$s table which is not valid in this version of Gravity Forms. Update your add-ons and custom code to prevent loss of "
+"form data. Further details: %2$s"
 msgstr ""
-"یک افزودنی تاریخ گذشته و یا یک قطعه کد سفارشی قصد دسترسی به جدول %1$s را دارد که برای این نسخه از گرویتی فرم این اقدام معتبر نیست. افزودنی و یا قطعه کد خود را برای "
-"جلوگیری از دست رفتن اطلاعات بروز کنید. جزییات بیشتر: %2$s"
+"یک افزودنی تاریخ گذشته و یا یک قطعه کد سفارشی قصد دسترسی به جدول %1$s را دارد که برای این نسخه از گرویتی فرم این اقدام معتبر نیست. افزودنی و یا قطعه کد خود را برای جلوگیری از دست "
+"رفتن اطلاعات بروز کنید. جزییات بیشتر: %2$s"
 
 #: help.php:30 includes/template-library/templates/templates.php:9044
 msgid "How can we help you?"
@@ -4967,11 +4945,8 @@ msgstr "چگونه ما میتوانیم به شما کمک کنیم؟"
 
 #: help.php:33
 msgid ""
-"Please review the %sdocumentation%s first. If you still can't find the answer %sopen a support ticket%s and we will be happy to answer your questions and assist you with "
-"any problems."
-msgstr ""
-"لطفاً در ابتدا %sمستندات%s را مرور کنید. اگر پاسخ خود را نیافتید %sیک تیکت پشتیبانی ثبت کنید%s، ما با خوشحالی به سؤالات شما پاسخ می‌دهیم و در حل مشکلات به شما کمک خواهیم "
-"کرد."
+"Please review the %sdocumentation%s first. If you still can't find the answer %sopen a support ticket%s and we will be happy to answer your questions and assist you with any problems."
+msgstr "لطفاً در ابتدا %sمستندات%s را مرور کنید. اگر پاسخ خود را نیافتید %sیک تیکت پشتیبانی ثبت کنید%s، ما با خوشحالی به سؤالات شما پاسخ می‌دهیم و در حل مشکلات به شما کمک خواهیم کرد."
 
 #: help.php:38
 msgid "Search Our Documentation"
@@ -5289,11 +5264,10 @@ msgstr "کپی %d"
 #. translators: %1$s represents the missing table, %2$s is the opening link tag, %3$s is the closing link tag.
 #: includes/addon/class-gf-feed-addon.php:1168
 msgid ""
-"The table `%1$s` does not exist. Please visit the %2$sForms > System Status%3$s page and click the \"Re-run database upgrade\" link (under the Database section) to create "
-"the missing table."
+"The table `%1$s` does not exist. Please visit the %2$sForms > System Status%3$s page and click the \"Re-run database upgrade\" link (under the Database section) to create the missing "
+"table."
 msgstr ""
-"جدول `%1$s` وجود ندارد. لطفاً به صفحه %2$sفرم ها> وضعیت سیستم%3$s مراجعه کرده و روی لینک \"اجرای مجدد بروز رسانی پایگاه داده\" (زیر بخش پایگاه داده) کلیک کنید تا جدول "
-"گمشده ایجاد شود."
+"جدول `%1$s` وجود ندارد. لطفاً به صفحه %2$sفرم ها> وضعیت سیستم%3$s مراجعه کرده و روی لینک \"اجرای مجدد بروز رسانی پایگاه داده\" (زیر بخش پایگاه داده) کلیک کنید تا جدول گمشده ایجاد شود."
 
 #: includes/addon/class-gf-feed-addon.php:1366 includes/addon/class-gf-payment-addon.php:3896 includes/settings/class-settings.php:1499 includes/webapi/webapi.php:1062
 #: includes/webapi/webapi.php:1070 includes/webapi/webapi.php:1102
@@ -5444,15 +5418,14 @@ msgstr "اشتراک لغو شده است . شناسه اشتراک : %s ."
 msgid "Subscription has expired. Subscriber Id: %s"
 msgstr "اشتراک منقضی شده است . شناسه اشتراک : %s"
 
-#: includes/addon/class-gf-payment-addon.php:2466 includes/addon/class-gf-payment-addon.php:2556 includes/addon/class-gf-payment-addon.php:2560
-#: includes/class-confirmation.php:863 includes/fields/class-gf-field-name.php:58 includes/template-library/templates/templates.php:33
-#: includes/template-library/templates/templates.php:1346 includes/template-library/templates/templates.php:1805 includes/template-library/templates/templates.php:2345
-#: includes/template-library/templates/templates.php:2406 includes/template-library/templates/templates.php:2547 includes/template-library/templates/templates.php:3300
-#: includes/template-library/templates/templates.php:3363 includes/template-library/templates/templates.php:3462 includes/template-library/templates/templates.php:4163
-#: includes/template-library/templates/templates.php:4226 includes/template-library/templates/templates.php:4325 includes/template-library/templates/templates.php:6247
-#: includes/template-library/templates/templates.php:8308 includes/template-library/templates/templates.php:8673 includes/template-library/templates/templates.php:9232
-#: includes/template-library/templates/templates.php:10332 includes/template-library/templates/templates.php:10682 js.php:692 js.php:973 notification.php:235
-#: notification.php:1306
+#: includes/addon/class-gf-payment-addon.php:2466 includes/addon/class-gf-payment-addon.php:2556 includes/addon/class-gf-payment-addon.php:2560 includes/class-confirmation.php:863
+#: includes/fields/class-gf-field-name.php:58 includes/template-library/templates/templates.php:33 includes/template-library/templates/templates.php:1346
+#: includes/template-library/templates/templates.php:1805 includes/template-library/templates/templates.php:2345 includes/template-library/templates/templates.php:2406
+#: includes/template-library/templates/templates.php:2547 includes/template-library/templates/templates.php:3300 includes/template-library/templates/templates.php:3363
+#: includes/template-library/templates/templates.php:3462 includes/template-library/templates/templates.php:4163 includes/template-library/templates/templates.php:4226
+#: includes/template-library/templates/templates.php:4325 includes/template-library/templates/templates.php:6247 includes/template-library/templates/templates.php:8308
+#: includes/template-library/templates/templates.php:8673 includes/template-library/templates/templates.php:9232 includes/template-library/templates/templates.php:10332
+#: includes/template-library/templates/templates.php:10682 js.php:692 js.php:973 notification.php:235 notification.php:1306
 msgid "Name"
 msgstr "نام"
 
@@ -5502,8 +5475,7 @@ msgstr "پیکربندی اشتراک"
 
 #: includes/addon/class-gf-payment-addon.php:2595
 msgid "Select which field determines the recurring payment amount, or select 'Form Total' to use the total of all pricing fields as the recurring amount."
-msgstr ""
-"انتخاب کنید که مقدار کدام فیلد برای محاسبه هزینه تمدید پرداخت لحاظ شود یا اینکه 'مجموع فرم' را انتخاب نمایید تا مجموع همه مبالغ فیلدها را به عنوان هزینه لحاظ نمایید ."
+msgstr "انتخاب کنید که مقدار کدام فیلد برای محاسبه هزینه تمدید پرداخت لحاظ شود یا اینکه 'مجموع فرم' را انتخاب نمایید تا مجموع همه مبالغ فیلدها را به عنوان هزینه لحاظ نمایید ."
 
 #: includes/addon/class-gf-payment-addon.php:2599 includes/addon/class-gf-payment-addon.php:2601
 msgid "Billing Cycle"
@@ -5563,8 +5535,8 @@ msgstr "فیلد های فرم خود را به قسمت های ذکر شده م
 
 #: includes/addon/class-gf-payment-addon.php:2685
 msgid ""
-"When conditions are enabled, form submissions will only be sent to the payment gateway when the conditions are met. When disabled, all form submissions will be sent to "
-"the payment gateway."
+"When conditions are enabled, form submissions will only be sent to the payment gateway when the conditions are met. When disabled, all form submissions will be sent to the payment "
+"gateway."
 msgstr "وقتی شرایط فعال شوند ، ارسال فرم به درگاه پرداخت فقط در صورت برقراری شرایط انجام می شود . وقتی غیرفعال باشد همه فرم ها به درگاه پرداخت هدایت خواهند شد ."
 
 #: includes/addon/class-gf-payment-addon.php:2806
@@ -5589,8 +5561,7 @@ msgstr "آدرس 2"
 #: includes/settings/fields/class-generic-map.php:346 includes/template-library/templates/templates.php:615 includes/template-library/templates/templates.php:2772
 #: includes/template-library/templates/templates.php:2859 includes/template-library/templates/templates.php:3687 includes/template-library/templates/templates.php:3774
 #: includes/template-library/templates/templates.php:4550 includes/template-library/templates/templates.php:4637 includes/template-library/templates/templates.php:5252
-#: includes/template-library/templates/templates.php:6493 includes/template-library/templates/templates.php:7747 includes/template-library/templates/templates.php:8876
-#: js.php:825
+#: includes/template-library/templates/templates.php:6493 includes/template-library/templates/templates.php:7747 includes/template-library/templates/templates.php:8876 js.php:825
 msgid "City"
 msgstr "شهر"
 
@@ -5602,8 +5573,7 @@ msgstr "کد پستی"
 #: includes/settings/fields/class-generic-map.php:349 includes/template-library/templates/templates.php:634 includes/template-library/templates/templates.php:2790
 #: includes/template-library/templates/templates.php:2877 includes/template-library/templates/templates.php:3705 includes/template-library/templates/templates.php:3792
 #: includes/template-library/templates/templates.php:4568 includes/template-library/templates/templates.php:4655 includes/template-library/templates/templates.php:5270
-#: includes/template-library/templates/templates.php:6511 includes/template-library/templates/templates.php:7762 includes/template-library/templates/templates.php:8894
-#: js.php:840
+#: includes/template-library/templates/templates.php:6511 includes/template-library/templates/templates.php:7762 includes/template-library/templates/templates.php:8894 js.php:840
 msgid "Country"
 msgstr "کشور"
 
@@ -5686,13 +5656,13 @@ msgid "Week"
 msgstr "هفته"
 
 #: includes/addon/class-gf-payment-addon.php:3145 includes/addon/class-gf-payment-addon.php:3146 includes/fields/class-gf-field-creditcard.php:332
-#: includes/fields/class-gf-field-creditcard.php:453 includes/fields/class-gf-field-date.php:748 includes/fields/class-gf-field-date.php:993
-#: includes/fields/class-gf-field-date.php:1147 js.php:330 js.php:1144 js.php:1149 js.php:1150
+#: includes/fields/class-gf-field-creditcard.php:453 includes/fields/class-gf-field-date.php:748 includes/fields/class-gf-field-date.php:993 includes/fields/class-gf-field-date.php:1147
+#: js.php:330 js.php:1144 js.php:1149 js.php:1150
 msgid "Month"
 msgstr "ماه"
 
-#: includes/addon/class-gf-payment-addon.php:3163 includes/addon/class-gf-payment-addon.php:3166 includes/fields/class-gf-field-date.php:772
-#: includes/fields/class-gf-field-date.php:996 includes/fields/class-gf-field-date.php:1152 js.php:332 js.php:1145 js.php:1151 js.php:1152
+#: includes/addon/class-gf-payment-addon.php:3163 includes/addon/class-gf-payment-addon.php:3166 includes/fields/class-gf-field-date.php:772 includes/fields/class-gf-field-date.php:996
+#: includes/fields/class-gf-field-date.php:1152 js.php:332 js.php:1145 js.php:1151 js.php:1152
 msgid "Day"
 msgstr "روز"
 
@@ -5876,11 +5846,8 @@ msgstr "نمره کل"
 
 #: includes/addon/class-gf-results.php:329
 msgid ""
-"Scores are weighted calculations. Items ranked higher are given a greater score than items that are ranked lower. The total score for each item is the sum of the weighted "
-"scores."
-msgstr ""
-"امتیازات محاسبات وزنی هستند. به مواردی که رتبه بالاتری دارند امتیاز بیشتری نسبت به مواردی که رتبه پایین تری دارند ، داده می شود. نمره کل برای هر مورد ، مجموع امتیازات "
-"وزنی است."
+"Scores are weighted calculations. Items ranked higher are given a greater score than items that are ranked lower. The total score for each item is the sum of the weighted scores."
+msgstr "امتیازات محاسبات وزنی هستند. به مواردی که رتبه بالاتری دارند امتیاز بیشتری نسبت به مواردی که رتبه پایین تری دارند ، داده می شود. نمره کل برای هر مورد ، مجموع امتیازات وزنی است."
 
 #: includes/addon/class-gf-results.php:330 includes/addon/class-gf-results.php:654
 msgid "Aggregate Rank"
@@ -6003,8 +5970,8 @@ msgstr "شیء فرم نامعتبر است"
 msgid "Missing form id"
 msgstr "شناسه فرم موجود نیست"
 
-#: includes/api.php:248 includes/api.php:2228 includes/webapi/v2/includes/class-results-cache.php:477
-#: includes/webapi/v2/includes/controllers/class-controller-form-field-filters.php:46 includes/webapi/v2/includes/controllers/class-controller-forms.php:152
+#: includes/api.php:248 includes/api.php:2228 includes/webapi/v2/includes/class-results-cache.php:477 includes/webapi/v2/includes/controllers/class-controller-form-field-filters.php:46
+#: includes/webapi/v2/includes/controllers/class-controller-forms.php:152
 msgid "Form not found"
 msgstr "فرم یافت نشد"
 
@@ -6424,8 +6391,8 @@ msgstr "ذخیره تاییدیه"
 
 #: includes/class-confirmation.php:517
 msgid ""
-"Your confirmation message appears to contain a merge tag as the value for an HTML attribute. Depending on the attribute and field type, this might be a security risk. "
-"%sFurther details%s"
+"Your confirmation message appears to contain a merge tag as the value for an HTML attribute. Depending on the attribute and field type, this might be a security risk. %sFurther "
+"details%s"
 msgstr "به نظر می رسد پیام تایید شما حاوی یک برچسب ادغام به عنوان مقدار یک ویژگی HTML است. بسته به ویژگی و نوع فیلد، این ممکن است یک خطر امنیتی باشد. %s جزئیات بیشتر %s"
 
 #: includes/class-confirmation.php:531
@@ -6464,8 +6431,7 @@ msgstr "<em>این صفحه وجود ندارد.</em>"
 
 #: includes/class-gf-osdxp.php:73 includes/class-gf-osdxp.php:122
 msgid ""
-"There was an error while validating your license key. Gravity Forms will continue to work, but automatic upgrades will not be available. Please contact support to resolve "
-"this issue."
+"There was an error while validating your license key. Gravity Forms will continue to work, but automatic upgrades will not be available. Please contact support to resolve this issue."
 msgstr "مشکلی در هنگام تایید مجوز شما وجود دارد.گرویتی فرم کار می کند اما بروزرسانی خودکار موجود نیست. لطفاً برای حل این مشکل با پشتیبانی تماس بگیرید."
 
 #: includes/class-gf-osdxp.php:75
@@ -6495,11 +6461,9 @@ msgstr "مجوز با موفقیت حذف شد."
 #. translators: 1: version number 2: open link tag 3: closing link tag.
 #: includes/class-gf-upgrade.php:326
 msgid ""
-"Gravity Forms is currently upgrading the database to version %1$s. For sites with a large number of entries this may take a long time. Check the %2$sSystem Status%3$s "
-"page for further details."
-msgstr ""
-"گرویتی فرم در حال ارتقای دیتابیس به نسخه %1$s می باشد. برای سایت هایی با ورودی های خیلی زیاد ممکن است کمی زمانبر باشد. صفحه %2$sوضعیت سیستم%3$s را برای جزییات بیشتر چک "
-"نمایید."
+"Gravity Forms is currently upgrading the database to version %1$s. For sites with a large number of entries this may take a long time. Check the %2$sSystem Status%3$s page for "
+"further details."
+msgstr "گرویتی فرم در حال ارتقای دیتابیس به نسخه %1$s می باشد. برای سایت هایی با ورودی های خیلی زیاد ممکن است کمی زمانبر باشد. صفحه %2$sوضعیت سیستم%3$s را برای جزییات بیشتر چک نمایید."
 
 #: includes/class-gf-upgrade.php:775
 msgid "Queued for upgrade."
@@ -6887,16 +6851,14 @@ msgstr "کد پستی"
 #: includes/fields/class-gf-field-address.php:205 includes/template-library/templates/templates.php:603 includes/template-library/templates/templates.php:2760
 #: includes/template-library/templates/templates.php:2847 includes/template-library/templates/templates.php:3675 includes/template-library/templates/templates.php:3762
 #: includes/template-library/templates/templates.php:4538 includes/template-library/templates/templates.php:4625 includes/template-library/templates/templates.php:5240
-#: includes/template-library/templates/templates.php:6481 includes/template-library/templates/templates.php:7737 includes/template-library/templates/templates.php:8864
-#: js.php:815
+#: includes/template-library/templates/templates.php:6481 includes/template-library/templates/templates.php:7737 includes/template-library/templates/templates.php:8864 js.php:815
 msgid "Street Address"
 msgstr "آدرس خیابان"
 
 #: includes/fields/class-gf-field-address.php:207 includes/template-library/templates/templates.php:609 includes/template-library/templates/templates.php:2766
 #: includes/template-library/templates/templates.php:2853 includes/template-library/templates/templates.php:3681 includes/template-library/templates/templates.php:3768
 #: includes/template-library/templates/templates.php:4544 includes/template-library/templates/templates.php:4631 includes/template-library/templates/templates.php:5246
-#: includes/template-library/templates/templates.php:6487 includes/template-library/templates/templates.php:7742 includes/template-library/templates/templates.php:8870
-#: js.php:820
+#: includes/template-library/templates/templates.php:6487 includes/template-library/templates/templates.php:7742 includes/template-library/templates/templates.php:8870 js.php:820
 msgid "Address Line 2"
 msgstr "آدرس 2"
 
@@ -8357,8 +8319,7 @@ msgstr "سال"
 msgid "Security Code"
 msgstr "کد امنیتی"
 
-#: includes/fields/class-gf-field-creditcard.php:417 includes/template-library/templates/templates.php:3970 includes/template-library/templates/templates.php:4843 js.php:857
-#: js.php:1216
+#: includes/fields/class-gf-field-creditcard.php:417 includes/template-library/templates/templates.php:3970 includes/template-library/templates/templates.php:4843 js.php:857 js.php:1216
 msgid "Cardholder Name"
 msgstr "نام دارنده کارت"
 
@@ -8645,8 +8606,7 @@ msgstr "پیشوند"
 #: includes/template-library/templates/templates.php:2608 includes/template-library/templates/templates.php:3523 includes/template-library/templates/templates.php:4386
 #: includes/template-library/templates/templates.php:5107 includes/template-library/templates/templates.php:6309 includes/template-library/templates/templates.php:7383
 #: includes/template-library/templates/templates.php:7605 includes/template-library/templates/templates.php:8356 includes/template-library/templates/templates.php:8735
-#: includes/template-library/templates/templates.php:9294 includes/template-library/templates/templates.php:10393 includes/template-library/templates/templates.php:10730
-#: js.php:1102
+#: includes/template-library/templates/templates.php:9294 includes/template-library/templates/templates.php:10393 includes/template-library/templates/templates.php:10730 js.php:1102
 msgid "First"
 msgstr "اسم"
 
@@ -8664,8 +8624,7 @@ msgstr "میانه"
 #: includes/template-library/templates/templates.php:2621 includes/template-library/templates/templates.php:3536 includes/template-library/templates/templates.php:4399
 #: includes/template-library/templates/templates.php:5121 includes/template-library/templates/templates.php:6322 includes/template-library/templates/templates.php:7396
 #: includes/template-library/templates/templates.php:7616 includes/template-library/templates/templates.php:8369 includes/template-library/templates/templates.php:8748
-#: includes/template-library/templates/templates.php:9307 includes/template-library/templates/templates.php:10406 includes/template-library/templates/templates.php:10744
-#: js.php:1121
+#: includes/template-library/templates/templates.php:9307 includes/template-library/templates/templates.php:10406 includes/template-library/templates/templates.php:10744 js.php:1121
 msgid "Last"
 msgstr "فامیل"
 
@@ -8832,8 +8791,8 @@ msgstr "اجازه می دهد تا ایجاد محصولات در فرم."
 
 #: includes/fields/class-gf-field-quantity.php:29 includes/fields/class-gf-field-singleproduct.php:133 includes/fields/class-gf-field.php:2847
 #: includes/template-library/templates/templates.php:2355 includes/template-library/templates/templates.php:2416 includes/template-library/templates/templates.php:3310
-#: includes/template-library/templates/templates.php:3373 includes/template-library/templates/templates.php:4173 includes/template-library/templates/templates.php:4236
-#: js.php:973 js.php:1044
+#: includes/template-library/templates/templates.php:3373 includes/template-library/templates/templates.php:4173 includes/template-library/templates/templates.php:4236 js.php:973
+#: js.php:1044
 msgid "Quantity"
 msgstr "تعداد"
 
@@ -9068,8 +9027,7 @@ msgstr "مدیریت کنید"
 msgid "Upgrade"
 msgstr "ارتقاء"
 
-#: includes/license/class-gf-license-api-response.php:299 tests/unit-tests/license/test-license-api-response.php:495
-#: tests/unit-tests/license/test-license-api-response.php:511
+#: includes/license/class-gf-license-api-response.php:299 tests/unit-tests/license/test-license-api-response.php:495 tests/unit-tests/license/test-license-api-response.php:511
 msgid "Expired On"
 msgstr "منقضی شده در"
 
@@ -9077,8 +9035,8 @@ msgstr "منقضی شده در"
 msgid "Renews On"
 msgstr "تمدید می‌شود در"
 
-#: includes/license/class-gf-license-api-response.php:309 tests/unit-tests/license/test-license-api-response.php:533
-#: tests/unit-tests/license/test-license-api-response.php:542 tests/unit-tests/license/test-license-api-response.php:551
+#: includes/license/class-gf-license-api-response.php:309 tests/unit-tests/license/test-license-api-response.php:533 tests/unit-tests/license/test-license-api-response.php:542
+#: tests/unit-tests/license/test-license-api-response.php:551
 msgid "Expires On"
 msgstr "منقضی در"
 
@@ -9126,8 +9084,7 @@ msgstr "در حین اعتبارسنجی کلید مجوز شما خطایی ر�
 #. translators: %1s and %2s are link tag markup
 #: includes/license/class-gf-license-statuses.php:84
 msgid "Your IP has been blocked by Gravity for exceeding our API rate limits. If you think this is a mistake, please %1$scontact support%2$s. "
-msgstr ""
-"آی‌پی شما توسط گرویتی به دلیل عبور از محدودیت‌های نرخ استفاده از رابط نرم افزاری مسدود شده است. اگر فکر می‌کنید این یک اشتباه است، لطفاً %1$sبا پشتیبانی تماس بگیرید%2$s. "
+msgstr "آی‌پی شما توسط گرویتی به دلیل عبور از محدودیت‌های نرخ استفاده از رابط نرم افزاری مسدود شده است. اگر فکر می‌کنید این یک اشتباه است، لطفاً %1$sبا پشتیبانی تماس بگیرید%2$s. "
 
 #: includes/locking/class-gf-locking.php:199
 msgid "This page is currently locked. Click on the \"Request Control\" button to let %s know you'd like to take over."
@@ -9239,13 +9196,13 @@ msgstr "فایل گزارش با موفقیت حذف شد."
 
 #: includes/logging/logging.php:290
 msgid ""
-"Logging assists in tracking down issues by logging debug and error messages in Gravity Forms Core and Gravity Forms Add-Ons. Important information may be included in the "
-"logging messages, including API usernames, passwords and credit card numbers. Logging is intended only to be used temporarily while trying to track down issues. Once the "
-"issue is identified and resolved, it should be disabled."
+"Logging assists in tracking down issues by logging debug and error messages in Gravity Forms Core and Gravity Forms Add-Ons. Important information may be included in the logging "
+"messages, including API usernames, passwords and credit card numbers. Logging is intended only to be used temporarily while trying to track down issues. Once the issue is identified "
+"and resolved, it should be disabled."
 msgstr ""
-"ثبت گزارش با ثبت پیام‌های اشکال‌زدایی و خطا در هسته گرویتی فرم و افزودنی های آن، به ردیابی مشکلات کمک می‌کند. اطلاعات مهمی ممکن است در پیام‌های ثبت وقایع گنجانده شود، از جمله "
-"نام‌های کاربری رابط نرم افزاری، رمزهای عبور و شماره‌های کارت اعتباری. ثبت وقایع فقط برای استفاده موقت هنگام تلاش برای ردیابی مشکلات در نظر گرفته شده است. پس از شناسایی و حل "
-"مشکل، باید غیرفعال شود."
+"ثبت گزارش با ثبت پیام‌های اشکال‌زدایی و خطا در هسته گرویتی فرم و افزودنی های آن، به ردیابی مشکلات کمک می‌کند. اطلاعات مهمی ممکن است در پیام‌های ثبت وقایع گنجانده شود، از جمله نام‌های "
+"کاربری رابط نرم افزاری، رمزهای عبور و شماره‌های کارت اعتباری. ثبت وقایع فقط برای استفاده موقت هنگام تلاش برای ردیابی مشکلات در نظر گرفته شده است. پس از شناسایی و حل مشکل، باید غیرفعال "
+"شود."
 
 #: includes/logging/logging.php:307
 msgid "Plugin Logging Settings"
@@ -9473,8 +9430,7 @@ msgstr "برای استفاده از مسیریابی اعلان ، فرم شم�
 msgid "Add Another Rule"
 msgstr "افزودن قانون دیگر"
 
-#: includes/settings/fields/class-notification-routing.php:142 includes/settings/fields/class-notification-routing.php:149
-#: includes/settings/fields/class-notification-routing.php:243
+#: includes/settings/fields/class-notification-routing.php:142 includes/settings/fields/class-notification-routing.php:149 includes/settings/fields/class-notification-routing.php:243
 msgid "Remove This Rule"
 msgstr "حذف این قانون"
 
@@ -9650,11 +9606,11 @@ msgstr "در بهبود گرویتی فرم مشارکت کنید!"
 #. translators: placeholders are markup to create a link.
 #: includes/setup-wizard/config/class-gf-setup-wizard-config-i18n.php:98 settings.php:661
 msgid ""
-"We love improving the form building experience for everyone in our community. By enabling data collection, you can help us learn more about how our customers use Gravity "
-"Forms. %1$sLearn more...%2$s"
+"We love improving the form building experience for everyone in our community. By enabling data collection, you can help us learn more about how our customers use Gravity Forms. "
+"%1$sLearn more...%2$s"
 msgstr ""
-"ما عاشق بهبود تجربه فرم سازی برای همه افراد جامعه هستیم. با فعال کردن جمع‌آوری داده‌ها، می‌توانید به ما کمک کنید تا درباره نحوه استفاده مشتریانمان از گرویتی فرم اطلاعات "
-"بیشتری کسب کنیم. %1$sبیشتر بیاموزید...%2$s"
+"ما عاشق بهبود تجربه فرم سازی برای همه افراد جامعه هستیم. با فعال کردن جمع‌آوری داده‌ها، می‌توانید به ما کمک کنید تا درباره نحوه استفاده مشتریانمان از گرویتی فرم اطلاعات بیشتری کسب کنیم. "
+"%1$sبیشتر بیاموزید...%2$s"
 
 #: includes/setup-wizard/config/class-gf-setup-wizard-config-i18n.php:103
 msgid "Ready to Create Your First Form?"
@@ -9664,8 +9620,7 @@ msgstr "برای ایجاد اولین فرم خود آماده اید؟"
 msgid "Watch the video below to help you get started with Gravity Forms, or jump straight in and begin your form building journey!"
 msgstr "ویدیوی پایین را برای کمک به شروع کار با گرویتی فرم مشاهده نمایید، یا بی‌درنگ شروع کنید و ماجراجویی ساخت فرم خود را آغاز نمایید!"
 
-#: includes/setup-wizard/config/class-gf-setup-wizard-config.php:93 includes/template-library/templates/templates.php:9804
-#: includes/template-library/templates/templates.php:9842
+#: includes/setup-wizard/config/class-gf-setup-wizard-config.php:93 includes/template-library/templates/templates.php:9804 includes/template-library/templates/templates.php:9842
 msgid "Contact Form"
 msgstr "فرم تماس"
 
@@ -9677,8 +9632,7 @@ msgstr "فرم مکالمه"
 msgid "Survey"
 msgstr "نظرسنجی"
 
-#: includes/setup-wizard/config/class-gf-setup-wizard-config.php:126 includes/template-library/templates/templates.php:9789
-#: includes/template-library/templates/templates.php:9824
+#: includes/setup-wizard/config/class-gf-setup-wizard-config.php:126 includes/template-library/templates/templates.php:9789 includes/template-library/templates/templates.php:9824
 msgid "Payment Form"
 msgstr "فرم پرداخت"
 
@@ -9686,8 +9640,8 @@ msgstr "فرم پرداخت"
 msgid "Subscription Form"
 msgstr "فرم اشتراک"
 
-#: includes/setup-wizard/config/class-gf-setup-wizard-config.php:148 includes/template-library/templates/templates.php:1739
-#: includes/template-library/templates/templates.php:1745 includes/template-library/templates/templates.php:9799 includes/template-library/templates/templates.php:9836
+#: includes/setup-wizard/config/class-gf-setup-wizard-config.php:148 includes/template-library/templates/templates.php:1739 includes/template-library/templates/templates.php:1745
+#: includes/template-library/templates/templates.php:9799 includes/template-library/templates/templates.php:9836
 msgid "Donation Form"
 msgstr "فرم کمک مالی"
 
@@ -9814,11 +9768,11 @@ msgstr "فیلد انتخاب تصویر"
 
 #: includes/splash-page/gf_splash.php:66
 msgid ""
-"A picture is worth a thousand words! The new Image Choice field lets you add stylish images straight from the media library to your choices. Easily create beautiful forms "
-"with eye-catching images that speak to your users."
+"A picture is worth a thousand words! The new Image Choice field lets you add stylish images straight from the media library to your choices. Easily create beautiful forms with eye-"
+"catching images that speak to your users."
 msgstr ""
-"یک تصویر به اندازه‌ی هزار کلمه ارزش دارد! فیلد جدید انتخاب تصویر به شما این امکان را می‌دهد که تصاویر شیک را مستقیماً از کتابخانه رسانه به گزینه‌های خود اضافه کنید. به راحتی "
-"فرم‌های زیبا با تصاویری جذاب ایجاد کنید که با کاربران شما ارتباط برقرار می‌کند."
+"یک تصویر به اندازه‌ی هزار کلمه ارزش دارد! فیلد جدید انتخاب تصویر به شما این امکان را می‌دهد که تصاویر شیک را مستقیماً از کتابخانه رسانه به گزینه‌های خود اضافه کنید. به راحتی فرم‌های زیبا "
+"با تصاویری جذاب ایجاد کنید که با کاربران شما ارتباط برقرار می‌کند."
 
 #: includes/splash-page/gf_splash.php:67
 msgid "Read more about the Image Choice field"
@@ -9838,11 +9792,11 @@ msgstr "فیلد انتخاب چندگانه"
 
 #: includes/splash-page/gf_splash.php:86
 msgid ""
-"The Multiple Choice field is a new, flexible way to let users choose one or many options. Gather the information you need, while ensuring a high-end experience for those "
-"submitting the form."
+"The Multiple Choice field is a new, flexible way to let users choose one or many options. Gather the information you need, while ensuring a high-end experience for those submitting "
+"the form."
 msgstr ""
-"فیلد انتخاب چندگانه یک روش جدید و انعطاف‌پذیر برای اجازه دادن به کاربران جهت انتخاب یک یا چند گزینه است. اطلاعات مورد نیاز خود را جمع‌آوری کنید و در عین حال تجربه‌ای عالی "
-"برای کسانی که فرم را ارسال می‌کنند، فراهم کنید."
+"فیلد انتخاب چندگانه یک روش جدید و انعطاف‌پذیر برای اجازه دادن به کاربران جهت انتخاب یک یا چند گزینه است. اطلاعات مورد نیاز خود را جمع‌آوری کنید و در عین حال تجربه‌ای عالی برای کسانی که "
+"فرم را ارسال می‌کنند، فراهم کنید."
 
 #: includes/splash-page/gf_splash.php:87
 msgid "Read more about the Multiple Choice field"
@@ -9862,11 +9816,9 @@ msgstr "بهبودهای طراحی ویرایشگر"
 
 #: includes/splash-page/gf_splash.php:115
 msgid ""
-"We’ve brought our beautiful Orbital form theme into the form editor! With 2.9 you’ll find a more consistent and visually-pleasing form editing experience, closely "
-"mirroring how your form will look on the front end."
-msgstr ""
-"ما پوسته زیبای فرم Orbital را به ویرایشگر فرم آورده‌ایم! با نسخه‌ی 2.9، تجربه ویرایش فرم یکپارچه‌تر و خوشایندتر خواهد بود و دقیقاً مشابه نحوه‌ی نمایش فرم در فرانت اند خواهد "
-"بود."
+"We’ve brought our beautiful Orbital form theme into the form editor! With 2.9 you’ll find a more consistent and visually-pleasing form editing experience, closely mirroring how your "
+"form will look on the front end."
+msgstr "ما پوسته زیبای فرم Orbital را به ویرایشگر فرم آورده‌ایم! با نسخه‌ی 2.9، تجربه ویرایش فرم یکپارچه‌تر و خوشایندتر خواهد بود و دقیقاً مشابه نحوه‌ی نمایش فرم در فرانت اند خواهد بود."
 
 #: includes/splash-page/gf_splash.php:115
 msgid "Read more about the Gravity Forms 2.9 editor design improvements"
@@ -9882,11 +9834,11 @@ msgstr "بهبودهای دسترس‌پذیری ویرایشگر"
 
 #: includes/splash-page/gf_splash.php:127
 msgid ""
-"As part of our continuing commitment to make form building available to everyone, we have improved the accessibility of the form editor. If you rely on keyboard "
-"navigation or screen readers, you’ll now have an easier time navigating the field settings."
+"As part of our continuing commitment to make form building available to everyone, we have improved the accessibility of the form editor. If you rely on keyboard navigation or screen "
+"readers, you’ll now have an easier time navigating the field settings."
 msgstr ""
-"به‌عنوان بخشی از تعهد مستمر ما برای فراهم کردن دسترسی به ساخت فرم برای همه، دسترس‌پذیری ویرایشگر فرم را بهبود بخشیده‌ایم. اگر از ناوبری کیبورد یا صفحه‌خوان‌ها استفاده می‌کنید، "
-"حالا راحت‌تر می‌توانید پیکربندی فیلد ‌ها را جابجا کنید."
+"به‌عنوان بخشی از تعهد مستمر ما برای فراهم کردن دسترسی به ساخت فرم برای همه، دسترس‌پذیری ویرایشگر فرم را بهبود بخشیده‌ایم. اگر از ناوبری کیبورد یا صفحه‌خوان‌ها استفاده می‌کنید، حالا راحت‌تر "
+"می‌توانید پیکربندی فیلد ‌ها را جابجا کنید."
 
 #: includes/splash-page/gf_splash.php:127
 msgid "Read more about the Gravity Forms 2.9 editor accessibility improvements"
@@ -9902,11 +9854,11 @@ msgstr "ما معتقدیم راه بهتری برای مدیریت داده‌�
 
 #: includes/system-status/class-gf-system-report.php:69
 msgid ""
-"The following is a system report containing useful technical information for troubleshooting issues. If you need further help after viewing the report, click on the "
-"\"Copy System Report\" button below to copy the report and paste it in your message to support."
+"The following is a system report containing useful technical information for troubleshooting issues. If you need further help after viewing the report, click on the \"Copy System "
+"Report\" button below to copy the report and paste it in your message to support."
 msgstr ""
-"گزارش زیر یک گزارش سیستمی است که اطلاعات فنی مفیدی برای عیب‌یابی مشکلات را شامل می‌شود. اگر پس از مشاهده گزارش به کمک بیشتری نیاز داشتید، روی دکمه «کپی گزارش سیستم» در "
-"پایین کلیک کنید تا گزارش کپی شود و آن را در پیام خود به پشتیبانی الصاق کنید."
+"گزارش زیر یک گزارش سیستمی است که اطلاعات فنی مفیدی برای عیب‌یابی مشکلات را شامل می‌شود. اگر پس از مشاهده گزارش به کمک بیشتری نیاز داشتید، روی دکمه «کپی گزارش سیستم» در پایین کلیک کنید "
+"تا گزارش کپی شود و آن را در پیام خود به پشتیبانی الصاق کنید."
 
 #: includes/system-status/class-gf-system-report.php:243
 msgid "complete."
@@ -9950,7 +9902,7 @@ msgstr "فایلهای گزارش"
 
 #: includes/system-status/class-gf-system-report.php:389
 msgid "Scheduled (Cron) Events Log"
-msgstr "برنامه ریزی شده (کرون) ورود به سیستم رویدادها"
+msgstr "گزارش رویدادهای زمان‌بندی شده (Cron)"
 
 #: includes/system-status/class-gf-system-report.php:396
 msgid "WordPress Environment"
@@ -10237,11 +10189,10 @@ msgstr "جدول با موفقیت بروز نشده است."
 
 #: includes/system-status/class-gf-system-report.php:1005
 msgid ""
-"WARNING! Re-running the upgrade process is only recommended if you are currently experiencing issues with your database. This process may take several minutes to "
-"complete. 'OK' to upgrade. 'Cancel' to abort."
+"WARNING! Re-running the upgrade process is only recommended if you are currently experiencing issues with your database. This process may take several minutes to complete. 'OK' to "
+"upgrade. 'Cancel' to abort."
 msgstr ""
-"هشدار! اجرای مجدد فرآیند ارتقا فقط در صورتی توصیه می‌شود که در حال حاضر با پایگاه داده خود مشکل دارید. این فرآیند ممکن است چند دقیقه طول بکشد. 'تأیید' برای ارتقا. 'لغو' "
-"برای توقف."
+"هشدار! اجرای مجدد فرآیند ارتقا فقط در صورتی توصیه می‌شود که در حال حاضر با پایگاه داده خود مشکل دارید. این فرآیند ممکن است چند دقیقه طول بکشد. 'تأیید' برای ارتقا. 'لغو' برای توقف."
 
 #: includes/system-status/class-gf-system-report.php:1012
 msgid "Current Status: %s"
@@ -10538,16 +10489,14 @@ msgstr "<p>سلام {نام (اسم):1.3} عزیز،</p><p>از تماس شما 
 #: includes/template-library/templates/templates.php:313 includes/template-library/templates/templates.php:1313 includes/template-library/templates/templates.php:1711
 #: includes/template-library/templates/templates.php:3209 includes/template-library/templates/templates.php:4073 includes/template-library/templates/templates.php:4967
 #: includes/template-library/templates/templates.php:6122 includes/template-library/templates/templates.php:7254 tests/unit-tests/save-form/test-form-crud-handler.php:152
-#: tests/unit-tests/save-form/test-form-crud-handler.php:282 tests/unit-tests/save-form/test-form-crud-handler.php:584
-#: tests/unit-tests/save-form/test-form-crud-handler.php:699
+#: tests/unit-tests/save-form/test-form-crud-handler.php:282 tests/unit-tests/save-form/test-form-crud-handler.php:584 tests/unit-tests/save-form/test-form-crud-handler.php:699
 msgid "New submission from {form_title}"
 msgstr "ارسال جدید از {form_title}"
 
 #: includes/template-library/templates/templates.php:326 includes/template-library/templates/templates.php:1291 includes/template-library/templates/templates.php:7232
 #: includes/template-library/templates/templates.php:9138 includes/template-library/templates/templates.php:10238 tests/unit-tests/save-form/test-form-crud-handler.php:176
-#: tests/unit-tests/save-form/test-form-crud-handler.php:295 tests/unit-tests/save-form/test-form-crud-handler.php:597
-#: tests/unit-tests/save-form/test-form-crud-handler.php:809 tests/unit-tests/save-form/test-form-crud-handler.php:852
-#: tests/unit-tests/save-form/test-form-crud-handler.php:912 tests/unit-tests/save-form/test-form-crud-handler.php:955
+#: tests/unit-tests/save-form/test-form-crud-handler.php:295 tests/unit-tests/save-form/test-form-crud-handler.php:597 tests/unit-tests/save-form/test-form-crud-handler.php:809
+#: tests/unit-tests/save-form/test-form-crud-handler.php:852 tests/unit-tests/save-form/test-form-crud-handler.php:912 tests/unit-tests/save-form/test-form-crud-handler.php:955
 msgid "Thank you for contacting us! We will get in touch with you shortly."
 msgstr "با تشکر از تماس شما! به زودی با شما در ارتباط خواهیم بود."
 
@@ -10569,11 +10518,11 @@ msgstr "مراحل بعدی: یک افزونه ایمیل را همگام کنی
 
 #: includes/template-library/templates/templates.php:384 includes/template-library/templates/templates.php:8271
 msgid ""
-"To get the most out of your form, we suggest that you sync this form with an email add-on. To learn more about your email add-on options, visit the following page "
-"(https://www.gravityforms.com/the-8-best-email-plugins-for-wordpress-in-2020/). Important: Delete this tip before you publish the form."
+"To get the most out of your form, we suggest that you sync this form with an email add-on. To learn more about your email add-on options, visit the following page (https://"
+"www.gravityforms.com/the-8-best-email-plugins-for-wordpress-in-2020/). Important: Delete this tip before you publish the form."
 msgstr ""
-"برای استفاده بهینه از فرم خود، پیشنهاد می‌کنیم این فرم را با یک افزودنی ایمیل همگام‌سازی کنید. برای اطلاعات بیشتر درباره گزینه‌های افزونه ایمیل، به صفحه زیر مراجعه کنید "
-"(https://www.gravityforms.com/the-8-best-email-plugins-for-wordpress-in-2020). مهم: این نکته را قبل از انتشار فرم حذف کنید."
+"برای استفاده بهینه از فرم خود، پیشنهاد می‌کنیم این فرم را با یک افزودنی ایمیل همگام‌سازی کنید. برای اطلاعات بیشتر درباره گزینه‌های افزونه ایمیل، به صفحه زیر مراجعه کنید (https://"
+"www.gravityforms.com/the-8-best-email-plugins-for-wordpress-in-2020). مهم: این نکته را قبل از انتشار فرم حذف کنید."
 
 #: includes/template-library/templates/templates.php:428
 msgid "About You"
@@ -10880,11 +10829,11 @@ msgstr "شما با موفقیت در مسابقه ما شرکت کردید"
 
 #: includes/template-library/templates/templates.php:1700
 msgid ""
-"<p>Hi there {Name (First):1.3},</p><p>Thank you for getting in touch and entering our competition. Keep an eye on your inbox as winners will be contacted via email.</"
-"p><p>Good Luck!</p>"
+"<p>Hi there {Name (First):1.3},</p><p>Thank you for getting in touch and entering our competition. Keep an eye on your inbox as winners will be contacted via email.</p><p>Good Luck!</"
+"p>"
 msgstr ""
-"<p>سلام وجود دارد {نام (اسم):1.3},</p><p>با تشکر از شما برای گرفتن در تماس و ورود به رقابت ما. نگه داشتن چشم در صندوق پستی خود را به عنوان برندگان خواهد شد از طریق ایمیل "
-"تماس گرفته شود.</p><p>موفق باشید!</p>"
+"<p>سلام وجود دارد {نام (اسم):1.3},</p><p>با تشکر از شما برای گرفتن در تماس و ورود به رقابت ما. نگه داشتن چشم در صندوق پستی خود را به عنوان برندگان خواهد شد از طریق ایمیل تماس گرفته "
+"شود.</p><p>موفق باشید!</p>"
 
 #: includes/template-library/templates/templates.php:1725
 msgid "Thank you for entering our competition! The winners will be contacted via email."
@@ -10908,8 +10857,8 @@ msgid ""
 "To accept donations on this form you will need to install one of our payment add-ons. To learn more about your payment add-on options, visit the following page (https://"
 "www.gravityforms.com/blog/payment-add-ons). Important: Delete this tip before you publish the form."
 msgstr ""
-"برای پذیرش کمک های مالی از طریق این فرم شما نیاز به نصب یکی از افزودنی های پرداخت ما. برای کسب اطلاعات بیشتر در مورد گزینه های افزودنی پرداخت، به صفحه زیر مراجعه کنید "
-"(https://www.gravityforms.com/blog/payment-add-ons). مهم: این نکته را قبل از انتشار فرم حذف کنید."
+"برای پذیرش کمک های مالی از طریق این فرم شما نیاز به نصب یکی از افزودنی های پرداخت ما. برای کسب اطلاعات بیشتر در مورد گزینه های افزودنی پرداخت، به صفحه زیر مراجعه کنید (https://"
+"www.gravityforms.com/blog/payment-add-ons). مهم: این نکته را قبل از انتشار فرم حذف کنید."
 
 #: includes/template-library/templates/templates.php:1985
 msgid "Donation Amount"
@@ -10965,8 +10914,8 @@ msgid ""
 "To accept payments on this form you will need to install one of our payment add-ons. To learn more about your payment add-on options, visit the following page (https://"
 "www.gravityforms.com/blog/payment-add-ons). Important: Delete this tip before you publish the form."
 msgstr ""
-"برای پذیرش پرداخت در این فرم، باید یکی از افزونه‌های پرداخت ما را نصب کنید. برای کسب اطلاعات بیشتر در مورد گزینه های افزودنی پرداخت خود، از صفحه زیر (https://"
-"www.gravityforms.com/blog/payment-add-ons) دیدن کنید. مهم: قبل از انتشار فرم، این نکته را حذف کنید."
+"برای پذیرش پرداخت در این فرم، باید یکی از افزونه‌های پرداخت ما را نصب کنید. برای کسب اطلاعات بیشتر در مورد گزینه های افزودنی پرداخت خود، از صفحه زیر (https://www.gravityforms.com/blog/"
+"payment-add-ons) دیدن کنید. مهم: قبل از انتشار فرم، این نکته را حذف کنید."
 
 #: includes/template-library/templates/templates.php:2337 includes/template-library/templates/templates.php:3292 includes/template-library/templates/templates.php:4155
 msgid "My Super Awesome Product"
@@ -11179,8 +11128,8 @@ msgstr "ما درخواست شما را دریافت کردیم."
 #: includes/template-library/templates/templates.php:6111
 msgid "<p>Hi {Name (First):1.3},</p><p>Thank you for submitting your application. We are in the process of reviewing it and will get in touch with you shortly.</p>"
 msgstr ""
-"<p style=\";text-align:right;direction:rtl\">سلام {Name (First):1.3}،</p><p style=\";text-align:right;direction:rtl\"> از ارسال درخواست خود متشکریم. ما در حال بررسی آن "
-"هستیم و به زودی با شما تماس خواهیم گرفت.</p>"
+"<p style=\";text-align:right;direction:rtl\">سلام {Name (First):1.3}،</p><p style=\";text-align:right;direction:rtl\"> از ارسال درخواست خود متشکریم. ما در حال بررسی آن هستیم و به "
+"زودی با شما تماس خواهیم گرفت.</p>"
 
 #: includes/template-library/templates/templates.php:6134
 msgid "Let your users book tickets for an event"
@@ -11349,21 +11298,21 @@ msgstr "10000000 تومان"
 
 #: includes/template-library/templates/templates.php:8143 includes/template-library/templates/templates.php:8204
 msgid ""
-"<p>Dear {Your Name (First):1.3} </p><p>Thank you for making a gift certificate purchase.</p><p>A {Gift Certificate Amount:9} gift certificate will now be emailed to {Name "
-"of Recipient (First):3.3} {Name of Recipient (Last):3.6}.</p><p>We will email you a receipt for your purchase shortly.</p>"
+"<p>Dear {Your Name (First):1.3} </p><p>Thank you for making a gift certificate purchase.</p><p>A {Gift Certificate Amount:9} gift certificate will now be emailed to {Name of "
+"Recipient (First):3.3} {Name of Recipient (Last):3.6}.</p><p>We will email you a receipt for your purchase shortly.</p>"
 msgstr ""
-"<p>{Your Name (First):1.3} عزیز</p><p>از خرید کارت هدیه شما متشکریم.</p><p>کارت هدیه به مبلغ {Gift Certificate Amount:9} اکنون برای {Name of Recipient (First):3.3} {Name "
-"of Recipient (Last):3.6} ایمیل خواهد شد.</p><p>به زودی رسید خرید شما را ایمیل خواهیم کرد.</p>"
+"<p>{Your Name (First):1.3} عزیز</p><p>از خرید کارت هدیه شما متشکریم.</p><p>کارت هدیه به مبلغ {Gift Certificate Amount:9} اکنون برای {Name of Recipient (First):3.3} {Name of Recipient "
+"(Last):3.6} ایمیل خواهد شد.</p><p>به زودی رسید خرید شما را ایمیل خواهیم کرد.</p>"
 
 #: includes/template-library/templates/templates.php:8174
 msgid ""
-"<p>Gift Certificate ID: <strong>000GIFT{entry_id}</strong></p><p>Dear {Name of Recipient (First):3.3},</p><p>We are delighted to send you this gift certificate worth "
-"{Gift Certificate Amount:9} from {Your Name (First):1.3} {Your Name (Last):1.6}.</p><p>Here's a message from them to you...</p><p><blockquote>{Add a message to your gift "
-"certificate...:17}</blockquote></p><p>We look forward to seeing you in-store to redeem your gift certificate!</p>"
+"<p>Gift Certificate ID: <strong>000GIFT{entry_id}</strong></p><p>Dear {Name of Recipient (First):3.3},</p><p>We are delighted to send you this gift certificate worth {Gift "
+"Certificate Amount:9} from {Your Name (First):1.3} {Your Name (Last):1.6}.</p><p>Here's a message from them to you...</p><p><blockquote>{Add a message to your gift certificate...:17}"
+"</blockquote></p><p>We look forward to seeing you in-store to redeem your gift certificate!</p>"
 msgstr ""
-"<p>شناسه کارت هدیه: <strong>000GIFT{entry_id}</strong></p><p>{Name of Recipient (First):3.3} عزیز،</p><p>خوشحالیم که این کارت هدیه به ارزش {Gift Certificate Amount:9} را "
-"از طرف {Your Name (First):1.3} {Your Name (Last):1.6} برایتان ارسال می‌کنیم.</p><p>پیامی از طرف ایشان برای شما...</p><p><blockquote>{Add a message to your gift "
-"certificate...:17}</blockquote></p><p>مشتاقانه منتظر حضور شما در فروشگاه برای استفاده از کارت هدیه هستیم!</p>"
+"<p>شناسه کارت هدیه: <strong>000GIFT{entry_id}</strong></p><p>{Name of Recipient (First):3.3} عزیز،</p><p>خوشحالیم که این کارت هدیه به ارزش {Gift Certificate Amount:9} را از طرف {Your "
+"Name (First):1.3} {Your Name (Last):1.6} برایتان ارسال می‌کنیم.</p><p>پیامی از طرف ایشان برای شما...</p><p><blockquote>{Add a message to your gift certificate...:17}</blockquote></"
+"p><p>مشتاقانه منتظر حضور شما در فروشگاه برای استفاده از کارت هدیه هستیم!</p>"
 
 #: includes/template-library/templates/templates.php:8226
 msgid "Thank you for making a gift certificate purchase! You should receive an email from us shortly with more information."
@@ -11395,11 +11344,11 @@ msgstr "حریم خصوصی"
 
 #: includes/template-library/templates/templates.php:8479
 msgid ""
-"I agree with the storage and handling of my data by this website. - <a target=\"_blank\" href=\"#\" rel=\"noopener noreferrer\">Privacy Policy</a> <abbr class=\"wpgdprc-"
-"required\" title=\"You need to accept this checkbox.\">*</abbr>"
-msgstr ""
-"من با ذخیره سازی داده ها توسط این وب سایت موافقم. - <a target=\"_blank\" href=\"#\" rel=\"noopener noreferrer\">سیاست حفظ حریم خصوصی</a> <abbr class=\"wpgdprc-required\" "
+"I agree with the storage and handling of my data by this website. - <a target=\"_blank\" href=\"#\" rel=\"noopener noreferrer\">Privacy Policy</a> <abbr class=\"wpgdprc-required\" "
 "title=\"You need to accept this checkbox.\">*</abbr>"
+msgstr ""
+"من با ذخیره سازی داده ها توسط این وب سایت موافقم. - <a target=\"_blank\" href=\"#\" rel=\"noopener noreferrer\">سیاست حفظ حریم خصوصی</a> <abbr class=\"wpgdprc-required\" title=\"You "
+"need to accept this checkbox.\">*</abbr>"
 
 #: includes/template-library/templates/templates.php:8480
 msgid "I agree with the storage and handling of my data by this website."
@@ -11407,11 +11356,11 @@ msgstr "من با ذخیره و مدیریت داده های این وب سای�
 
 #: includes/template-library/templates/templates.php:8488
 msgid ""
-"I agree with the storage and handling of my data by this website. - <a target=\"_blank\" href=\"#\" rel=\"noopener noreferrer\">Privacy  Policy</a> <abbr class=\"wpgdprc-"
-"required\" title=\"You need to accept this checkbox.\">*</abbr>"
-msgstr ""
-"من با ذخیره سازی داده ها توسط این وب سایت موافقم. - <a target=\"_blank\" href=\"#\" rel=\"noopener noreferrer\">سیاست حفظ حریم خصوصی</a> <abbr class=\"wpgdprc-required\" "
+"I agree with the storage and handling of my data by this website. - <a target=\"_blank\" href=\"#\" rel=\"noopener noreferrer\">Privacy  Policy</a> <abbr class=\"wpgdprc-required\" "
 "title=\"You need to accept this checkbox.\">*</abbr>"
+msgstr ""
+"من با ذخیره سازی داده ها توسط این وب سایت موافقم. - <a target=\"_blank\" href=\"#\" rel=\"noopener noreferrer\">سیاست حفظ حریم خصوصی</a> <abbr class=\"wpgdprc-required\" title=\"You "
+"need to accept this checkbox.\">*</abbr>"
 
 #: includes/template-library/templates/templates.php:8579
 msgid "Thank you for signing up. Be on the lookout for our monthly newsletter!"
@@ -11432,11 +11381,11 @@ msgstr "لطفاً فرم زیر را تکمیل کنید و ما به زودی 
 
 #: includes/template-library/templates/templates.php:8633
 msgid ""
-"To get the most out of your form, we suggest that you sync this form with an email add-on. To learn more about your email add-on options, visit the following page: "
-"(https://www.gravityforms.com/the-8-best-email-plugins-for-wordpress-in-2020). Important: Delete this tip before you publish the form."
+"To get the most out of your form, we suggest that you sync this form with an email add-on. To learn more about your email add-on options, visit the following page: (https://"
+"www.gravityforms.com/the-8-best-email-plugins-for-wordpress-in-2020). Important: Delete this tip before you publish the form."
 msgstr ""
-"برای استفاده بهینه از فرم خود، پیشنهاد می‌کنیم این فرم را با یک افزودنی ایمیل همگام‌سازی کنید. برای اطلاعات بیشتر درباره گزینه‌های افزونه ایمیل، به صفحه زیر مراجعه کنید: "
-"(https://www.gravityforms.com/the-8-best-email-plugins-for-wordpress-in-2020). مهم: این نکته را قبل از انتشار فرم حذف کنید."
+"برای استفاده بهینه از فرم خود، پیشنهاد می‌کنیم این فرم را با یک افزودنی ایمیل همگام‌سازی کنید. برای اطلاعات بیشتر درباره گزینه‌های افزونه ایمیل، به صفحه زیر مراجعه کنید: (https://"
+"www.gravityforms.com/the-8-best-email-plugins-for-wordpress-in-2020). مهم: این نکته را قبل از انتشار فرم حذف کنید."
 
 #: includes/template-library/templates/templates.php:8942
 msgid "Please select the service/s you require..."
@@ -12053,11 +12002,11 @@ msgstr "احراز هویت (نسخه 2 API)"
 
 #: includes/webapi/webapi.php:569
 msgid ""
-"Create an API Key below to use the REST API version 2. Alternatively, you can use cookie authentication which is supported for logged in users. %sVisit our documentation "
-"pages%s for more information."
+"Create an API Key below to use the REST API version 2. Alternatively, you can use cookie authentication which is supported for logged in users. %sVisit our documentation pages%s for "
+"more information."
 msgstr ""
-"برای ایجاد کلید API زیر و استفاده از REST API نسخه 2. همچنین می‌توانید از تایید هویت کوکی استفاده کنید که برای کاربران وارد شده پشتیبانی می‌شود. %sبرای کسب اطلاعات بیشتر "
-"مستندات%s ما را مشاهده کنید."
+"برای ایجاد کلید API زیر و استفاده از REST API نسخه 2. همچنین می‌توانید از تایید هویت کوکی استفاده کنید که برای کاربران وارد شده پشتیبانی می‌شود. %sبرای کسب اطلاعات بیشتر مستندات%s ما "
+"را مشاهده کنید."
 
 #: includes/webapi/webapi.php:574
 msgid "API Keys"
@@ -12069,11 +12018,11 @@ msgstr "احراز هویت (نسخه 1 API)"
 
 #: includes/webapi/webapi.php:582
 msgid ""
-"Configure your API Key below to use the REST API version 1. Alternatively, you can use cookie authentication which is supported for logged in users. %sVisit our "
-"documentation pages%s for more information."
+"Configure your API Key below to use the REST API version 1. Alternatively, you can use cookie authentication which is supported for logged in users. %sVisit our documentation pages%s "
+"for more information."
 msgstr ""
-"پیکربندی کلید API زیر و استفاده از REST API نسخه 1. همچنین می‌توانید از تایید هویت کوکی استفاده کنید که برای کاربران وارد شده پشتیبانی می‌شود. %sبرای کسب اطلاعات بیشتر "
-"مستندات%s ما را مشاهده کنید."
+"پیکربندی کلید API زیر و استفاده از REST API نسخه 1. همچنین می‌توانید از تایید هویت کوکی استفاده کنید که برای کاربران وارد شده پشتیبانی می‌شود. %sبرای کسب اطلاعات بیشتر مستندات%s ما را "
+"مشاهده کنید."
 
 #: includes/webapi/webapi.php:587
 msgid "Public API Key"
@@ -12184,16 +12133,14 @@ msgid "Internal Error"
 msgstr "خطای داخلی"
 
 #: includes/wizard/steps/class-gf-installation-wizard-step-background-updates.php:18
-msgid ""
-"Gravity Forms will download important bug fixes, security enhancements and plugin updates automatically. Updates are extremely important to the security of your WordPress "
-"site."
+msgid "Gravity Forms will download important bug fixes, security enhancements and plugin updates automatically. Updates are extremely important to the security of your WordPress site."
 msgstr "گرویتی فرم رفع اشکالات مهم ، پیشرفت های امنیتی و بروزرسانی های افزونه را به طور خودکار بارگیری می کند. بروزرسانی ها برای امنیت سایت وردپرس شما بسیار مهم هستند."
 
 #: includes/wizard/steps/class-gf-installation-wizard-step-background-updates.php:24
 msgid "This feature is activated by default unless you opt to disable it below. We only recommend disabling background updates if you intend on managing updates manually."
 msgstr ""
-"این ویژگی به طور پیش فرض فعال می شود ، مگر اینکه تصمیم بگیرید آن را در زیر غیرفعال کنید. ما فقط توصیه می کنیم اگر می خواهید به صورت دستی بروزرسانی ها را انجام دهید ، "
-"بروزرسانی های پس زمینه را غیرفعال کنید."
+"این ویژگی به طور پیش فرض فعال می شود ، مگر اینکه تصمیم بگیرید آن را در زیر غیرفعال کنید. ما فقط توصیه می کنیم اگر می خواهید به صورت دستی بروزرسانی ها را انجام دهید ، بروزرسانی های پس "
+"زمینه را غیرفعال کنید."
 
 #: includes/wizard/steps/class-gf-installation-wizard-step-background-updates.php:35
 msgid "Updates will only be available if you have entered a valid License Key"
@@ -12213,11 +12160,11 @@ msgstr "شما مطمئن هستید؟"
 
 #: includes/wizard/steps/class-gf-installation-wizard-step-background-updates.php:61
 msgid ""
-"By disabling background updates your site may not get critical bug fixes and security enhancements. We only recommend doing this if you are experienced at managing a "
-"WordPress site and accept the risks involved in manually keeping your WordPress site updated."
+"By disabling background updates your site may not get critical bug fixes and security enhancements. We only recommend doing this if you are experienced at managing a WordPress site "
+"and accept the risks involved in manually keeping your WordPress site updated."
 msgstr ""
-"با غیرفعال کردن بروزرسانی های پس زمینه ، سایت شما ممکن است رفع اشکال مهم و پیشرفت های امنیتی را نداشته باشد. ما فقط توصیه می کنیم این کار را انجام دهید اگر در مدیریت سایت "
-"وردپرس تجربه کرده اید و خطرات ناشی از بروزرسانی دستی سایت وردپرس خود را بپذیرید."
+"با غیرفعال کردن بروزرسانی های پس زمینه ، سایت شما ممکن است رفع اشکال مهم و پیشرفت های امنیتی را نداشته باشد. ما فقط توصیه می کنیم این کار را انجام دهید اگر در مدیریت سایت وردپرس "
+"تجربه کرده اید و خطرات ناشی از بروزرسانی دستی سایت وردپرس خود را بپذیرید."
 
 #: includes/wizard/steps/class-gf-installation-wizard-step-background-updates.php:66
 msgid "I understand and accept the risk of not enabling background updates."
@@ -12245,8 +12192,8 @@ msgstr "یک فرم ایجاد کنید"
 
 #: includes/wizard/steps/class-gf-installation-wizard-step-license-key.php:21
 msgid ""
-"Enter your Gravity Forms License Key below.  Your key unlocks access to automatic updates, the add-on installer, and support.  You can find your key on the My Account "
-"page on the %sGravity Forms%s site."
+"Enter your Gravity Forms License Key below.  Your key unlocks access to automatic updates, the add-on installer, and support.  You can find your key on the My Account page on the "
+"%sGravity Forms%s site."
 msgstr "نیازی به وارد کردن کد مجوز برای افزونه %sگرویتی فرم%s نمی باشد! لطفا جهت ادامه مراحل نصب روی دکمه \"بعدی\" در زیر کلیک کنید."
 
 #: includes/wizard/steps/class-gf-installation-wizard-step-license-key.php:25
@@ -12255,11 +12202,9 @@ msgstr "کلید مجوز خود را وارد کنید"
 
 #: includes/wizard/steps/class-gf-installation-wizard-step-license-key.php:39
 msgid ""
-"If you don't enter a valid license key, you will not be able to update Gravity Forms when important bug fixes and security enhancements are released. This can be a "
-"serious security risk for your site."
-msgstr ""
-"اگر یک کلید مجوز معتبر وارد نکنید ، در صورت انتشار اشکالات مهم و پیشرفت های امنیتی ، نمی توانید فرم های گرویتی را بروز کنید. این می تواند یک خطر جدی برای امنیت سایت شما "
-"باشد."
+"If you don't enter a valid license key, you will not be able to update Gravity Forms when important bug fixes and security enhancements are released. This can be a serious security "
+"risk for your site."
+msgstr "اگر یک کلید مجوز معتبر وارد نکنید ، در صورت انتشار اشکالات مهم و پیشرفت های امنیتی ، نمی توانید فرم های گرویتی را بروز کنید. این می تواند یک خطر جدی برای امنیت سایت شما باشد."
 
 #: includes/wizard/steps/class-gf-installation-wizard-step-license-key.php:44
 msgid "I understand the risks of not providing a valid license key."
@@ -12573,11 +12518,11 @@ msgstr "اگر آدرس تصویر معتبری وجود نداشته باشد،
 
 #: notification.php:187
 msgid ""
-"Warning! Using a third-party email in the From Email field may prevent your notification from being delivered. It is best to use an email with the same domain as your "
-"website. %sMore details in our documentation.%s"
+"Warning! Using a third-party email in the From Email field may prevent your notification from being delivered. It is best to use an email with the same domain as your website. %sMore "
+"details in our documentation.%s"
 msgstr ""
-"هشدار! استفاده از ایمیل شخص ثالث در قسمت ایمیل فرستنده ممکن است از تحویل اعلان شما جلوگیری کند. بهتر است از ایمیلی با دامنه مشابه وب سایت خود استفاده کنید. %s جزئیات "
-"بیشتر در مستندات ما.%s"
+"هشدار! استفاده از ایمیل شخص ثالث در قسمت ایمیل فرستنده ممکن است از تحویل اعلان شما جلوگیری کند. بهتر است از ایمیلی با دامنه مشابه وب سایت خود استفاده کنید. %s جزئیات بیشتر در مستندات "
+"ما.%s"
 
 #: notification.php:220
 msgid "Configure Routing"
@@ -12880,8 +12825,8 @@ msgstr "بروزرسانی خودکار در پس زمینه"
 #: settings.php:602
 msgid "Enable to allow Gravity Forms to download and install bug fixes and security updates automatically in the background. Requires a valid license key."
 msgstr ""
-"برای این‌که گرویتی فرم اجازه دانلود و نصب باگ های رفع شده و بروزرسانی های امنیتی را به صورت خودکار داشته باشد این گزینه را علامت بزنید. برای استفاده از این قابلیت به یک "
-"مجوز معتبر نیاز دارید."
+"برای این‌که گرویتی فرم اجازه دانلود و نصب باگ های رفع شده و بروزرسانی های امنیتی را به صورت خودکار داشته باشد این گزینه را علامت بزنید. برای استفاده از این قابلیت به یک مجوز معتبر "
+"نیاز دارید."
 
 #: settings.php:608
 msgid "Enable Automatic Background Updates"
@@ -12913,11 +12858,11 @@ msgstr "CSS پیش فرض خروجی"
 
 #: settings.php:692
 msgid ""
-"Enable this option to output the default form CSS. Disable it if you plan to create your own CSS in a child theme. Note: after Gravity Forms 2.8, this setting will no "
-"longer appear on the settings page. If you previously had it enabled, you will need to use the %sgform_disable_css%s filter to disable it."
+"Enable this option to output the default form CSS. Disable it if you plan to create your own CSS in a child theme. Note: after Gravity Forms 2.8, this setting will no longer appear "
+"on the settings page. If you previously had it enabled, you will need to use the %sgform_disable_css%s filter to disable it."
 msgstr ""
-"برای خروجی فرم پیش فرض CSS این گزینه را فعال کنید. اگر قصد دارید CSS خود را در پوسته چایلد ایجاد کنید، آن را غیرفعال کنید. توجه: پس از گرویتی فرم 2.8، این گزینه دیگر در "
-"صفحه پیکربندی ظاهر نمی شود. اگر قبلاً آن را فعال کرده بودید، باید از فیلتر %sgform_disable_css%s برای غیرفعال کردن آن استفاده کنید."
+"برای خروجی فرم پیش فرض CSS این گزینه را فعال کنید. اگر قصد دارید CSS خود را در پوسته چایلد ایجاد کنید، آن را غیرفعال کنید. توجه: پس از گرویتی فرم 2.8، این گزینه دیگر در صفحه پیکربندی "
+"ظاهر نمی شود. اگر قبلاً آن را فعال کرده بودید، باید از فیلتر %sgform_disable_css%s برای غیرفعال کردن آن استفاده کنید."
 
 #: settings.php:702
 msgid "Disable CSS"
@@ -12961,11 +12906,11 @@ msgstr "پیکربندی reCAPTCHA"
 
 #: settings.php:1006
 msgid ""
-"Gravity Forms integrates with reCAPTCHA, a free CAPTCHA service that uses an advanced risk analysis engine and adaptive challenges to keep automated software from "
-"engaging in abusive activities on your site. "
+"Gravity Forms integrates with reCAPTCHA, a free CAPTCHA service that uses an advanced risk analysis engine and adaptive challenges to keep automated software from engaging in abusive "
+"activities on your site. "
 msgstr ""
-"گرویتی فرم با reCAPTCHA ادغام می‌شود؛ یک سرویس رایگان CAPTCHA که از یک موتور پیشرفته تحلیل ریسک و چالش‌های تطبیقی استفاده می‌کند تا از فعالیت‌های سوء نرم‌افزارهای خودکار در "
-"سایت شما جلوگیری کند. "
+"گرویتی فرم با reCAPTCHA ادغام می‌شود؛ یک سرویس رایگان CAPTCHA که از یک موتور پیشرفته تحلیل ریسک و چالش‌های تطبیقی استفاده می‌کند تا از فعالیت‌های سوء نرم‌افزارهای خودکار در سایت شما "
+"جلوگیری کند. "
 
 #: settings.php:1007
 msgid "Please note, only v2 keys are supported and checkbox keys are not compatible with invisible reCAPTCHA."
@@ -13017,8 +12962,7 @@ msgstr "غیرفعال کردن فرمت خودکار"
 
 #: tooltips.php:10
 msgid "When enabled, auto-formatting will insert paragraph breaks automatically. Disable auto-formatting when using HTML to create email notification content."
-msgstr ""
-"در صورت فعال شدن ، قالب بندی خودکار بصورت خودکار پاراگراف ها را وارد می کند. قالب بندی خودکار را هنگام استفاده از HTML غیرفعال کنید تا محتوای اعلان ایمیل را ایجاد کنید."
+msgstr "در صورت فعال شدن ، قالب بندی خودکار بصورت خودکار پاراگراف ها را وارد می کند. قالب بندی خودکار را هنگام استفاده از HTML غیرفعال کنید تا محتوای اعلان ایمیل را ایجاد کنید."
 
 #: tooltips.php:11
 msgid "Routing"
@@ -13034,8 +12978,7 @@ msgstr "از آدرس ایمیل"
 
 #: tooltips.php:12
 msgid "Enter an authorized email address you would like the notification email sent from. To avoid deliverability issues, always use your site domain in the from email."
-msgstr ""
-"آدرس ایمیل تایید شده‌ای که می خواهید اعلان ها از آن ارسال شوند را وارد کنید. برای جلوگیری از مشکلات دریافت ایمیل، همیشه از دامنه سایت‌تان در بخش از ایمیل استفاده کنید."
+msgstr "آدرس ایمیل تایید شده‌ای که می خواهید اعلان ها از آن ارسال شوند را وارد کنید. برای جلوگیری از مشکلات دریافت ایمیل، همیشه از دامنه سایت‌تان در بخش از ایمیل استفاده کنید."
 
 #: tooltips.php:13
 msgid "Enter the name you would like the notification email sent from, or select the name from available name fields."
@@ -13083,7 +13026,7 @@ msgstr "برای محدود کردن تعداد ورودی مجاز این فر�
 
 #: tooltips.php:20
 msgid "Schedule a time period the form is active."
-msgstr "یک دوره زمانی که فرم فعال است برنامه ریزی کنید."
+msgstr "بازه زمانی فعال بودن فرم را تعیین کنید."
 
 #: tooltips.php:21
 msgid "Enable Anti-spam honeypot"
@@ -13123,16 +13066,16 @@ msgstr "قرار دادن برچسب فرم"
 
 #: tooltips.php:26
 msgid ""
-"Select the default label placement.  Labels can be top aligned above a field, left aligned to the left of a field, or right aligned to the right of a field. This is a "
-"global label placement setting."
+"Select the default label placement.  Labels can be top aligned above a field, left aligned to the left of a field, or right aligned to the right of a field. This is a global label "
+"placement setting."
 msgstr ""
-"محل قرارگیری پیش‌فرض برچسب‌ها را انتخاب کنید. برچسب‌ها می‌توانند در بالای فیلد (تراز بالا)، سمت چپ فیلد (تراز چپ) یا سمت راست فیلد (تراز راست) قرار گیرند. این یک پیکربندی "
-"سراسری برای قرارگیری برچسب است."
+"محل قرارگیری پیش‌فرض برچسب‌ها را انتخاب کنید. برچسب‌ها می‌توانند در بالای فیلد (تراز بالا)، سمت چپ فیلد (تراز چپ) یا سمت راست فیلد (تراز راست) قرار گیرند. این یک پیکربندی سراسری برای "
+"قرارگیری برچسب است."
 
 #: tooltips.php:27
 msgid ""
-"Select the default description placement.  Descriptions can be placed above the field inputs or below the field inputs. This setting can be overridden in the appearance "
-"settings for each field."
+"Select the default description placement.  Descriptions can be placed above the field inputs or below the field inputs. This setting can be overridden in the appearance settings for "
+"each field."
 msgstr "محل قرارگیری پیش‌فرض توضیحات را انتخاب کنید. توضیحات می‌توانند بالا یا پایین ورودی‌های فیلد قرار گیرند. این قابلیت را می‌توان در تنظیمات ظاهری هر فیلد لغو کرد."
 
 #: tooltips.php:28
@@ -13141,10 +13084,9 @@ msgstr "محل قرارگیری پیام اعتبارسنجی پیش فرض را
 
 #: tooltips.php:29
 msgid ""
-"Select the default sub-label placement.  Sub-labels can be placed above the field inputs or below the field inputs. This setting can be overridden in the appearance "
-"settings for each field."
-msgstr ""
-"محل قرارگیری پیش‌فرض زیربرچسب‌ها را انتخاب کنید. زیربرچسب‌ها می‌توانند بالای ورودی‌های فیلد یا پایین آن ها قرار گیرند. این گزینه را می‌توان در پیکربندی ظاهری هر فیلد لغو کرد."
+"Select the default sub-label placement.  Sub-labels can be placed above the field inputs or below the field inputs. This setting can be overridden in the appearance settings for each "
+"field."
+msgstr "محل قرارگیری پیش‌فرض زیربرچسب‌ها را انتخاب کنید. زیربرچسب‌ها می‌توانند بالای ورودی‌های فیلد یا پایین آن ها قرار گیرند. این گزینه را می‌توان در پیکربندی ظاهری هر فیلد لغو کرد."
 
 #: tooltips.php:30
 msgid "Required Indicator"
@@ -13193,8 +13135,7 @@ msgstr "متن مورد نظر کاربر را در صفحه تایید این �
 #: tooltips.php:37
 msgid "When enabled, auto-formatting will insert paragraph breaks automatically. Disable auto-formatting when using HTML to create the confirmation content."
 msgstr ""
-"وقتی قالب خودکار فعال باشد جداکننده پاراگراف ها به صورت خودکار قرار داده می شود.  وقتی که می خواهید از HTML برای ساخت محتوای تاییدیه ها استفاده کنید قالب خودکار را "
-"غیرفعال کنید."
+"وقتی قالب خودکار فعال باشد جداکننده پاراگراف ها به صورت خودکار قرار داده می شود.  وقتی که می خواهید از HTML برای ساخت محتوای تاییدیه ها استفاده کنید قالب خودکار را غیرفعال کنید."
 
 #: tooltips.php:38
 msgid "Redirect Form to Page"
@@ -13283,11 +13224,10 @@ msgid "Enter the maximum number of rows that users are allowed to add."
 msgstr "حداکثر تعداد ردیف هایی را که کاربران مجاز به اضافه کردن هستند وارد کنید."
 
 #: tooltips.php:52
-msgid ""
-"Select the type of inputs you would like to use for the date field. Date Picker will let users select a date from a calendar. Date Field will let users free type the date."
+msgid "Select the type of inputs you would like to use for the date field. Date Picker will let users select a date from a calendar. Date Field will let users free type the date."
 msgstr ""
-"نوع ورودی هایی را که می خواهید برای قسمت تاریخ استفاده کنید انتخاب کنید. انتخابگر تاریخ به شما امکان می دهد تا یک تاریخ را از یک تقویم انتخاب کنند. Field Field به کاربران "
-"اجازه می دهد تاریخ را تایپ کنند."
+"نوع ورودی هایی را که می خواهید برای قسمت تاریخ استفاده کنید انتخاب کنید. انتخابگر تاریخ به شما امکان می دهد تا یک تاریخ را از یک تقویم انتخاب کنند. Field Field به کاربران اجازه می "
+"دهد تاریخ را تایپ کنند."
 
 #: tooltips.php:53
 msgid "Select the type of address you would like to use."
@@ -13359,11 +13299,11 @@ msgstr "قالب فیلد نام"
 
 #: tooltips.php:62
 msgid ""
-"Select the format you would like to use for the Name field.  There are 3 options, Normal which includes First and Last Name, Extended which adds Prefix and Suffix, or "
-"Simple which is a single input field."
+"Select the format you would like to use for the Name field.  There are 3 options, Normal which includes First and Last Name, Extended which adds Prefix and Suffix, or Simple which is "
+"a single input field."
 msgstr ""
-"قالبی را که می‌خواهید برای فیلد نام استفاده کنید انتخاب نمایید. 3 گزینه وجود دارد: عادی که شامل نام و نام خانوادگی است، گسترده که پیشوند و پسوند را اضافه می‌کند، یا ساده که "
-"یک فیلد ورودی واحد است."
+"قالبی را که می‌خواهید برای فیلد نام استفاده کنید انتخاب نمایید. 3 گزینه وجود دارد: عادی که شامل نام و نام خانوادگی است، گسترده که پیشوند و پسوند را اضافه می‌کند، یا ساده که یک فیلد "
+"ورودی واحد است."
 
 #: tooltips.php:63
 msgid "Select the format of numbers that are allowed in this field. You have the option to use a comma or a dot as the decimal separator."
@@ -13371,11 +13311,11 @@ msgstr "قالب اعداد مجاز در این فیلد را انتخاب کن
 
 #: tooltips.php:64
 msgid ""
-"Check this box to prevent this field from being displayed in a non-secure page (i.e. not https://). It will redirect the page to the same URL, but starting with https:// "
-"instead. This option requires a properly configured SSL certificate."
+"Check this box to prevent this field from being displayed in a non-secure page (i.e. not https://). It will redirect the page to the same URL, but starting with https:// instead. "
+"This option requires a properly configured SSL certificate."
 msgstr ""
-"این کادر را علامت بزنید تا از نمایش این قسمت در صفحه غیر ایمن (به عنوان مثال https: //) جلوگیری شود. این صفحه را به همان URL هدایت می کند ، اما به جای آن با https: // "
-"شروع می کند. این گزینه به یک گواهی SSL درست پیکربندی شده نیاز دارد."
+"این کادر را علامت بزنید تا از نمایش این قسمت در صفحه غیر ایمن (به عنوان مثال https: //) جلوگیری شود. این صفحه را به همان URL هدایت می کند ، اما به جای آن با https: // شروع می کند. "
+"این گزینه به یک گواهی SSL درست پیکربندی شده نیاز دارد."
 
 #: tooltips.php:65
 msgid "Field Date Format"
@@ -13403,11 +13343,11 @@ msgstr "برای فعال کردن بارگذاری چندین فایل برای
 
 #: tooltips.php:69
 msgid ""
-"Specify the maximum number of files that can be uploaded using this field. Leave blank for unlimited. Note that the actual number of files permitted may be limited by "
-"this server's specifications and configuration."
+"Specify the maximum number of files that can be uploaded using this field. Leave blank for unlimited. Note that the actual number of files permitted may be limited by this server's "
+"specifications and configuration."
 msgstr ""
-"حداکثر تعداد پرونده هایی که با استفاده از این قسمت بارگذاری می شود را مشخص کنید. خالی بگذارید تا نامحدود. توجه داشته باشید که تعداد واقعی پرونده های مجاز ممکن است با "
-"مشخصات و پیکربندی این سرور محدود شود."
+"حداکثر تعداد پرونده هایی که با استفاده از این قسمت بارگذاری می شود را مشخص کنید. خالی بگذارید تا نامحدود. توجه داشته باشید که تعداد واقعی پرونده های مجاز ممکن است با مشخصات و "
+"پیکربندی این سرور محدود شود."
 
 #: tooltips.php:70
 msgid "Specify the maximum file size in megabytes allowed for each of the files."
@@ -13438,12 +13378,10 @@ msgid "Select this option to make the form field required.  A required field wil
 msgstr "برای ضروری کردن فیلد این گزینه را انتخاب کنید. فیلد های ضروری از ارسال فرم هایی که این فیلد ها پر یا انتخاب نشده است جلوگیری می کنند."
 
 #: tooltips.php:74
-msgid ""
-"Select this option to limit user input to unique values only.  This will require that a value entered in a field does not currently exist in the entry database for that "
-"field."
+msgid "Select this option to limit user input to unique values only.  This will require that a value entered in a field does not currently exist in the entry database for that field."
 msgstr ""
-"این گزینه را انتخاب کنید تا ورودی کاربر را فقط به مقادیر یکتا محدود کنید. این کار ایجاب می‌کند که مقدار وارد شده در یک فیلد در حال حاضر در پایگاه داده ورودی‌ها برای آن فیلد "
-"وجود نداشته باشد."
+"این گزینه را انتخاب کنید تا ورودی کاربر را فقط به مقادیر یکتا محدود کنید. این کار ایجاب می‌کند که مقدار وارد شده در یک فیلد در حال حاضر در پایگاه داده ورودی‌ها برای آن فیلد وجود نداشته "
+"باشد."
 
 #: tooltips.php:75
 msgid "Hide Field Label"
@@ -13503,11 +13441,9 @@ msgstr "محل قرارگیری زیربرچسب‌ها را انتخاب کنی
 
 #: tooltips.php:85
 msgid ""
-"Select a form field size from the available options. This will set the width of the field. Please note: if using a paragraph field, the size applies only to the height of "
-"the field."
+"Select a form field size from the available options. This will set the width of the field. Please note: if using a paragraph field, the size applies only to the height of the field."
 msgstr ""
-"اندازه فیلد فرم را از گزینه‌های موجود انتخاب کنید. این گزینه عرض فیلد را پیکربندی می‌کند. لطفاً توجه داشته باشید: در صورت استفاده از فیلد پاراگراف، اندازه فقط به ارتفاع فیلد "
-"اعمال می‌شود."
+"اندازه فیلد فرم را از گزینه‌های موجود انتخاب کنید. این گزینه عرض فیلد را پیکربندی می‌کند. لطفاً توجه داشته باشید: در صورت استفاده از فیلد پاراگراف، اندازه فقط به ارتفاع فیلد اعمال می‌شود."
 
 #: tooltips.php:86
 msgid "Select the fields you'd like to use in this Name field and customize the Sub-Labels by entering new ones."
@@ -13543,11 +13479,10 @@ msgstr "استفاده از مقادیر ثبت شده در فیلد دیگر"
 
 #: tooltips.php:93
 msgid ""
-"Activate this option to allow users to skip this field and submit the values entered in the associated field. For example, this is useful for shipping and billing address "
-"fields."
+"Activate this option to allow users to skip this field and submit the values entered in the associated field. For example, this is useful for shipping and billing address fields."
 msgstr ""
-"گزینه های متغیر را فعال کنید و به کاربران اجازه دهید این قسمت را پرش کنند و مقادیر وارد شده در قسمت مرتبط را ارسال کنند. به عنوان مثال ، این مورد برای فیلد های ارسال و "
-"صدور صورت حساب مفید است."
+"گزینه های متغیر را فعال کنید و به کاربران اجازه دهید این قسمت را پرش کنند و مقادیر وارد شده در قسمت مرتبط را ارسال کنند. به عنوان مثال ، این مورد برای فیلد های ارسال و صدور صورت حساب "
+"مفید است."
 
 #: tooltips.php:94
 msgid "Enter the label to be displayed next to the check box. For example, &quot;same as shipping address&quot;."
@@ -13571,11 +13506,11 @@ msgstr "ویژگی تکمیل خودکار"
 
 #: tooltips.php:97
 msgid ""
-"Select this setting to let browsers help a user fill in a field with autocomplete.  You can enter a single autocomplete attribute or multiple attributes separated with a "
-"space.  Learn more about autocomplete in the %s accessibility documentation %s."
+"Select this setting to let browsers help a user fill in a field with autocomplete.  You can enter a single autocomplete attribute or multiple attributes separated with a space.  "
+"Learn more about autocomplete in the %s accessibility documentation %s."
 msgstr ""
-"این گزینه را انتخاب کنید تا مرورگرها به کاربر در پر کردن فیلد با تکمیل خودکار کمک کنند. می‌توانید یک ویژگی autocomplete یا چند ویژگی جدا شده با فاصله وارد کنید. درباره "
-"تکمیل خودکار در %s مستندات دسترسی‌پذیری %s بیشتر بیاموزید."
+"این گزینه را انتخاب کنید تا مرورگرها به کاربر در پر کردن فیلد با تکمیل خودکار کمک کنند. می‌توانید یک ویژگی autocomplete یا چند ویژگی جدا شده با فاصله وارد کنید. درباره تکمیل خودکار در "
+"%s مستندات دسترسی‌پذیری %s بیشتر بیاموزید."
 
 #: tooltips.php:98
 msgid "Validation Message"
@@ -13583,8 +13518,8 @@ msgstr "پیام اعتبار سنجی"
 
 #: tooltips.php:98
 msgid ""
-"If you would like to override the default error validation for a field, enter it here.  This message will be displayed if there is an error with this field when the user "
-"submits the form."
+"If you would like to override the default error validation for a field, enter it here.  This message will be displayed if there is an error with this field when the user submits the "
+"form."
 msgstr "اگر می خواهید اعتبار خطای پیش فرض برای یک رشته را نادیده بگیرید ، آن را در اینجا وارد کنید. در هنگام خطا در هنگام ارسال فرم ، این پیام نمایش داده می شود."
 
 #: tooltips.php:99
@@ -13605,22 +13540,17 @@ msgstr "گزینه های فیلد"
 
 #: tooltips.php:102
 msgid ""
-"Define the choices for this field. If the field type supports it you will also be able to select the default choice(s) using a radio or checkbox located to the left of "
-"the choice."
+"Define the choices for this field. If the field type supports it you will also be able to select the default choice(s) using a radio or checkbox located to the left of the choice."
 msgstr ""
-"گزینه‌های مربوط به این فیلد را تعیین کنید. اگر نوع فیلد از آن پشتیبانی کند، شما همچنین می‌توانید گزینه‌های پیش‌فرض را با استفاده از رادیو یا کادر انتخاب واقع در سمت چپ گزینه "
-"انتخاب کنید."
+"گزینه‌های مربوط به این فیلد را تعیین کنید. اگر نوع فیلد از آن پشتیبانی کند، شما همچنین می‌توانید گزینه‌های پیش‌فرض را با استفاده از رادیو یا کادر انتخاب واقع در سمت چپ گزینه انتخاب کنید."
 
 #: tooltips.php:103
 msgid "Enable Choice Values"
 msgstr "فعال کردن مقادیر گزینه"
 
 #: tooltips.php:103
-msgid ""
-"Check this option to specify a value for each choice. Choice values are not displayed to the user viewing the form, but are accessible to administrators when viewing the "
-"entry."
-msgstr ""
-"برای مشخص کردن مقدار هر انتخاب این گزینه را انتخاب کنید.. مقادیر انتخاب ها به کاربرانی که فرم را می بینند نمایش داده نمی شود اما مدیران می تواننند این مقادیر را ببینند."
+msgid "Check this option to specify a value for each choice. Choice values are not displayed to the user viewing the form, but are accessible to administrators when viewing the entry."
+msgstr "برای مشخص کردن مقدار هر انتخاب این گزینه را انتخاب کنید.. مقادیر انتخاب ها به کاربرانی که فرم را می بینند نمایش داده نمی شود اما مدیران می تواننند این مقادیر را ببینند."
 
 #: tooltips.php:104
 msgid "Create rules to dynamically display or hide this field based on values from another field."
@@ -13634,11 +13564,9 @@ msgstr "رابط کاربری پیشرفته را فعال کنید"
 #. Translators: %s: Link to Chosen jQuery framework.
 #: tooltips.php:106
 msgid ""
-"By selecting this option, the %s jQuery script will be applied to this field, enabling search capabilities to Drop Down fields and a more user-friendly interface for "
-"Multi Select fields."
-msgstr ""
-"با انتخاب این گزینه، اسکریپت جی‌کوئری %s به این فیلد اعمال خواهد شد که قابلیت جستجو را برای فیلد ‌های کشویی و رابط کاربری دوستانه‌تری را برای فیلد های انتخاب چندگانه فعال "
-"می‌کند."
+"By selecting this option, the %s jQuery script will be applied to this field, enabling search capabilities to Drop Down fields and a more user-friendly interface for Multi Select "
+"fields."
+msgstr "با انتخاب این گزینه، اسکریپت جی‌کوئری %s به این فیلد اعمال خواهد شد که قابلیت جستجو را برای فیلد ‌های کشویی و رابط کاربری دوستانه‌تری را برای فیلد های انتخاب چندگانه فعال می‌کند."
 
 #: tooltips.php:107
 msgid "Checkbox Text"
@@ -13663,8 +13591,7 @@ msgstr "\"سایر\" گزینه ها"
 #: tooltips.php:109
 msgid "Check this option to add a text input as the final choice of your radio button field. This allows the user to specify a value that is not a predefined choice."
 msgstr ""
-"برای اضافه کردن یک گزینه نوشتاری به فیلد دکمه‌های رادیویی این گزینه را انتخاب کنید. این کار به کاربران امکان می دهد اگر گزینه مورد نظر کاربر تعریف نشده باشد خودشان مقداری "
-"را وارد کنند."
+"برای اضافه کردن یک گزینه نوشتاری به فیلد دکمه‌های رادیویی این گزینه را انتخاب کنید. این کار به کاربران امکان می دهد اگر گزینه مورد نظر کاربر تعریف نشده باشد خودشان مقداری را وارد کنند."
 
 #: tooltips.php:110
 msgid "Multiple Selection"
@@ -13672,11 +13599,9 @@ msgstr "انتخاب چندگانه"
 
 #: tooltips.php:110
 msgid ""
-"Enable this option to allow the user to select multiple choices. Disabling this option after entries with multiple choices have been submitted will hide the values for "
-"those entries."
+"Enable this option to allow the user to select multiple choices. Disabling this option after entries with multiple choices have been submitted will hide the values for those entries."
 msgstr ""
-"این گزینه را فعال کنید تا به کاربر اجازه دهید گزینه‌های متعدد را انتخاب کند. غیرفعال کردن این گزینه پس از ارسال ورودی‌هایی با انتخاب‌های متعدد، مقادیر آن ورودی‌ها را مخفی "
-"خواهد کرد."
+"این گزینه را فعال کنید تا به کاربر اجازه دهید گزینه‌های متعدد را انتخاب کند. غیرفعال کردن این گزینه پس از ارسال ورودی‌هایی با انتخاب‌های متعدد، مقادیر آن ورودی‌ها را مخفی خواهد کرد."
 
 #: tooltips.php:111
 msgid "Check this option to require a user to be logged in to view this form."
@@ -13803,10 +13728,8 @@ msgid "Image Meta"
 msgstr "فراداده تصویر"
 
 #: tooltips.php:131
-msgid ""
-"Select one or more image metadata field to be displayed along with the image upload field. They enable users to enter additional information about the uploaded image."
-msgstr ""
-"یک یا چند فیلد فراداده تصویر را انتخاب کنید تا همراه با فیلد بارگذاری تصویر نمایش داده شود. آنها به کاربران امکان می‌دهند اطلاعات اضافی درباره تصویر بارگذاری شده وارد کنند."
+msgid "Select one or more image metadata field to be displayed along with the image upload field. They enable users to enter additional information about the uploaded image."
+msgstr "یک یا چند فیلد فراداده تصویر را انتخاب کنید تا همراه با فیلد بارگذاری تصویر نمایش داده شود. آنها به کاربران امکان می‌دهند اطلاعات اضافی درباره تصویر بارگذاری شده وارد کنند."
 
 #: tooltips.php:132
 msgid "Check this option to set this image as the post's Featured Image."
@@ -13818,9 +13741,7 @@ msgstr "داده های ورودی فیلد"
 
 #: tooltips.php:133
 msgid "Check this option to enable data to be passed to the form and pre-populate this field dynamically. Data can be passed via Query Strings, Shortcode and/or Hooks."
-msgstr ""
-"این گزینه را انتخاب کنید تا داده‌ها بتوانند به فرم ارسال شوند و این زمینه را به صورت پویا از قبل پر کنند. داده‌ها می‌توانند از طریق رشته‌های کوئری، کد کوتاه و/یا قلاب‌ها ارسال "
-"شوند."
+msgstr "این گزینه را انتخاب کنید تا داده‌ها بتوانند به فرم ارسال شوند و این زمینه را به صورت پویا از قبل پر کنند. داده‌ها می‌توانند از طریق رشته‌های کوئری، کد کوتاه و/یا قلاب‌ها ارسال شوند."
 
 #: tooltips.php:134
 msgid "Enter the content (Text or HTML) to be displayed on the form."
@@ -13904,16 +13825,15 @@ msgstr "برون‌بری محدوده تاریخ"
 
 #: tooltips.php:147
 msgid "Select a date range. Setting a range will limit the export to entries submitted during that date range. If no range is set, all entries will be exported."
-msgstr ""
-"محدوده تاریخ را انتخاب کنید. پیکربندی محدوده، برون‌بری را به ورودی های ارسال شده در آن بازه از تاریخ محدود می کند. اگر بازه ای تنظیم نشود، تمام ورودی ها برون‌بری می‌شوند."
+msgstr "محدوده تاریخ را انتخاب کنید. پیکربندی محدوده، برون‌بری را به ورودی های ارسال شده در آن بازه از تاریخ محدود می کند. اگر بازه ای تنظیم نشود، تمام ورودی ها برون‌بری می‌شوند."
 
 #: tooltips.php:148
 msgid ""
-"Click the file selection button to upload a Gravity Forms export file from your computer. Please make sure your file has the .json extension, and that it was generated by "
-"the Gravity Forms Export tool."
+"Click the file selection button to upload a Gravity Forms export file from your computer. Please make sure your file has the .json extension, and that it was generated by the Gravity "
+"Forms Export tool."
 msgstr ""
-"روی دکمه انتخاب پرونده کلیک کنید تا پرونده برون‌بری گرویتی فرم از رایانه شما بارگذاری شود. لطفاً اطمینان حاصل کنید که پرونده شما پسوند .json را دارد و توسط ابزار برون‌بری "
-"گرویتی فرم تولید شده است."
+"روی دکمه انتخاب پرونده کلیک کنید تا پرونده برون‌بری گرویتی فرم از رایانه شما بارگذاری شود. لطفاً اطمینان حاصل کنید که پرونده شما پسوند .json را دارد و توسط ابزار برون‌بری گرویتی فرم "
+"تولید شده است."
 
 #: tooltips.php:149
 msgid "If a form uses the Image Choice field, or has Conversational Mode enabled, the importer will import the images and save them in your media library."
@@ -13941,11 +13861,11 @@ msgstr "برای فعال یا غیرفعال کردن خروجی HTML5، بله
 
 #: tooltips.php:153
 msgid ""
-"Select On or Off to enable or disable no-conflict mode. Setting this to On will prevent extraneous scripts and styles from being printed on Gravity Forms admin pages, "
-"reducing conflicts with other plugins and themes."
+"Select On or Off to enable or disable no-conflict mode. Setting this to On will prevent extraneous scripts and styles from being printed on Gravity Forms admin pages, reducing "
+"conflicts with other plugins and themes."
 msgstr ""
-"برای فعال سازی یا غیرفعال سازی حالت no-conflict رابر روی روشن یا خاموش را انتخاب کنید. برای جلوگیری از نمایش اسکریپت خارجی و استایل‌ها در صفحات مدیریت گرویتی فرم و کاهش "
-"تداخل با پلاگین‌ها و پوسته‌ها بر روی روشن قرار دهید."
+"برای فعال سازی یا غیرفعال سازی حالت no-conflict رابر روی روشن یا خاموش را انتخاب کنید. برای جلوگیری از نمایش اسکریپت خارجی و استایل‌ها در صفحات مدیریت گرویتی فرم و کاهش تداخل با "
+"پلاگین‌ها و پوسته‌ها بر روی روشن قرار دهید."
 
 #: tooltips.php:154
 msgid "reCAPTCHA Site Key"
@@ -13953,8 +13873,7 @@ msgstr "کلید سایت reCAPTCHA"
 
 #: tooltips.php:154
 msgid "Enter your reCAPTCHA Site Key, if you do not have a key you can register for one at the provided link.  reCAPTCHA is a free service."
-msgstr ""
-"کلید سایت مربوط به reCAPTCHA را وارد نمایید. اگر کلید سایت برای این منظور ندارید می‌توانید از طریق لینک تعبیه‌ شده برای آن ثبت‌نام نمایید. reCAPTCHA یک سرویس رایگان است."
+msgstr "کلید سایت مربوط به reCAPTCHA را وارد نمایید. اگر کلید سایت برای این منظور ندارید می‌توانید از طریق لینک تعبیه‌ شده برای آن ثبت‌نام نمایید. reCAPTCHA یک سرویس رایگان است."
 
 #: tooltips.php:155
 msgid "reCAPTCHA Secret Key"
@@ -13962,8 +13881,7 @@ msgstr "کلید رمز reCAPTCHA"
 
 #: tooltips.php:155
 msgid "Enter your reCAPTCHA Secret Key, if you do not have a key you can register for one at the provided link.  reCAPTCHA is a free service."
-msgstr ""
-"کلید رمز مربوط به reCAPTCHA خود را وارد نمایید. اگر کلید رمز برای این منظور ندارید می‌توانید از طریق لینک تعبیه‌ شده برای آن ثبت‌نام نمایید. ریکپچا یک سرویس رایگان است."
+msgstr "کلید رمز مربوط به reCAPTCHA خود را وارد نمایید. اگر کلید رمز برای این منظور ندارید می‌توانید از طریق لینک تعبیه‌ شده برای آن ثبت‌نام نمایید. ریکپچا یک سرویس رایگان است."
 
 #: tooltips.php:156
 msgid "reCAPTCHA Type"
@@ -13991,11 +13909,11 @@ msgstr "مقدار شروع ایندکس زبانه"
 
 #: tooltips.php:160 widget.php:172
 msgid ""
-"If you have other forms on the page (i.e. Comments Form), specify a higher tabindex start value so that your Gravity Form does not end up with the same tabindices as your "
-"other forms. To disable the tabindex, enter 0 (zero)."
+"If you have other forms on the page (i.e. Comments Form), specify a higher tabindex start value so that your Gravity Form does not end up with the same tabindices as your other "
+"forms. To disable the tabindex, enter 0 (zero)."
 msgstr ""
-"اگر فرم‌های دیگری ( مثل فرم نظردهی ) در این صفحه دارید مقدار بزرگتری برای شروع TabIndex مشخص کنید با این کار تا پایان Gravit Forms با فرم‌های دیگر که TabIndex یکسان دارد "
-"اشتباه نمی شود. برای غیرفعال کردن TabIndex 0 را وارد کنید."
+"اگر فرم‌های دیگری ( مثل فرم نظردهی ) در این صفحه دارید مقدار بزرگتری برای شروع TabIndex مشخص کنید با این کار تا پایان Gravit Forms با فرم‌های دیگر که TabIndex یکسان دارد اشتباه نمی "
+"شود. برای غیرفعال کردن TabIndex 0 را وارد کنید."
 
 #: tooltips.php:161
 msgid "Override Notifications"
@@ -14055,13 +13973,13 @@ msgstr "اگر مایل به جلوگیری از ذخیره شدن آدرس آی
 
 #: tooltips.php:169
 msgid ""
-"Use these settings to keep entries only as long as they are needed. Trash or delete entries automatically older than the specified number of days. The minimum number of "
-"days allowed is one. This is to ensure that all entry processing is complete before deleting/trashing. The number of days setting is a minimum, not an exact period of "
-"time. The trashing/deleting occurs during the daily cron task so some entries may appear to remain up to a day longer than expected."
+"Use these settings to keep entries only as long as they are needed. Trash or delete entries automatically older than the specified number of days. The minimum number of days allowed "
+"is one. This is to ensure that all entry processing is complete before deleting/trashing. The number of days setting is a minimum, not an exact period of time. The trashing/deleting "
+"occurs during the daily cron task so some entries may appear to remain up to a day longer than expected."
 msgstr ""
-"این پیکربندی‌ها را برای نگهداری ورودی‌ها تنها تا زمان نیاز به کار ببرید. ورودی‌های قدیمی‌تر از روزهای مشخص را خودکار به زباله‌دان بفرستید یا حذف کنید. کمترین روز مجاز، یک روز "
-"است. این برای اطمینان از تکمیل تمام پردازش‌های ورودی قبل انتقال به زباله‌دان است. تنظیم روزها حدودی است و زمان دقیقی ندارد. انتقال به زباله‌دان در وظیفه پس زمینه روزانه "
-"انجام می‌شود، پس برخی ورودی‌ها ممکن است تا یک روز بیشتر از انتظار باقی بمانند."
+"این پیکربندی‌ها را برای نگهداری ورودی‌ها تنها تا زمان نیاز به کار ببرید. ورودی‌های قدیمی‌تر از روزهای مشخص را خودکار به زباله‌دان بفرستید یا حذف کنید. کمترین روز مجاز، یک روز است. این "
+"برای اطمینان از تکمیل تمام پردازش‌های ورودی قبل انتقال به زباله‌دان است. تنظیم روزها حدودی است و زمان دقیقی ندارد. انتقال به زباله‌دان در وظیفه پس زمینه روزانه انجام می‌شود، پس برخی "
+"ورودی‌ها ممکن است تا یک روز بیشتر از انتظار باقی بمانند."
 
 #: tooltips.php:170
 msgid "Password Visibility Toggle"
@@ -14131,11 +14049,11 @@ msgstr "نقطه شروع شاخص تب"
 #~ msgstr "نمای فشرده ویرایشگر فرم"
 
 #~ msgid ""
-#~ "Our new compact view makes it easier than ever to edit your forms! If you have long forms, you no longer have to scroll for ages to find the field you’re looking for. "
-#~ "The compact view gives you a bird’s eye view of your form, so you can quickly find the fields you need to edit."
+#~ "Our new compact view makes it easier than ever to edit your forms! If you have long forms, you no longer have to scroll for ages to find the field you’re looking for. The compact "
+#~ "view gives you a bird’s eye view of your form, so you can quickly find the fields you need to edit."
 #~ msgstr ""
-#~ "نمای فشرده جدید ما ویرایش فرم های شما را آسان تر از همیشه می کند! اگر فرم‌های طولانی دارید، دیگر لازم نیست برای یافتن زمینه مورد نظر خود، چندین سال پیمایش کنید. نمای "
-#~ "فشرده به شما نمای پرنده ای از فرم شما می دهد، بنابراین می توانید به سرعت فیلدهایی را که باید ویرایش کنید پیدا کنید."
+#~ "نمای فشرده جدید ما ویرایش فرم های شما را آسان تر از همیشه می کند! اگر فرم‌های طولانی دارید، دیگر لازم نیست برای یافتن زمینه مورد نظر خود، چندین سال پیمایش کنید. نمای فشرده به شما "
+#~ "نمای پرنده ای از فرم شما می دهد، بنابراین می توانید به سرعت فیلدهایی را که باید ویرایش کنید پیدا کنید."
 
 #~ msgid "Icon of a database"
 #~ msgstr "نماد یک پایگاه داده"
@@ -14144,20 +14062,19 @@ msgstr "نقطه شروع شاخص تب"
 #~ msgstr "طراحی فرم مداری"
 
 #~ msgid ""
-#~ "You might have noticed that we recently added a new setting so that you can use the beautiful and customizable Orbital form theme everywhere on your site, including "
-#~ "shortcodes! Soon you’ll see Orbital in more places, and you’ll find more ways to customize it."
+#~ "You might have noticed that we recently added a new setting so that you can use the beautiful and customizable Orbital form theme everywhere on your site, including shortcodes! "
+#~ "Soon you’ll see Orbital in more places, and you’ll find more ways to customize it."
 #~ msgstr ""
-#~ "شاید متوجه شده باشید که اخیراً تنظیمات جدیدی اضافه کرده ایم تا بتوانید از قالب زیبا و قابل تنظیم Orbital در همه جای سایت خود از جمله کدهای کوتاه استفاده کنید! به زودی "
-#~ "Orbital را در مکان‌های بیشتری خواهید دید و راه‌های بیشتری برای سفارشی‌سازی آن خواهید یافت."
+#~ "شاید متوجه شده باشید که اخیراً تنظیمات جدیدی اضافه کرده ایم تا بتوانید از قالب زیبا و قابل تنظیم Orbital در همه جای سایت خود از جمله کدهای کوتاه استفاده کنید! به زودی Orbital را در "
+#~ "مکان‌های بیشتری خواهید دید و راه‌های بیشتری برای سفارشی‌سازی آن خواهید یافت."
 
 #~ msgid "Read more about styling your forms"
 #~ msgstr "درباره استایل دادن به فرم های خود بیشتر بخوانید"
 
 #~ msgid ""
-#~ "We are always striving to improve the performance of Gravity Forms. In this release, you’ll notice smaller CSS files so that you don’t have to sacrifice performance to "
-#~ "have good-looking forms."
-#~ msgstr ""
-#~ "ما همیشه در تلاش برای بهبود عملکرد Gravity Forms هستیم. در این نسخه، فایل‌های CSS کوچک‌تری را مشاهده می‌کنید تا مجبور نباشید عملکرد را برای داشتن فرم‌های زیبا قربانی کنید."
+#~ "We are always striving to improve the performance of Gravity Forms. In this release, you’ll notice smaller CSS files so that you don’t have to sacrifice performance to have good-"
+#~ "looking forms."
+#~ msgstr "ما همیشه در تلاش برای بهبود عملکرد Gravity Forms هستیم. در این نسخه، فایل‌های CSS کوچک‌تری را مشاهده می‌کنید تا مجبور نباشید عملکرد را برای داشتن فرم‌های زیبا قربانی کنید."
 
 #~ msgid "Please enter name."
 #~ msgstr "لطفاً نام را وارد کنید."

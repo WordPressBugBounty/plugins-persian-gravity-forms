@@ -262,10 +262,11 @@ class GFPersian_Adress extends GFPersian_Core {
 				continue;
 			}
 
+			$min = wp_scripts_get_suffix();
 			wp_dequeue_script( 'gform_iran_cities' );
 			wp_deregister_script( 'gform_iran_cities' );
 
-			wp_register_script( 'gform_iran_cities', GF_PERSIAN_URL . 'assets/js/iran-cities-full' . GFPersian_Core::minified() . '.js', [], GF_PERSIAN_VERSION, false );
+			wp_register_script( 'gform_iran_cities', GF_PERSIAN_URL . 'assets/js/iran-cities-full' . $min . '.js', [], GF_PERSIAN_VERSION, false );
 			wp_enqueue_script( 'gform_iran_cities' );
 
 		}

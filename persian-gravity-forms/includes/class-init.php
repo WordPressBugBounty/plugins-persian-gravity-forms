@@ -27,8 +27,9 @@ class GFPersian_Init extends GFPersian_Core {
 	 * @return void
 	 */
 	public function pgf_enqueue_scripts( $form, $is_ajax ) {
+		$min = wp_scripts_get_suffix();
 
-		wp_enqueue_script( 'pgf-general', GF_PERSIAN_URL . 'assets/js/general' . GFPersian_Core::minified() . '.js', [
+		wp_enqueue_script( 'pgf-general', GF_PERSIAN_URL . 'assets/js/general' . $min . '.js', [
 			'jquery',
 			'gform_gravityforms',
 		], GF_PERSIAN_VERSION, true );

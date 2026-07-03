@@ -177,13 +177,4 @@ class GFPersian_Core {
 		return add_query_arg( $args, admin_url( 'admin.php' ) );
 	}
 
-	/**
-	 * Returns .min if minified script should get loaded
-	 *
-	 * @erturn string
-	 */
-	public static function minified(): string {
-		return ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '.min' : '';
-	}
-
 }

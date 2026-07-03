@@ -22,16 +22,14 @@ class ComposerStaticInit758a0ff96ec1565f6a26063852fcef2b
         '4364d9898253482270d33c3e7d349234' => __DIR__ . '/..' . '/hekmatinasser/notowo/src/helpers.php',
         '4ad677cf23be1eeec8c74951804d4cb0' => __DIR__ . '/..' . '/hekmatinasser/verta/src/helpers.php',
         '3cc69e6a0d39c45fc82449ceb4c5e5d5' => __DIR__ . '/../..' . '/utils/class-database.php',
-        '83c05da294884320cf3c88b32a66ddcd' => __DIR__ . '/../..' . '/utils/class-install.php',
-        'd3ea0cafb931860186027149a7077b5c' => __DIR__ . '/../..' . '/utils/class-version.php',
     );
 
     public static $prefixLengthsPsr4 = array (
-        'v' => 
+        'v' =>
         array (
             'voku\\' => 5,
         ),
-        'S' => 
+        'S' =>
         array (
             'Symfony\\Polyfill\\Php80\\' => 23,
             'Symfony\\Polyfill\\Php73\\' => 23,
@@ -49,13 +47,14 @@ class ComposerStaticInit758a0ff96ec1565f6a26063852fcef2b
             'Symfony\\Component\\Finder\\' => 25,
             'Symfony\\Component\\Console\\' => 26,
         ),
-        'P' => 
+        'P' =>
         array (
             'Psr\\SimpleCache\\' => 16,
             'Psr\\Container\\' => 14,
             'Psr\\Clock\\' => 10,
+            'PersianGravityForms\\' => 20,
         ),
-        'I' => 
+        'I' =>
         array (
             'Illuminate\\Validation\\' => 22,
             'Illuminate\\Translation\\' => 23,
@@ -65,21 +64,21 @@ class ComposerStaticInit758a0ff96ec1565f6a26063852fcef2b
             'Illuminate\\Contracts\\' => 21,
             'Illuminate\\Container\\' => 21,
         ),
-        'H' => 
+        'H' =>
         array (
             'Hekmatinasser\\Verta\\' => 20,
             'Hekmatinasser\\Notowo\\' => 21,
         ),
-        'E' => 
+        'E' =>
         array (
             'Egulias\\EmailValidator\\' => 23,
         ),
-        'D' => 
+        'D' =>
         array (
             'Doctrine\\Inflector\\' => 19,
             'Doctrine\\Common\\Lexer\\' => 22,
         ),
-        'C' => 
+        'C' =>
         array (
             'Carbon\\Doctrine\\' => 16,
             'Carbon\\' => 7,
@@ -87,137 +86,141 @@ class ComposerStaticInit758a0ff96ec1565f6a26063852fcef2b
     );
 
     public static $prefixDirsPsr4 = array (
-        'voku\\' => 
+        'voku\\' =>
         array (
             0 => __DIR__ . '/..' . '/voku/portable-ascii/src/voku',
         ),
-        'Symfony\\Polyfill\\Php80\\' => 
+        'Symfony\\Polyfill\\Php80\\' =>
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-php80',
         ),
-        'Symfony\\Polyfill\\Php73\\' => 
+        'Symfony\\Polyfill\\Php73\\' =>
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-php73',
         ),
-        'Symfony\\Polyfill\\Mbstring\\' => 
+        'Symfony\\Polyfill\\Mbstring\\' =>
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-mbstring',
         ),
-        'Symfony\\Polyfill\\Intl\\Normalizer\\' => 
+        'Symfony\\Polyfill\\Intl\\Normalizer\\' =>
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-intl-normalizer',
         ),
-        'Symfony\\Polyfill\\Intl\\Idn\\' => 
+        'Symfony\\Polyfill\\Intl\\Idn\\' =>
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-intl-idn',
         ),
-        'Symfony\\Polyfill\\Intl\\Grapheme\\' => 
+        'Symfony\\Polyfill\\Intl\\Grapheme\\' =>
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-intl-grapheme',
         ),
-        'Symfony\\Polyfill\\Ctype\\' => 
+        'Symfony\\Polyfill\\Ctype\\' =>
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-ctype',
         ),
-        'Symfony\\Contracts\\Translation\\' => 
+        'Symfony\\Contracts\\Translation\\' =>
         array (
             0 => __DIR__ . '/..' . '/symfony/translation-contracts',
         ),
-        'Symfony\\Contracts\\Service\\' => 
+        'Symfony\\Contracts\\Service\\' =>
         array (
             0 => __DIR__ . '/..' . '/symfony/service-contracts',
         ),
-        'Symfony\\Component\\Translation\\' => 
+        'Symfony\\Component\\Translation\\' =>
         array (
             0 => __DIR__ . '/..' . '/symfony/translation',
         ),
-        'Symfony\\Component\\String\\' => 
+        'Symfony\\Component\\String\\' =>
         array (
             0 => __DIR__ . '/..' . '/symfony/string',
         ),
-        'Symfony\\Component\\Mime\\' => 
+        'Symfony\\Component\\Mime\\' =>
         array (
             0 => __DIR__ . '/..' . '/symfony/mime',
         ),
-        'Symfony\\Component\\HttpFoundation\\' => 
+        'Symfony\\Component\\HttpFoundation\\' =>
         array (
             0 => __DIR__ . '/..' . '/symfony/http-foundation',
         ),
-        'Symfony\\Component\\Finder\\' => 
+        'Symfony\\Component\\Finder\\' =>
         array (
             0 => __DIR__ . '/..' . '/symfony/finder',
         ),
-        'Symfony\\Component\\Console\\' => 
+        'Symfony\\Component\\Console\\' =>
         array (
             0 => __DIR__ . '/..' . '/symfony/console',
         ),
-        'Psr\\SimpleCache\\' => 
+        'Psr\\SimpleCache\\' =>
         array (
             0 => __DIR__ . '/..' . '/psr/simple-cache/src',
         ),
-        'Psr\\Container\\' => 
+        'Psr\\Container\\' =>
         array (
             0 => __DIR__ . '/..' . '/psr/container/src',
         ),
-        'Psr\\Clock\\' => 
+        'Psr\\Clock\\' =>
         array (
             0 => __DIR__ . '/..' . '/psr/clock/src',
         ),
-        'Illuminate\\Validation\\' => 
+        'PersianGravityForms\\' =>
+        array (
+            0 => __DIR__ . '/../..' . '/src',
+        ),
+        'Illuminate\\Validation\\' =>
         array (
             0 => __DIR__ . '/..' . '/illuminate/validation',
         ),
-        'Illuminate\\Translation\\' => 
+        'Illuminate\\Translation\\' =>
         array (
             0 => __DIR__ . '/..' . '/illuminate/translation',
         ),
-        'Illuminate\\Support\\' => 
+        'Illuminate\\Support\\' =>
         array (
             0 => __DIR__ . '/..' . '/illuminate/support',
             1 => __DIR__ . '/..' . '/illuminate/collections',
             2 => __DIR__ . '/..' . '/illuminate/macroable',
         ),
-        'Illuminate\\Filesystem\\' => 
+        'Illuminate\\Filesystem\\' =>
         array (
             0 => __DIR__ . '/..' . '/illuminate/filesystem',
         ),
-        'Illuminate\\Database\\' => 
+        'Illuminate\\Database\\' =>
         array (
             0 => __DIR__ . '/..' . '/illuminate/database',
         ),
-        'Illuminate\\Contracts\\' => 
+        'Illuminate\\Contracts\\' =>
         array (
             0 => __DIR__ . '/..' . '/illuminate/contracts',
         ),
-        'Illuminate\\Container\\' => 
+        'Illuminate\\Container\\' =>
         array (
             0 => __DIR__ . '/..' . '/illuminate/container',
         ),
-        'Hekmatinasser\\Verta\\' => 
+        'Hekmatinasser\\Verta\\' =>
         array (
             0 => __DIR__ . '/..' . '/hekmatinasser/verta/src',
         ),
-        'Hekmatinasser\\Notowo\\' => 
+        'Hekmatinasser\\Notowo\\' =>
         array (
             0 => __DIR__ . '/..' . '/hekmatinasser/notowo/src',
         ),
-        'Egulias\\EmailValidator\\' => 
+        'Egulias\\EmailValidator\\' =>
         array (
             0 => __DIR__ . '/..' . '/egulias/email-validator/src',
         ),
-        'Doctrine\\Inflector\\' => 
+        'Doctrine\\Inflector\\' =>
         array (
             0 => __DIR__ . '/..' . '/doctrine/inflector/src',
         ),
-        'Doctrine\\Common\\Lexer\\' => 
+        'Doctrine\\Common\\Lexer\\' =>
         array (
             0 => __DIR__ . '/..' . '/doctrine/lexer/lib/Doctrine/Common/Lexer',
         ),
-        'Carbon\\Doctrine\\' => 
+        'Carbon\\Doctrine\\' =>
         array (
             0 => __DIR__ . '/..' . '/carbonphp/carbon-doctrine-types/src/Carbon/Doctrine',
         ),
-        'Carbon\\' => 
+        'Carbon\\' =>
         array (
             0 => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon',
         ),
@@ -227,31 +230,14 @@ class ComposerStaticInit758a0ff96ec1565f6a26063852fcef2b
         'Attribute' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Attribute.php',
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
         'JsonException' => __DIR__ . '/..' . '/symfony/polyfill-php73/Resources/stubs/JsonException.php',
+        'Nabik\\Utils\\V1\\Install' => __DIR__ . '/../..' . '/utils/class-install.php',
+        'Nabik\\Utils\\V1\\Version' => __DIR__ . '/../..' . '/utils/class-version.php',
+        'Nabik_Net_Database' => __DIR__ . '/../..' . '/utils/class-database.php',
         'Normalizer' => __DIR__ . '/..' . '/symfony/polyfill-intl-normalizer/Resources/stubs/Normalizer.php',
         'PhpToken' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/PhpToken.php',
         'Stringable' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Stringable.php',
         'UnhandledMatchError' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/UnhandledMatchError.php',
         'ValueError' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/ValueError.php',
-        'XMLSchema' => __DIR__ . '/..' . '/econea/nusoap/src/nusoap.php',
-        'nusoap_base' => __DIR__ . '/..' . '/econea/nusoap/src/nusoap.php',
-        'nusoap_client' => __DIR__ . '/..' . '/econea/nusoap/src/nusoap.php',
-        'nusoap_client_mime' => __DIR__ . '/..' . '/econea/nusoap/src/nusoapmime.php',
-        'nusoap_fault' => __DIR__ . '/..' . '/econea/nusoap/src/nusoap.php',
-        'nusoap_parser' => __DIR__ . '/..' . '/econea/nusoap/src/nusoap.php',
-        'nusoap_server' => __DIR__ . '/..' . '/econea/nusoap/src/nusoap.php',
-        'nusoap_server_mime' => __DIR__ . '/..' . '/econea/nusoap/src/nusoapmime.php',
-        'nusoap_wsdlcache' => __DIR__ . '/..' . '/econea/nusoap/src/nusoap.php',
-        'nusoap_xmlschema' => __DIR__ . '/..' . '/econea/nusoap/src/nusoap.php',
-        'nusoapservermime' => __DIR__ . '/..' . '/econea/nusoap/src/nusoapmime.php',
-        'soap_fault' => __DIR__ . '/..' . '/econea/nusoap/src/nusoap.php',
-        'soap_parser' => __DIR__ . '/..' . '/econea/nusoap/src/nusoap.php',
-        'soap_server' => __DIR__ . '/..' . '/econea/nusoap/src/nusoap.php',
-        'soap_transport_http' => __DIR__ . '/..' . '/econea/nusoap/src/nusoap.php',
-        'soapclient' => __DIR__ . '/..' . '/econea/nusoap/src/nusoap.php',
-        'soapclientmime' => __DIR__ . '/..' . '/econea/nusoap/src/nusoapmime.php',
-        'soapval' => __DIR__ . '/..' . '/econea/nusoap/src/nusoap.php',
-        'wsdl' => __DIR__ . '/..' . '/econea/nusoap/src/nusoap.php',
-        'wsdlcache' => __DIR__ . '/..' . '/econea/nusoap/src/nusoap.php',
     );
 
     public static function getInitializer(ClassLoader $loader)

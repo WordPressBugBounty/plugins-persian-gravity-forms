@@ -147,6 +147,8 @@ class GFPersian_JalaliDate extends GFPersian_Core {
 			return;
 		}
 
+		$min = wp_scripts_get_suffix();
+
 		foreach ( $form['fields'] as $field ) {
 
 			if ( $field['type'] !== 'date' || $field['dateType'] !== 'datepicker' || ! rgar( $field, 'check_jalali', false ) ) {
@@ -166,7 +168,7 @@ class GFPersian_JalaliDate extends GFPersian_Core {
 
 			// Register persian datepicker
 			wp_enqueue_style( 'gf-persian-datepicker', GF_PERSIAN_URL . 'assets/js/datepicker/persian-datepicker.css', [], GF_PERSIAN_VERSION );
-			wp_enqueue_script( 'gf-persian-datepicker', GF_PERSIAN_URL . 'assets/js/datepicker/persian-datepicker' . GFPersian_Core::minified() . '.js', [
+			wp_enqueue_script( 'gf-persian-datepicker', GF_PERSIAN_URL . 'assets/js/datepicker/persian-datepicker' . $min . '.js', [
 				'jquery',
 				'jquery-migrate',
 				'gform_gravityforms',

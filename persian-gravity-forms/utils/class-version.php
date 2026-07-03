@@ -1,17 +1,19 @@
 <?php
 
+namespace Nabik\Utils\V1;
+
 defined( 'ABSPATH' ) || exit;
 
-if ( ! class_exists( 'Nabik_Net_Version' ) ) {
+if ( ! class_exists( '\Nabik\Utils\V1\Version' ) ) {
 
 	/**
 	 * Class Nabik_Net_Version
 	 *
 	 * @author  Nabik
 	 */
-	class Nabik_Net_Version {
+	class Version {
 
-		const VERSION = '1.1.0';
+		const VERSION = '1.0.0';
 
 		protected string $current_version;
 
@@ -30,7 +32,15 @@ if ( ! class_exists( 'Nabik_Net_Version' ) ) {
 				wp_die( sprintf( 'Class %s was not initiate properties.', esc_html( get_called_class() ) ) );
 			}
 
-			$this->version_key = strtolower( str_replace( [ '/', '\\' ], '_', get_called_class() ) );
+			[ , $minor, $patch ] = explode( '.', $this->current_version );
+
+			if ( $minor >= 10 || $patch >= 10 ) {
+				wp_die( sprintf( 'Invalid minor and patch (%s) in %s.', $this->current_version, esc_html( get_called_class() ) ) );
+			}
+
+			if ( empty( $this->version_key ) ) {
+				$this->version_key = strtolower( str_replace( [ '/', '\\' ], '_', get_called_class() ) );
+			}
 
 			add_action( 'admin_init', [ $this, 'migrate' ], 110 );
 		}
@@ -44,7 +54,7 @@ if ( ! class_exists( 'Nabik_Net_Version' ) ) {
 			}
 		}
 
-		public function migrate() {
+		public function migrate(): void {
 			global $wpdb;
 
 			$wpdb->show_errors = false;
@@ -62,7 +72,7 @@ if ( ! class_exists( 'Nabik_Net_Version' ) ) {
 			$installed_version = get_option( $this->version_key, $this->default_version );
 
 			if ( $installed_version == $this->current_version ) {
-				return true;
+				return;
 			}
 
 			$installed_version = (int) str_replace( '.', '', $installed_version );
@@ -70,15 +80,26 @@ if ( ! class_exists( 'Nabik_Net_Version' ) ) {
 
 			for ( $version = $installed_version + 1; $version <= $current_version; $version ++ ) {
 				if ( method_exists( $this, "update_{$version}" ) ) {
-					$this->{"update_{$version}"}();
+
+					try {
+						$this->{"update_{$version}"}();
+
+						$patch = $version % 10;
+						$minor = ( floor( $version / 10 ) % 10 );
+						$major = floor( $version / 100 );
+
+						update_option( $this->version_key, $major . '.' . $minor . '.' . $patch, false );
+
+					} catch ( Exception $e ) {
+						wp_die( $e->getMessage() );
+					}
+
 				}
 			}
 
 			if ( method_exists( $this, 'updated' ) ) {
 				$this->updated();
 			}
-
-			update_option( $this->version_key, $this->current_version, false );
 		}
 
 	}

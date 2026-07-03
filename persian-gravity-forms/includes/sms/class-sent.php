@@ -14,7 +14,7 @@ class GFPersian_SMS_Sent {
 		echo '<h2>پیامک های ارسال شده'; // Opening heading
 
 		if ( isset( $_GET['id'] ) ) {
-			$form_id = rgget( 'id' );
+			$form_id = absint( rgget( 'id' ) );
 			$form    = RGFormsModel::get_form_meta( $form_id );
 			if ( ! empty( $form ) ) {
 

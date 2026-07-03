@@ -4,7 +4,7 @@ defined( 'ABSPATH' ) || exit;
 
 use Illuminate\Database\Schema\Blueprint;
 
-class GFPersian_Install extends \Nabik_Net_Install {
+class GFPersian_Install extends \Nabik\Utils\V1\Install {
 
 	public function tasks() {
 		self::create_tables();

@@ -9,7 +9,7 @@ if ( ! class_exists( 'WP_List_Table' ) ) {
 
 class GFPersian_SMS_Sent_List_Table extends WP_List_Table {
 
-	function __construct() {
+	public function __construct() {
 		parent::__construct( [
 			'singular' => 'sms',
 			'plural'   => 'sms',
@@ -17,11 +17,11 @@ class GFPersian_SMS_Sent_List_Table extends WP_List_Table {
 		] );
 	}
 
-	function no_items() {
+	public function no_items() {
 		echo 'پیامکی یافت نشد.';
 	}
 
-	function column_default( $item, $column_name ) {
+	public function column_default( $item, $column_name ) {
 		$align = is_rtl() ? 'right' : 'left';
 		switch ( $column_name ) {
 			case 'entry_id':
@@ -54,32 +54,7 @@ class GFPersian_SMS_Sent_List_Table extends WP_List_Table {
 
 	}
 
-	function get_sortable_columns() {
-		$sortable_columns = [
-			'date'     => [ 'date', false ],
-			'entry_id' => [ 'entry_id', false ],
-			'sender'   => [ 'sender', false ],
-			'reciever' => [ 'reciever', false ],
-			'message'  => [ 'message', false ]
-		];
-
-		return $sortable_columns;
-	}
-
-	function get_columns() {
-		$columns = [
-			'cb'       => '<input type="checkbox" />',
-			'date'     => 'تاریخ',
-			'entry_id' => 'شناسه ورودی',
-			'sender'   => 'از',
-			'reciever' => 'به',
-			'message'  => 'پیامک'
-		];
-
-		return $columns;
-	}
-
-	function column_date( $item ) {
+	public function column_date( $item ) {
 
 		$delete_nonce = wp_create_nonce( 'gf_delete_sms' );
 
@@ -90,7 +65,7 @@ class GFPersian_SMS_Sent_List_Table extends WP_List_Table {
 		return sprintf( '%1$s %2$s', date_i18n( 'Y-m-d H:i:s', strtotime( $item['date'] ) ), $this->row_actions( $actions ) );
 	}
 
-	function get_bulk_actions() {
+	public function get_bulk_actions() {
 		$actions = [
 			'bulk_delete' => 'حذف'
 		];
@@ -98,13 +73,13 @@ class GFPersian_SMS_Sent_List_Table extends WP_List_Table {
 		return $actions;
 	}
 
-	function column_cb( $item ) {
+	public function column_cb( $item ) {
 		return sprintf(
 			'<input type="checkbox" name="item[]" value="%s" />', $item['id']
 		);
 	}
 
-	function prepare_items() {
+	public function prepare_items() {
 		$columns               = $this->get_columns();
 		$hidden                = [];
 		$sortable              = $this->get_sortable_columns();
@@ -123,24 +98,29 @@ class GFPersian_SMS_Sent_List_Table extends WP_List_Table {
 		$this->items = $this->get_items( $per_page, $current_page );
 	}
 
+	public function get_columns() {
+		$columns = [
+			'cb'       => '<input type="checkbox" />',
+			'date'     => 'تاریخ',
+			'entry_id' => 'شناسه ورودی',
+			'sender'   => 'از',
+			'reciever' => 'به',
+			'message'  => 'پیامک'
+		];
 
-	/**
-	 * Returns the count of records in the database.
-	 *
-	 * @return null|string
-	 */
-	public function record_count() {
-		global $wpdb;
+		return $columns;
+	}
 
-		$sent_table_name = GFPersian_SMS_DB::$sms_table;
+	public function get_sortable_columns() {
+		$sortable_columns = [
+			'date'     => [ 'date', false ],
+			'entry_id' => [ 'entry_id', false ],
+			'sender'   => [ 'sender', false ],
+			'reciever' => [ 'reciever', false ],
+			'message'  => [ 'message', false ]
+		];
 
-		$sql = "SELECT COUNT(*) FROM {$sent_table_name}";
-
-		if ( isset( $_REQUEST['id'] ) ) {
-			$sql .= ' WHERE `form_id` LIKE "%%' . $wpdb->esc_like( $_REQUEST['id'] ) . '%%"';
-		}
-
-		return $wpdb->get_var( $sql );
+		return $sortable_columns;
 	}
 
 	public function process_bulk_action() {
@@ -174,7 +154,6 @@ class GFPersian_SMS_Sent_List_Table extends WP_List_Table {
 		}
 	}
 
-
 	/**
 	 * Delete a item record.
 	 *
@@ -186,6 +165,29 @@ class GFPersian_SMS_Sent_List_Table extends WP_List_Table {
 		$sent_table_name = GFPersian_SMS_DB::$sms_table;
 
 		$wpdb->delete( $sent_table_name, [ 'id' => $id ] );
+	}
+
+	/**
+	 * Returns the count of records in the database.
+	 *
+	 * @return null|string
+	 */
+	public function record_count() {
+		global $wpdb;
+
+		$sent_table_name = GFPersian_SMS_DB::$sms_table;
+
+		$sql = "SELECT COUNT(*) FROM {$sent_table_name}";
+
+		if ( isset( $_REQUEST['id'] ) ) {
+
+			$form_id = absint( $_REQUEST['id'] );
+
+			$sql .= $wpdb->prepare( ' WHERE `form_id` = %d', $form_id );
+
+		}
+
+		return $wpdb->get_var( $sql );
 	}
 
 	/**
@@ -201,29 +203,46 @@ class GFPersian_SMS_Sent_List_Table extends WP_List_Table {
 
 		$sent_table_name = GFPersian_SMS_DB::$sms_table;
 
+		$offset = ( $page_number - 1 ) * $per_page;
+
 		$sql = "SELECT * FROM {$sent_table_name}";
 
 		if ( isset( $_REQUEST['s'] ) ) {
-			$sql .= ' WHERE `message` LIKE "%%' . $wpdb->esc_like( $_REQUEST['s'] ) . '%%" OR `reciever` LIKE "%%' . $wpdb->esc_like( $_REQUEST['s'] ) . '%%"  OR `sender` LIKE "%%' . $wpdb->esc_like( $_REQUEST['s'] ) . '%%"';
+			$search = wp_unslash( $_REQUEST['s'] );
+			$search = '%' . $wpdb->esc_like( $search ) . '%';
+
+			$sql .= $wpdb->prepare(
+				' WHERE `message` LIKE %s OR `reciever` LIKE %s OR `sender` LIKE %s',
+				$search,
+				$search,
+				$search
+			);
 		} elseif ( isset( $_REQUEST['id'] ) ) {
-			$sql .= ' WHERE `form_id` LIKE "%%' . $wpdb->esc_like( $_REQUEST['id'] ) . '%%"';
+			$form_id = absint( $_REQUEST['id'] );
+			$sql     .= $wpdb->prepare( ' WHERE `form_id` LIKE %s', $form_id );
 		}
 
 		if ( ! empty( $_REQUEST['orderby'] ) ) {
-			$sql .= ' ORDER BY ' . esc_sql( $_REQUEST['orderby'] );
-			$sql .= ! empty( $_REQUEST['order'] ) ? ' ' . esc_sql( $_REQUEST['order'] ) : ' ASC';
+			$allowed_orderby = [ 'id', 'message', 'reciever', 'sender', 'form_id', 'date', 'entry_id' ];
+
+			$orderby = sanitize_key( wp_unslash( $_REQUEST['orderby'] ) );
+
+			if ( in_array( $orderby, $allowed_orderby, true ) ) {
+				$order = ! empty( $_REQUEST['order'] ) ? strtoupper( sanitize_key( wp_unslash( $_REQUEST['order'] ) ) ) : 'ASC';
+				$order = in_array( $order, [ 'ASC', 'DESC' ], true ) ? $order : 'ASC';
+
+				$sql .= ' ORDER BY `' . $orderby . '` ' . $order;
+			} else {
+				$sql .= ' ORDER BY id DESC';
+			}
 		} else {
 			$sql .= ' ORDER BY id DESC';
 		}
 
-		$sql .= " LIMIT $per_page";
-		$sql .= ' OFFSET ' . ( $page_number - 1 ) * $per_page;
+		$sql .= $wpdb->prepare( ' LIMIT %d', $per_page );
+		$sql .= $wpdb->prepare( ' OFFSET %d', $offset );
 
-
-		$result = $wpdb->get_results( $sql, 'ARRAY_A' );
-
-		return $result;
+		return $wpdb->get_results( $sql, 'ARRAY_A' );
 	}
-
 }
 

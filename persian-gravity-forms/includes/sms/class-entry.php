@@ -1,4 +1,7 @@
 <?php
+
+use PersianGravityForms\Objects\Mobile;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
@@ -155,7 +158,7 @@ class GFPersian_SMS_Entry {
 		$settings = GFPersian_SMS::get_options();
 		$is_OK    = ! empty( $settings["ws"] ) && $settings["ws"] != 'none';
 
-		if ( rgpost( "gfsms_send" ) && rgpost( "gf_hannan_sms_sideber" ) && wp_verify_nonce( rgpost( "gf_hannan_sms_sideber" ), "send" ) ) {
+		if ( rgpost( "gfsms_send" ) && rgpost( "gf_sms_sideber" ) && wp_verify_nonce( rgpost( "gf_sms_sideber" ), "send" ) ) {
 			self::process_sms_sending( $form, $entry, $settings, $is_OK );
 		}
 
@@ -167,11 +170,9 @@ class GFPersian_SMS_Entry {
 	}
 
 	private static function process_sms_sending( $form, $entry, $settings, $is_OK ) {
-		$from = sanitize_text_field( rgpost( 'gfsms_from' ) );
-		self::update_last_sender( $from );
 
-		$to  = sanitize_text_field( rgpost( 'gfsms_client' ) );
-		$msg = self::prepare_message( $form, $entry );
+		$mobile  = sanitize_text_field( rgpost( 'gfsms_client' ) );
+		$message = self::prepare_message( $form, $entry );
 
 		if ( ! $is_OK ) {
 			self::add_note( $entry, 'درگاه پیامکی یافت نشد.' );
@@ -179,17 +180,28 @@ class GFPersian_SMS_Entry {
 			return;
 		}
 
-		if ( $to ) {
-			self::send_sms( $form, $entry, $settings, $from, $to, $msg );
-		} else {
-			echo '<div class="error fade" style="padding:6px;"> ارسال پیام با خطا مواجه شد زیرا شماره خالی است. </div>';
-		}
-	}
 
-	private static function update_last_sender( $from ) {
-		$from_db = get_option( "gf_sms_last_sender" );
-		if ( $from && $from_db != $from ) {
-			update_option( "gf_sms_last_sender", $from );
+		$mobiles_object = new Mobile( $mobile );
+
+		$data = [
+			'form_id'  => $form['id'],
+			'entry_id' => $entry['id'],
+			'mobile'   => $mobiles_object->get_recipients(),
+			'message'  => $message,
+		];
+
+		try {
+
+			GFPersian_SMS_Sender::send( $data );
+
+			self::add_note( $entry, sprintf( "پیامک با موفقیت ارسال شد. شماره: %s | متن پیام: %s .", $data['mobile'], $data['message'] ) );
+			echo '<div class="updated fade" style="padding:6px;">' . sprintf( "پیامک با موفقیت ارسال شد. شماره: %s . جزئیات را در یادداشت‌ها مشاهده کنید.", esc_html( $data['mobile'] ) ) . '</div>';
+
+		} catch ( Exception $e ) {
+
+			self::add_note( $entry, sprintf( "ارسال پیامک با خطا مواجه شد. شماره: %s | دلیل: %s | متن پیام: %s.", $data['mobile'], $e->getMessage(), $data['message'] ) );
+			echo '<div class="error fade" style="padding:6px;">' . sprintf( "ارسال پیامک با خطا مواجه شد. شماره: %s - دلیل: %s . جزئیات را در یادداشت‌ها مشاهده کنید.", esc_html( $data['message'] ), esc_html( $e->getMessage() ) ) . '</div>';
+
 		}
 	}
 
@@ -197,18 +209,6 @@ class GFPersian_SMS_Entry {
 		$msg = GFCommon::replace_variables( wp_kses( rgpost( 'gfsms_text' ), [ 'br' => [] ] ), $form, $entry );
 
 		return str_replace( [ "<br>", "<br/>", "<br />" ], [ "", "", "" ], $msg );
-	}
-
-	private static function send_sms( $form, $entry, $settings, $from, $to, $msg ) {
-		$result = GFPersian_SMS_Gateway::action( $settings, 'send', $from, $to, $msg );
-		if ( $result == 'OK' ) {
-			GFPersian_SMS_DB::save_sms_sent( $form['id'], $entry['id'], $from, $to, $msg, '' );
-			self::add_note( $entry, sprintf( "پیامک با موفقیت ارسال شد. شماره: %s | شماره فرستنده: %s | متن پیام: %s .", $to, $from, $msg ) );
-			echo '<div class="updated fade" style="padding:6px;">' . sprintf( "پیامک با موفقیت ارسال شد. شماره: %s . جزئیات را در یادداشت‌ها مشاهده کنید.", esc_html( $to ) ) . '</div>';
-		} else {
-			self::add_note( $entry, sprintf( "ارسال پیامک با خطا مواجه شد. شماره: %s | شماره فرستنده: %s | دلیل: %s | متن پیام: %s.", $to, $from, $result, $msg ) );
-			echo '<div class="error fade" style="padding:6px;">' . sprintf( "ارسال پیامک با خطا مواجه شد. شماره: %s - دلیل: %s . جزئیات را در یادداشت‌ها مشاهده کنید.", esc_html( $to ), esc_html( $result ) ) . '</div>';
-		}
 	}
 
 	public static function add_note( $entry, $message ) {
@@ -228,7 +228,7 @@ class GFPersian_SMS_Entry {
 	}
 
 	private static function render_sms_form( $form, $entry, $settings ) {
-		wp_nonce_field( "send", "gf_hannan_sms_sideber" );
+		wp_nonce_field( "send", "gf_sms_sideber" );
 		?>
 		<div id="minor-publishing" style="padding:10px;">
 			<label for="gfsms_client">شماره‌های گیرنده:</label>
@@ -237,24 +237,17 @@ class GFPersian_SMS_Entry {
 			       id="gfsms_client"
 			       value="<?php echo esc_attr( self::get_phone_numbers( $form["id"], $entry ) ); ?>"
 			       autocomplete="off"/>
-			<br/>
-			<div id="sms_sidebar_loading" style="padding:5px;height:10px;text-align:center"></div>
-			<label for="gfsms_text"> پیام</label>
-			<select style="width:100%" id="gfsms_text_variable_select"
-			        onchange="InsertMegeTag_SMS('gfsms_text', 'variable_select', jQuery(this).val());"
-			>
-				<?php echo self::get_merge_tags_options( RGFormsModel::get_form_meta( $form['id'] ) ); ?>
-			</select>
+			<br/><br/>
+			<label for="gfsms_text">پیام:</label>
 			<textarea id="gfsms_text" class="input-text"
 			          style="width: 100%; height: 100px; padding:5px;" name="gfsms_text"></textarea>
+			<select style="width:100%" id="gfsms_text_variable_select"
+			        onchange="InsertMergeTag_SMS('gfsms_text', 'variable_select', jQuery(this).val());">
+				<?php echo self::get_merge_tags_options( RGFormsModel::get_form_meta( $form['id'] ) ); ?>
+			</select>
+			<div id="sms_sidebar_loading" style="padding:5px;height:10px;text-align:center"></div>
 		</div>
 		<div id="major-publishing-actions">
-			<div id="delete-action" style="width:70%">
-				<select id="gfsms_from" name="gfsms_from" style="width:100%">
-					<option value="">انتخاب شماره ارسال کننده:</option>
-					<?php self::render_sender_numbers( $settings ); ?>
-				</select>
-			</div>
 			<div id="publishing-action" style="width:25%">
 				<input class="button button-large button-primary" type="submit" name="gfsms_send"
 				       value="ارسال">
@@ -262,28 +255,7 @@ class GFPersian_SMS_Entry {
 			<div class="clear"></div>
 		</div>
 		<?php
-		self::InsertMegeTag_SMS_JS( empty( $settings["sidebar_ajax"] ) || esc_attr( $settings["sidebar_ajax"] ) != 'No', $form['id'], $entry['id'] );
-	}
-
-	private static function render_sender_numbers( $settings ) {
-		$sender_num = $settings["from"] ?? '';
-		if ( $sender_num == '' || strpos( $settings["from"], ',' ) === false ) {
-			if ( $sender_num ) {
-				$last_from = get_option( "gf_sms_last_sender" );
-				$selected  = $sender_num == $last_from ? "selected='selected'" : "";
-				?>
-				<option value="<?php echo esc_attr( $sender_num ) ?>" <?php echo esc_attr( $selected ) ?>><?php echo esc_html( $sender_num ) ?></option>
-				<?php
-			}
-		} else {
-			foreach ( explode( ',', $settings["from"] ) as $sender_num ) {
-				$last_from = get_option( "gf_sms_last_sender" );
-				$selected  = $sender_num == $last_from ? "selected='selected'" : "";
-				?>
-				<option value="<?php echo esc_attr( $sender_num ) ?>" <?php echo esc_attr( $selected ) ?>><?php echo esc_html( $sender_num ) ?></option>
-				<?php
-			}
-		}
+		self::InsertMergeTag_SMS_JS( empty( $settings["sidebar_ajax"] ) || esc_attr( $settings["sidebar_ajax"] ) != 'No', $form['id'], $entry['id'] );
 	}
 
 	private static function render_sms_settings_link() {
@@ -294,10 +266,10 @@ class GFPersian_SMS_Entry {
 		<?php
 	}
 
-	public static function InsertMegeTag_SMS_JS( $ajax = false, $form_id = 0, $entry_id = 0 ) {
+	public static function InsertMergeTag_SMS_JS( $ajax = false, $form_id = 0, $entry_id = 0 ) {
 		?>
 		<script type="text/javascript">
-            function InsertMegeTag_SMS(element_id, ex_id, variable) {
+            function InsertMergeTag_SMS(element_id, ex_id, variable) {
                 ex_id = '_' + ex_id;
 				<?php if ($ajax) : ?>
                 jQuery("#sms_sidebar_loading").html('<img src="<?php echo esc_url( GFCommon::get_base_url() ) ?>/images/spinner.svg" />');
@@ -314,15 +286,15 @@ class GFPersian_SMS_Entry {
                     success: function (response) {
                         jQuery("#sms_sidebar_loading").html('');
                         variable = response;
-                        InsertMegeTag_SMS_Value(element_id, variable, ex_id);
+                        InsertMergeTag_SMS_Value(element_id, variable, ex_id);
                     }
                 });
 				<?php else : ?>
-                InsertMegeTag_SMS_Value(element_id, variable, ex_id);
+                InsertMergeTag_SMS_Value(element_id, variable, ex_id);
 				<?php endif; ?>
             }
 
-            function InsertMegeTag_SMS_Value(element_id, variable, ex_id) {
+            function InsertMergeTag_SMS_Value(element_id, variable, ex_id) {
                 if (typeof (tinyMCE) != "undefined") {
                     if (tinyMCE.get(element_id) != null && tinyMCE.get(element_id).isHidden() != true) {
                         tinyMCE.get(element_id).execCommand('mceInsertContent', false, variable);

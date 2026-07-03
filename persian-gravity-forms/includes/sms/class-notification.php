@@ -1,6 +1,5 @@
 <?php
 
-use Gravity_Forms\Gravity_Forms\Settings\Fields;
 use Gravity_Forms\Gravity_Forms\Settings\Settings;
 
 class_exists( 'GFForms' ) || die();
@@ -52,7 +51,7 @@ class GFPersian_SMS_Notification {
 	/**
 	 * Gets a notification based on a Form Object and a notification ID.
 	 *
-	 * @param array|null $form The Form Object.
+	 * @param array|null      $form            The Form Object.
 	 * @param string|int|null $notification_id The notification ID.
 	 *
 	 * @return array The Notification Object.
@@ -82,8 +81,8 @@ class GFPersian_SMS_Notification {
 	 * Otherwise, the Notification List page is displayed.
 	 *
 	 * @return void
-	 * @uses GFPersian_SMS_Notification::notification_edit_page()
-	 * @uses GFPersian_SMS_Notification::notification_list_page()
+	 * @uses   GFPersian_SMS_Notification::notification_edit_page()
+	 * @uses   GFPersian_SMS_Notification::notification_list_page()
 	 *
 	 * @since  Unknown
 	 * @access public
@@ -106,11 +105,11 @@ class GFPersian_SMS_Notification {
 	/**
 	 * Builds the Notification Edit page.
 	 *
-	 * @access public
+	 * @access  public
 	 *
 	 * @used-by GFPersian_SMS_Notification::notification_page()
 	 *
-	 * @param int $form_id The ID of the form that the notification belongs to
+	 * @param int $form_id         The ID of the form that the notification belongs to
 	 * @param int $notification_id The ID of the notification being edited
 	 *
 	 * @return void
@@ -156,7 +155,7 @@ class GFPersian_SMS_Notification {
 	 * Get Notification settings fields.
 	 *
 	 * @param array $notification Notification being edited.
-	 * @param array $form The Form object.
+	 * @param array $form         The Form object.
 	 *
 	 * @return array
 	 * @since 2.5
@@ -183,7 +182,11 @@ class GFPersian_SMS_Notification {
 		 * @since 2.4.13
 		 *
 		 */
-		$disable_from_warning = gf_apply_filters( [ 'gform_notification_disable_from_warning', $form['id'], rgar( $notification, 'id' ) ], false );
+		$disable_from_warning = gf_apply_filters( [
+			'gform_notification_disable_from_warning',
+			$form['id'],
+			rgar( $notification, 'id' ),
+		], false );
 
 		$from_phone_warning = '';
 
@@ -277,6 +280,7 @@ class GFPersian_SMS_Notification {
 						'label'               => esc_html__( 'شماره دریافت کننده', 'gravityforms' ),
 						'type'                => 'text',
 						'required'            => true,
+						'tooltip'             => esc_html__( 'برای ثبت چندین تلفن همراه مقصد، با استفاده از ( , ) شماره ها را از یکدیگر جدا کنید.' ),
 						'default_value'       => '{admin_phone}',
 						'dependency'          => [
 							'live'   => true,
@@ -299,8 +303,8 @@ class GFPersian_SMS_Notification {
 							/**
 							 * Allows overriding of the notification destination validation
 							 *
-							 * @param bool $is_valid True if valid. False, otherwise.
-							 * @param string $gform_notification_to_type The type of destination.
+							 * @param bool   $is_valid                    True if valid. False, otherwise.
+							 * @param string $gform_notification_to_type  The type of destination.
 							 * @param string $gform_notification_to_phone The destination phone number, if available.
 							 * @param string $gform_notification_to_field The field that is being used for the notification, if available.
 							 *
@@ -341,8 +345,8 @@ class GFPersian_SMS_Notification {
 							/**
 							 * Allows overriding of the notification destination validation
 							 *
-							 * @param bool $is_valid True if valid. False, otherwise.
-							 * @param string $gform_notification_to_type The type of destination.
+							 * @param bool   $is_valid                    True if valid. False, otherwise.
+							 * @param string $gform_notification_to_type  The type of destination.
 							 * @param string $gform_notification_to_phone The destination phone number, if available.
 							 * @param string $gform_notification_to_field The field that is being used for the notification, if available.
 							 *
@@ -370,16 +374,6 @@ class GFPersian_SMS_Notification {
 							],
 						],
 					],
-					[
-						'name'    => 'from',
-						'label'   => esc_html__( 'از (ارسال کننده)', 'gravityforms' ),
-						'tooltip' => gform_tooltip( 'sms_notification_from_phone', null, true ),
-						'type'    => 'select',
-						'choices' => GFPersian_SMS::create_from_numbers_choices( $form ),
-						'class'   => 'mt-position-right mt-hide_all_fields',
-
-					],
-
 					[
 						'name'       => 'message',
 						'label'      => esc_html__( 'Message', 'gravityforms' ),
@@ -424,12 +418,15 @@ class GFPersian_SMS_Notification {
 		 * Filters the Notification settings fields before they are displayed.
 		 *
 		 * @param array $fields Form settings fields.
-		 * @param array $form Form Object.
+		 * @param array $form   Form Object.
 		 *
 		 * @since 2.5
 		 *
 		 */
-		$fields = gf_apply_filters( [ 'gform_notification_settings_fields', $form['id'] ], $fields, $notification, $form );
+		$fields = gf_apply_filters( [
+			'gform_notification_settings_fields',
+			$form['id'],
+		], $fields, $notification, $form );
 
 		return $fields;
 
@@ -440,7 +437,7 @@ class GFPersian_SMS_Notification {
 	 * third-parties to add or remove arbitrary fields.
 	 *
 	 * @param array $fields The form fields to be used as choices.
-	 * @param array $form The form belonging to the notification being configured.
+	 * @param array $form   The form belonging to the notification being configured.
 	 *
 	 * @return array
 	 * @since 2.5.7
@@ -476,8 +473,8 @@ class GFPersian_SMS_Notification {
 		/**
 		 * Filters the form to be used in the notification page
 		 *
-		 * @param array $form The Form Object
-		 * @param int $notification_id The notification ID
+		 * @param array $form            The Form Object
+		 * @param int   $notification_id The notification ID
 		 *
 		 * @since 1.8.6
 		 *
@@ -544,10 +541,10 @@ class GFPersian_SMS_Notification {
 					/**
 					 * Filters the notification before it is saved
 					 *
-					 * @param array $form The Form Object.
-					 * @param bool $is_new_notification True if it is a new notification.  False otherwise.
+					 * @param array $form                The Form Object.
+					 * @param bool  $is_new_notification True if it is a new notification.  False otherwise.
 					 *
-					 * @param array $notification The Notification Object.
+					 * @param array $notification        The Notification Object.
 					 *
 					 * @since 1.7
 					 *
@@ -598,9 +595,9 @@ class GFPersian_SMS_Notification {
 						/**
 						 * Filters the entry meta when notification conditional logic is being edited
 						 *
-						 * @param array $entry_meta The Entry meta
-						 * @param array $form The Form Object
-						 * @param int $notification_id The notification ID
+						 * @param array $entry_meta      The Entry meta
+						 * @param array $form            The Form Object
+						 * @param int   $notification_id The notification ID
 						 *
 						 * @since 1.7.6
 						 *
@@ -625,7 +622,7 @@ class GFPersian_SMS_Notification {
 				},
 				'after_fields'   => function () use ( &$notification_id ) {
 					printf( '<input type="hidden" id="gform_notification_id" name="gform_notification_id" value="%s" />', esc_attr( $notification_id ) );
-				}
+				},
 			]
 		);
 
@@ -691,8 +688,8 @@ class GFPersian_SMS_Notification {
 	 * @param int $form_id The form ID to list notifications on.
 	 *
 	 * @return void
-	 * @since  Unknown
-	 * @access public
+	 * @since   Unknown
+	 * @access  public
 	 *
 	 * @used-by self::notification_page()
 	 * @uses    self::maybe_process_notification_list_action()
@@ -801,8 +798,8 @@ class GFPersian_SMS_Notification {
 	 * @uses    GFCommon::add_message()
 	 * @uses    GFCommon::add_error_message()
 	 *
-	 * @since  Unknown
-	 * @access public
+	 * @since   Unknown
+	 * @access  public
 	 *
 	 * @used-by self::notification_list_page()
 	 */
@@ -853,14 +850,14 @@ class GFPersian_SMS_Notification {
 			$notification_events['form_save_phone_requested'] = esc_html__( 'Save and continue SMS is requested', 'gravityforms' );
 		}
 
-		$notification_events['complete_payment']    = esc_html( 'پرداخت موفق' );
-		$notification_events['fail_payment']        = esc_html( 'پرداخت ناموفق' );
+		$notification_events['complete_payment'] = esc_html( 'پرداخت موفق' );
+		$notification_events['fail_payment']     = esc_html( 'پرداخت ناموفق' );
 
 		/**
 		 * Allow custom notification events to be added.
 		 *
 		 * @param array $notification_events The notification events.
-		 * @param array $form The current form.
+		 * @param array $form                The current form.
 		 *
 		 * @since Unknown
 		 *
@@ -949,7 +946,7 @@ class GFPersian_SMS_Notification {
 	 * Gets supported routing field types.
 	 *
 	 * @return array $field_types Supported field types.
-	 * @uses self::$supported_fields()
+	 * @uses   self::$supported_fields()
 	 *
 	 * @since  Unknown
 	 * @access public
@@ -980,24 +977,32 @@ class GFPersian_SMS_Notification {
 		$id       = 'routing_value_' . rgpost( 'ruleIndex' );
 		$selected = rgempty( 'selectedValue' ) ? 0 : rgpost( 'selectedValue' );
 
-		$dropdown = wp_dropdown_categories( [ 'class' => 'gfield_routing_select gfield_routing_value_dropdown gfield_category_dropdown', 'orderby' => 'name', 'id' => $id, 'selected' => $selected, 'hierarchical' => true, 'hide_empty' => 0, 'echo' => false ] );
+		$dropdown = wp_dropdown_categories( [
+			'class'        => 'gfield_routing_select gfield_routing_value_dropdown gfield_category_dropdown',
+			'orderby'      => 'name',
+			'id'           => $id,
+			'selected'     => $selected,
+			'hierarchical' => true,
+			'hide_empty'   => 0,
+			'echo'         => false,
+		] );
 		die( $dropdown );
 	}
 
 	/**
 	 * Delete a form notification
 	 *
-	 * @param int $notification_id The notification ID to delete
-	 * @param int|array $form_id Can pass a form ID or a form object
+	 * @param int       $notification_id The notification ID to delete
+	 * @param int|array $form_id         Can pass a form ID or a form object
 	 *
 	 * @return int|false The result from $wpdb->query deletion
-	 * @uses GFFormsModel::save_form_notifications()
+	 * @uses   GFFormsModel::save_form_notifications()
 	 *
 	 * @since  Unknown
 	 * @access public
 	 *
-	 * @uses GFFormsModel::get_form_meta()
-	 * @uses GFFormsModel::flush_current_forms()
+	 * @uses   GFFormsModel::get_form_meta()
+	 * @uses   GFFormsModel::flush_current_forms()
 	 */
 	public static function delete_notification( $notification_id, $form_id ) {
 
@@ -1029,18 +1034,18 @@ class GFPersian_SMS_Notification {
 	/**
 	 * Duplicates a form notification.
 	 *
-	 * @param int $notification_id The notification ID to duplicate.
-	 * @param int|array $form_id The ID of the form or Form Object that contains the notification.
+	 * @param int       $notification_id The notification ID to duplicate.
+	 * @param int|array $form_id         The ID of the form or Form Object that contains the notification.
 	 *
 	 * @return int|false The result from $wpdb->query after duplication
-	 * @uses GFFormsModel::flush_current_forms()
-	 * @uses GFFormsModel::save_form_notifications()
+	 * @uses   GFFormsModel::flush_current_forms()
+	 * @uses   GFFormsModel::save_form_notifications()
 	 *
 	 * @since  Unknown
 	 * @access public
 	 *
-	 * @uses GFFormsModel::get_form_meta()
-	 * @uses self::is_unique_name()
+	 * @uses   GFFormsModel::get_form_meta()
+	 * @uses   self::is_unique_name()
 	 */
 	public static function duplicate_notification( $notification_id, $form_id ) {
 
@@ -1067,8 +1072,9 @@ class GFPersian_SMS_Notification {
 			$new_notification['toType'] = 'phone';
 		}
 
+		// Causes sms notification duplicates into email notifications!
 		// Removing legacy (pre-1.7) admin/user notification property.
-		unset( $new_notification['type'] );
+		//unset( $new_notification['type'] );
 
 		$new_notification = GFCommon::fix_notification_routing( $new_notification );
 
@@ -1083,8 +1089,8 @@ class GFPersian_SMS_Notification {
 	/**
 	 * Checks if a notification name is unique.
 	 *
-	 * @param string $name The name to check.
-	 * @param array $notifications The notifications to check against.
+	 * @param string $name          The name to check.
+	 * @param array  $notifications The notifications to check against.
 	 *
 	 * @return bool Returns true if unique.  Otherwise, false.
 	 * @since  Unknown
@@ -1147,10 +1153,10 @@ class GFPersian_SMS_Notification_Table extends WP_List_Table {
 	 *
 	 * @param array $form The Form Object to use.
 	 *
-	 * @uses  self::get_notification_events()
-	 * @uses  GFNotificationTable::$form
-	 * @uses  GFNotificationTable::$notification_events
-	 * @uses  WP_List_Table::__construct()
+	 * @uses   self::get_notification_events()
+	 * @uses   GFNotificationTable::$form
+	 * @uses   GFNotificationTable::$notification_events
+	 * @uses   WP_List_Table::__construct()
 	 *
 	 * @since  Unknown
 	 * @access public
@@ -1163,7 +1169,7 @@ class GFPersian_SMS_Notification_Table extends WP_List_Table {
 		$columns = [
 			'cb'      => '',
 			'name'    => esc_html__( 'Name', 'gravityforms' ),
-			'message' => esc_html__( 'Message', 'gravityforms' )
+			'message' => esc_html__( 'Message', 'gravityforms' ),
 		];
 
 		if ( count( $this->notification_events ) > 1 ) {
@@ -1185,8 +1191,8 @@ class GFPersian_SMS_Notification_Table extends WP_List_Table {
 	 * Prepares the list items for displaying.
 	 *
 	 * @return void
-	 * @uses WP_List_Table::$items
-	 * @uses GFNotificationTable::$form
+	 * @uses   WP_List_Table::$items
+	 * @uses   GFNotificationTable::$form
 	 *
 	 * @since  Unknown
 	 * @access public
@@ -1247,9 +1253,9 @@ class GFPersian_SMS_Notification_Table extends WP_List_Table {
 	 * Displays the list table.
 	 *
 	 * @return void
-	 * @uses \WP_List_Table::get_table_classes()
-	 * @uses \WP_List_Table::print_column_headers()
-	 * @uses \WP_List_Table::display_rows_or_placeholder()
+	 * @uses   \WP_List_Table::get_table_classes()
+	 * @uses   \WP_List_Table::print_column_headers()
+	 * @uses   \WP_List_Table::display_rows_or_placeholder()
 	 *
 	 * @since  Unknown
 	 * @access public
@@ -1261,7 +1267,8 @@ class GFPersian_SMS_Notification_Table extends WP_List_Table {
 		$this->display_tablenav( 'top' );
 		?>
 
-		<table class="wp-list-table <?php echo esc_attr( implode( ' ', $this->get_table_classes() ) ); ?>" cellspacing="0">
+		<table class="wp-list-table <?php echo esc_attr( implode( ' ', $this->get_table_classes() ) ); ?>"
+		       cellspacing="0">
 			<thead>
 			<tr>
 				<?php $this->print_column_headers(); ?>
@@ -1295,7 +1302,7 @@ class GFPersian_SMS_Notification_Table extends WP_List_Table {
 	 * @since  Unknown
 	 * @access public
 	 *
-	 * @uses WP_List_Table::single_row_columns()
+	 * @uses   WP_List_Table::single_row_columns()
 	 *
 	 */
 	public function single_row( $item ) {
@@ -1313,8 +1320,8 @@ class GFPersian_SMS_Notification_Table extends WP_List_Table {
 	 * @return array The column headers.
 	 * @uses    WP_List_Table::$_column_headers
 	 *
-	 * @since  Unknown
-	 * @access public
+	 * @since   Unknown
+	 * @access  public
 	 *
 	 * @used-by Filter: manage_{$this->screen->id}_columns
 	 */
@@ -1325,8 +1332,8 @@ class GFPersian_SMS_Notification_Table extends WP_List_Table {
 	/**
 	 * Defines the default values in a column.
 	 *
-	 * @param object|array $item The content to display.
-	 * @param string $column_name The column to apply to.
+	 * @param object|array $item        The content to display.
+	 * @param string       $column_name The column to apply to.
 	 *
 	 * @return void
 	 * @since  Unknown
@@ -1346,7 +1353,7 @@ class GFPersian_SMS_Notification_Table extends WP_List_Table {
 	 * @since  Unknown
 	 * @access public
 	 *
-	 * @uses GFCommon::get_base_url()
+	 * @uses   GFCommon::get_base_url()
 	 *
 	 */
 	public function column_cb( $item ) {
@@ -1366,10 +1373,10 @@ class GFPersian_SMS_Notification_Table extends WP_List_Table {
 		?>
 
 		<button
-			type="button"
-			class="gform-status-indicator gform-status-indicator--size-sm gform-status-indicator--theme-cosmos <?php echo esc_attr( $class ); ?>"
-			onclick="ToggleActive( this, '<?php echo esc_js( $item['id'] ); ?>' );"
-			onkeypress="ToggleActive( this, '<?php echo esc_js( $item['id'] ); ?>' );"
+				type="button"
+				class="gform-status-indicator gform-status-indicator--size-sm gform-status-indicator--theme-cosmos <?php echo esc_attr( $class ); ?>"
+				onclick="ToggleActive( this, '<?php echo esc_js( $item['id'] ); ?>' );"
+				onkeypress="ToggleActive( this, '<?php echo esc_js( $item['id'] ); ?>' );"
 		>
 			<span class="gform-status-indicator-status gform-typography--weight-medium gform-typography--size-text-xs">
 				<?php echo esc_html( $text ); ?>
@@ -1403,7 +1410,7 @@ class GFPersian_SMS_Notification_Table extends WP_List_Table {
 			'gform_notification_actions', [
 				'edit'      => '<a href="' . esc_url( $edit_url ) . '">' . esc_html__( 'Edit', 'gravityforms' ) . '</a>',
 				'duplicate' => '<a href="javascript:void(0);" onclick="javascript: DuplicateNotification(\'' . esc_js( $item['id'] ) . '\');" onkeypress="javascript: DuplicateNotification(\'' . esc_js( $item['id'] ) . '\');" style="cursor:pointer;">' . esc_html__( 'Duplicate', 'gravityforms' ) . '</a>',
-				'delete'    => '<a href="javascript:void(0);" class="submitdelete" onclick="javascript: if(confirm(\'' . esc_js( esc_html__( 'WARNING: You are about to delete this notification.', 'gravityforms' ) ) . esc_js( esc_html__( "'Cancel' to stop, 'OK' to delete.", 'gravityforms' ) ) . '\')){ DeleteNotification(\'' . esc_js( $item['id'] ) . '\'); }" onkeypress="javascript: if(confirm(\'' . esc_js( esc_html__( 'WARNING: You are about to delete this notification.', 'gravityforms' ) ) . esc_js( esc_html__( "'Cancel' to stop, 'OK' to delete.", 'gravityforms' ) ) . '\')){ DeleteNotification(\'' . esc_js( $item['id'] ) . '\'); }" style="cursor:pointer;">' . esc_html__( 'Delete', 'gravityforms' ) . '</a>'
+				'delete'    => '<a href="javascript:void(0);" class="submitdelete" onclick="javascript: if(confirm(\'' . esc_js( esc_html__( 'WARNING: You are about to delete this notification.', 'gravityforms' ) ) . esc_js( esc_html__( "'Cancel' to stop, 'OK' to delete.", 'gravityforms' ) ) . '\')){ DeleteNotification(\'' . esc_js( $item['id'] ) . '\'); }" onkeypress="javascript: if(confirm(\'' . esc_js( esc_html__( 'WARNING: You are about to delete this notification.', 'gravityforms' ) ) . esc_js( esc_html__( "'Cancel' to stop, 'OK' to delete.", 'gravityforms' ) ) . '\')){ DeleteNotification(\'' . esc_js( $item['id'] ) . '\'); }" style="cursor:pointer;">' . esc_html__( 'Delete', 'gravityforms' ) . '</a>',
 			]
 		);
 
@@ -1419,7 +1426,8 @@ class GFPersian_SMS_Notification_Table extends WP_List_Table {
 
 		?>
 
-		<a href="<?php echo esc_url( $edit_url ); ?>" aria-label="<?php echo esc_attr( $aria_label ); ?>"><strong><?php echo esc_html( rgar( $item, 'name' ) ); ?></strong></a>
+		<a href="<?php echo esc_url( $edit_url ); ?>"
+		   aria-label="<?php echo esc_attr( $aria_label ); ?>"><strong><?php echo esc_html( rgar( $item, 'name' ) ); ?></strong></a>
 		<div class="row-actions">
 
 			<?php
@@ -1451,7 +1459,7 @@ class GFPersian_SMS_Notification_Table extends WP_List_Table {
 	 * @since  Unknown
 	 * @access public
 	 *
-	 * @uses GFNotificationTable::$notification_events()
+	 * @uses   GFNotificationTable::$notification_events()
 	 *
 	 */
 	public function column_event( $notification ) {

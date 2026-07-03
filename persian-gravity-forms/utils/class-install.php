@@ -1,15 +1,17 @@
 <?php
 
+namespace Nabik\Utils\V1;
+
 defined( 'ABSPATH' ) || exit;
 
-if ( ! class_exists( 'Nabik_Net_Install' ) ) {
+if ( ! class_exists( '\Nabik\Utils\V1\Install' ) ) {
 
 	/**
 	 * Class Nabik_Net_Install
 	 *
 	 * @author  Nabik
 	 */
-	abstract class Nabik_Net_Install {
+	abstract class Install {
 
 		const VERSION = '1.1.0';
 
