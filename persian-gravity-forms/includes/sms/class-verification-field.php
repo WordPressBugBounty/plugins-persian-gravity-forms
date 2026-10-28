@@ -174,7 +174,7 @@ class GFPersian_SMS_Verification {
 			$result['message']  = 'تلفن همراه وارد شده، نامعتبر است.';
 			$result['is_valid'] = false;
 
-			return $this->result( $result, true );
+			return $this->result( $result, false );
 		}
 
 		if ( isset( $mobile_field->noDuplicates ) && $mobile_field->noDuplicates && RGFormsModel::is_duplicate( $form_id, $mobile_field, $mobile ) ) {
@@ -556,7 +556,7 @@ class GFPersian_SMS_Verification {
 	public function tooltips( $tooltips ) {
 
 		$tooltips['form_gravity_sms_fields']        = '<h6>پیامک گرویتی</h6>فیلدهای';
-		$tooltips['sms_verify_code_type_select']    = 'شما می‌توانید تعیین کنید که کدهای فعال‌سازی خود را چگونه می‌خواهید در نظر گرفته شوند. توجه داشته باشید که در نوع دستی، هر کد ممکن است به چندین نفر ارسال شود.';
+		$tooltips['sms_verify_code_type_select']    = 'با این قابلیت، تعداد و نوع کاراکتر های درون کد تایید را کنترل کنید. توجه داشته باشید که در نوع دستی، هر کد ممکن است به چندین نفر ارسال شود.';
 		$tooltips['sms_verify_mobile']              = '<h6>فیلد موبایل</h6>فیلد شماره موبایل را برای تایید انتخاب کنید.';
 		$tooltips['sms_verify_code_msg_body']       = '<h6>متن پیامک</h6>متن پیامک حاوی کد فعال‌سازی را وارد کنید. همچنین برای کد فعال‌سازی، از کد کوتاه داده شده استفاده کنید.';
 		$tooltips['sms_verify_try_num']             = 'تعداد دفعاتی را که یک شماره مجاز است در این فرم کد اشتباه وارد کند، تعیین کنید.';

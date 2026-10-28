@@ -39,7 +39,7 @@ class GFPersian_SMS extends GFPersian_Core {
 		add_action( "gform_form_settings_page_sms_notification", [ $this, 'sms_notification_page' ], 100 );
 		add_filter( 'gform_form_settings_menu', [ $this, 'sms_notification_tab' ], 10, 2 );
 		add_action( 'wp_ajax_rg_update_sms_notification_active', [ $this, 'update_sms_notification_active' ] );
-		add_filter( 'gform_form_post_get_meta', [ $this, 'remove_sms_notification' ], 10, 2 );
+		add_filter( 'gform_form_post_get_meta', [ $this, 'remove_sms_notification' ], 10 );
 
 		add_action( 'wp_ajax_gf_resend_notifications', [ $this, 'resend_notifications' ] );
 	}
@@ -154,7 +154,7 @@ class GFPersian_SMS extends GFPersian_Core {
 	 *
 	 * @return array
 	 */
-	public function remove_sms_notification( array $form, ?int $form_id ): array {
+	public function remove_sms_notification( array $form ): array {
 
 		if ( rgget( 'subview' ) === 'notification' && isset( $form['notifications'] ) && is_array( $form['notifications'] ) ) {
 
@@ -298,11 +298,15 @@ class GFPersian_SMS extends GFPersian_Core {
 			wp_enqueue_script( $script );
 		}
 
-		GFCommon::localize_gform_gravityforms_multifile();
-		GFCommon::localize_legacy_check( 'gform_layout_editor' );
+		// @dropped in v3
+		if ( method_exists( 'GFCommon', 'localize_gform_gravityforms_multifile' ) ) {
+			GFCommon::localize_gform_gravityforms_multifile();
+		}
+		if ( method_exists( 'GFCommon', 'localize_legacy_check' ) ) {
+			GFCommon::localize_legacy_check( 'gform_layout_editor' );
+		}
 
 		/************************/
-		// TODO: We have to load settings scripts only in add or edit notification pages.
 		$settings = new Settings();
 		// Enqueue scripts.
 		foreach ( $settings->scripts() as $script ) {

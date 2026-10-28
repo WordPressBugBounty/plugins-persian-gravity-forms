@@ -10,6 +10,7 @@ class GFPersian_Init extends GFPersian_Core {
 	public function __construct() {
 
 		add_filter( 'load_textdomain_mofile', [ $this, 'load_translate' ], 10, 2 );
+		add_action( 'gform_loaded', [ $this, 'init' ] );
 		add_action( 'gform_loaded', [ $this, 'load_settings' ], 5 );
 		add_filter( 'gform_tooltips', [ $this, 'tooltips' ] );
 		add_filter( 'gform_add_field_buttons', [ $this, 'fields_group' ] );
@@ -98,6 +99,10 @@ class GFPersian_Init extends GFPersian_Core {
 
 			require_once( 'class-settings.php' );
 		}
+	}
+
+	public function init(): void {
+		PersianGravityForms\Payment\Gateways\Zibal::instance();
 	}
 
 	/**

@@ -143,10 +143,6 @@ class GFPersian_JalaliDate extends GFPersian_Core {
 			return;
 		}
 
-		if ( ! ( wp_script_is( 'gform_datepicker_init' ) || wp_script_is( 'gform_datepicker_init', 'registered' ) ) ) {
-			return;
-		}
-
 		$min = wp_scripts_get_suffix();
 
 		foreach ( $form['fields'] as $field ) {
@@ -176,8 +172,8 @@ class GFPersian_JalaliDate extends GFPersian_Core {
 
 			$datepicker_configuration = self::configure_date_picker( $field, $form );
 			$datepicker_element_id    = '#input_' . $form['id'] . '_' . $field['id'];
-			$inline_script            = 'jQuery(function ($) { $("' . $datepicker_element_id . '").persianDatepicker(' . $datepicker_configuration . ') });';
-
+			$datepicker_toggle_id     = '#datepicker_toggle_input_' . $form['id'] . '_' . $field['id'];
+			$inline_script = 'jQuery(function ($) {var $input = $("' . $datepicker_element_id . '");var $toggle = $("' . $datepicker_toggle_id . '");$input.persianDatepicker(' . $datepicker_configuration . ');$input.on("change input", function () {var mask = $input.data("mask");if (mask && typeof mask.updateValue === "function") {mask.updateValue();}});$toggle.off("click");$toggle.on("click", function (e) {e.preventDefault();e.stopImmediatePropagation();$input.trigger("click");});});';
 			wp_add_inline_script( 'gf-persian-datepicker', $inline_script );
 		}
 

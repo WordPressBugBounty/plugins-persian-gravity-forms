@@ -1,12 +1,12 @@
-﻿=== گرویتی فرم فارسی ===
+﻿=== گرویتی فرم فارسی | Persian Gravity Forms ===
 Contributors: persianscript,persiangravityforms
 Tags: گرویتی فرم,گراویتی فرم,gravityforms,گراویتی فرمز,گرویتی فرمز
 author URI: https://profiles.wordpress.org/persianscript/
 plugin URI: https://wordpress.org/plugins/persian-gravity-forms/
 Requires at least: 6.5
-Tested up to: 7.0
+Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 3.0.3
+Stable tag: 3.0.4
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -54,6 +54,10 @@ License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
 
 == Changelog ==
+= 3.0.4 - 1405/08/04 =
+* افزودن درگاه پرداخت زیبال
+* بهبود انتخابگر تاریخ شمسی
+* حل مشکل ارسال پیامک تکراری در برخی سایت ها
 = 3.0.3 =
 * افزودن توضیحات شماره تلفن در بخش ارسال پیامک
 * حذف تگ های html از متن پیامک

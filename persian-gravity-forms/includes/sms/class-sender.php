@@ -338,6 +338,21 @@ class GFPersian_SMS_Sender {
 
 		GFCommon::log_debug( "GFCommon::send_notification(): Starting to process SMS notification (#{$notification['id']} - {$notification['name']})." );
 
+		$notification_id = rgar( $notification, 'id' );
+
+		// Check if entry related notification has been sent
+		$sent_notifications = gform_get_meta( $lead['id'], '_gfpersian_sent_sms_notifications' );
+
+		if ( ! is_array( $sent_notifications ) ) {
+			$sent_notifications = [];
+		}
+
+		if ( in_array( $notification_id, $sent_notifications ) ) {
+			GFCommon::log_debug( __METHOD__ . "(): Notification #{$notification_id} already sent for Entry #{$lead['id']}. Skipping." );
+
+			return;
+		}
+
 		$notification = gf_apply_filters( [ 'gform_sms_notification', $form['id'] ], $notification, $form, $lead );
 
 		$to_field = '';
@@ -418,6 +433,10 @@ class GFPersian_SMS_Sender {
 
 		$mobiles_object = new Mobile( $mobile );
 
+		if ( is_array( $message ) ) {
+			$message = $message['text'] ?? $message['html'] ?? '';
+		}
+
 		$data = [
 			'mobile'   => $mobiles_object->get_recipients(),
 			'message'  => $message,
@@ -428,6 +447,10 @@ class GFPersian_SMS_Sender {
 		try {
 
 			GFPersian_SMS_Sender::send( $data );
+
+			// Store notification id as entry meta
+			$sent_notifications[] = $notification_id;
+			gform_update_meta( $lead['id'], '_gfpersian_sent_sms_notifications', array_unique( $sent_notifications ) );
 
 			GFPersian_SMS_Entry::add_note( $lead, sprintf( "پیامک با موفقیت ارسال شد. شماره: %s | متن پیام: %s .", implode( ',', $data['mobile'] ), $data['message'] ) );
 			//echo '<div class="updated fade" style="padding:6px;">' . sprintf( "پیامک با موفقیت ارسال شد. شماره: %s . جزئیات را در یادداشت‌ها مشاهده کنید.", $to ) . '</div>';

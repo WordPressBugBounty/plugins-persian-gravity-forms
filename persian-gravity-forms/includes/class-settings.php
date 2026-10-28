@@ -38,6 +38,8 @@ class GFPersian_Settings extends GFAddOn {
 	}
 
 	public function plugin_settings_fields() {
+		$gateland_installed = class_exists( 'Nabik\Gateland\Gateland' );
+
 		return [
 			[
 				'title'  => 'تنظیمات گرویتی فرم فارسی',
@@ -140,7 +142,6 @@ class GFPersian_Settings extends GFAddOn {
 							[ 'label' => 'خیر', 'value' => '0' ],
 						],
 					],
-
 				],
 			],
 			[
@@ -181,6 +182,27 @@ class GFPersian_Settings extends GFAddOn {
 						'tooltip'       => 'کد کشور ایران : +98 که در ابتدای شماره های ارسالی قرار خواهد گرفت. ماننده +989121234567',
 						'type'          => 'text',
 						'default_value' => '',
+					],
+				],
+			],
+			[
+				'title'  => 'پرداخت زیبال',
+				'fields' => [
+					[
+						'name'          => 'zibal_merchant',
+						'label'         => 'کلید API',
+						'type'          => 'text',
+						'tooltip'       => 'برای تست درگاه می توانید از کلید zibal استفاده کنید.',
+						'default_value' => '',
+						'description'   => $gateland_installed
+							? ''
+							: sprintf(
+								'<p>جهت بهره‌مندی از امکانات بیشتر و اتصال به همه‌ درگاه‌های مستقیم، واسط و اعتباری، افزونه گیت‌لند را نصب کنید. <a href="%s">نصب سریع و رایگان از مخزن وردپرس</a></p>',
+								esc_url( wp_nonce_url(
+									self_admin_url( 'update.php?action=install-plugin&plugin=gateland' ),
+									'install-plugin_gateland'
+								) )
+							),
 					],
 				],
 			],
@@ -407,7 +429,7 @@ class GFPersian_Settings extends GFAddOn {
 						<span class="label"><?php esc_html_e( 'Mask', 'gravityforms' ) ?></span>
 						<code>999-99-9999</code><br/>
 						<span
-								class="label">نمونه خروجی</span>
+							class="label">نمونه خروجی</span>
 						<code>987-65-4329</code>
 					</li>
 					<li>
@@ -415,7 +437,7 @@ class GFPersian_Settings extends GFAddOn {
 						<span class="label"><?php esc_html_e( 'Mask', 'gravityforms' ) ?></span>
 						<code>aaa 999</code><br/>
 						<span
-								class="label">نمونه خروجی</span>
+							class="label">نمونه خروجی</span>
 						<code>BIO 101</code>
 					</li>
 					<li>
@@ -423,7 +445,7 @@ class GFPersian_Settings extends GFAddOn {
 						<span class="label"><?php esc_html_e( 'Mask', 'gravityforms' ) ?></span>
 						<code>***-***-***</code><br/>
 						<span
-								class="label">نمونه خروجی</span>
+							class="label">نمونه خروجی</span>
 						<code>a9a-f0c-28Q</code>
 					</li>
 				</ul>

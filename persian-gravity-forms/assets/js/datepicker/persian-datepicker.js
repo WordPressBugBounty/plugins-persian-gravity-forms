@@ -149,7 +149,7 @@
             if (self.calendar.length && !options.alwaysShow) {
                 self.calendar.hide();
             }
-            $(document).bind('mouseup', function (e) {
+            $(document).on('mouseup', function (e) {
                 var target = e.target;
                 var calendar = self.calendar;
                 if (!el.is(target) && !calendar.is(target) && calendar.has(target).length === 0 && calendar.is(':visible')) {
@@ -172,7 +172,7 @@
                 });
             };
             self.onresize = onResize;
-            $(window).resize(onResize);
+            $(window).on('resize', onResize);
             $('body').append(self.calendar);
             self.render();
             onResize();
@@ -218,7 +218,7 @@
 
                 /*yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy*/
                 if (self.options.endDate == null || (self.persianDate.parse(self.options.endDate).year > self.persianDate.year || self.persianDate.parse(self.options.endDate).month > self.persianDate.month)) {
-                    _next.bind("click", function () {
+                    _next.on('click', function () {
                         nextMonth = self.persianDate.month + 1;
                         for (; self.options.selectableMonths._indexOf(nextMonth) == -1 && nextMonth < 13; nextMonth++)
                             ;
@@ -236,10 +236,10 @@
                 // Build month label
                 var _monthText = $('<span/>')
                     .html(self.options.months[self.persianDate.month - 1])
-                    .mousedown(function () {
+                    .on('mousedown', function () {
                         return false;
                     })
-                    .click(function (e) {
+                    .on('click', function (e) {
                         e.stopPropagation();
                         _yearSelect.css({
                             display: 'none'
@@ -250,10 +250,10 @@
                     });
                 var _yearText = $('<span/>')
                     .html(self.options.persianNumbers ? self.jDateFunctions.toPersianNums(self.persianDate.year) : self.persianDate.year)
-                    .mousedown(function () {
+                    .on('mousedown', function () {
                         return false;
                     })
-                    .click(function (e) {
+                    .on('click', function (e) {
                         e.stopPropagation();
                         _monthSelect.css({
                             display: 'none'
@@ -291,7 +291,7 @@
                             o.addClass('selected');
                         }
                         o.attr("value", v);
-                        o.bind("click", function () {
+                        o.on('click', function () {
                             self.persianDate.date = 1;
                             self.persianDate.year = parseInt(v);
                             if (_endDate.year == v || _endDate.year == 9999)
@@ -317,7 +317,7 @@
                         monthNum: i
                     });
                     if (!o.hasClass('disableMonth')) {
-                        o.bind("click", function () {
+                        o.on('click', function () {
                             self.persianDate.date = 1;
                             self.persianDate.month = $(this).data('month').monthNum;
                             self.render();
@@ -327,7 +327,7 @@
                 }
 
                 // selectable years
-                _yearSelect.bind("scroll", function () {
+                _yearSelect.on('scroll', function () {
                     if (self.options.selectableYears == undefined) {
                         c = $(this).find("li").length;
                         firstYear = parseInt($(this).children("li:first").val());
@@ -359,7 +359,7 @@
                     .attr('title', 'ماه قبل');
 
                 if (self.options.startDate == null || (self.persianDate.parse(self.options.startDate).year < self.persianDate.year || self.persianDate.parse(self.options.startDate).month < self.persianDate.month)) {
-                    _prev.bind("click", function () {
+                    _prev.on('click', function () {
                         //prevMonth = self.persianDate.month - 1;
                         //for (; self.options.selectableMonths._indexOf(prevMonth) == -1 && prevMonth > 1; prevMonth--);
                         //self.persianDate.addMonth(-(self.persianDate.month - prevMonth));
@@ -418,7 +418,7 @@
                             _cell.html(self.options.persianNumbers ? self.jDateFunctions.toPersianNums(cellIndex - _start + 1) : cellIndex - _start + 1);
 
                             if (self.options.startDate == undefined || (self.persianDate.parse(self.options.startDate).compare(_dt) != -1 && self.persianDate.parse(self.options.endDate).compare(_dt) != 1))
-                                _cell.bind("click", function () {
+                                _cell.on('click', function () {
                                     self.calendar.find(".day").removeClass("selday");
                                     $(this).addClass("selday");
                                     if (self.options.showGregorianDate)
@@ -448,7 +448,7 @@
                         .attr("href", "javascript:;")
                         .html('هم اکنون');
                     if (self.options.startDate == null)
-                        _goToday.bind("click", function () {
+                        _goToday.on('click', function () {
                             self.persianDate = self.now();
 
                             self.showDate(self.el, $(this).data('jdate'), $(this).data('gdate'), self.options.showGregorianDate);
